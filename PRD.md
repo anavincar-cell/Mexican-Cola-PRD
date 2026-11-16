@@ -1,7 +1,7 @@
 # PRD for The Mexican Cola
 
-Version: 1, 16.11.2026. Choices confirmed by the founder on 16.11.2026.
-Sources: Notion HQ. Landing page / Copy, Brand guide, "How do we structure our landing page?", "Who are our three target audiences?", "Which venues are in our sales pipeline?".
+Version: 2, 16.11.2026. Choices confirmed by the founder on 16.11.2026. Founder story added 16.11.2026.
+Sources: Notion HQ. Landing page / Copy, Brand guide, "How do we structure our landing page?", "Who are our three target audiences?", "Which venues are in our sales pipeline?", "What is our founder story?".
 Items marked **[Proposal]** are not in Notion. They are suggestions for you to accept or change.
 
 ---
@@ -25,7 +25,8 @@ For restaurants, bars and hotels in Thailand: the visitor books a free tasting o
 4. Where to find us (all venues that bought, grouped by city).
 5. Why us vs others.
 6. Brand.
-7. Admin login and admin pages (Part B).
+7. Founder story.
+8. Admin login and admin pages (Part B).
 
 ### 4. Sections on each page
 **Home**, top to bottom:
@@ -44,6 +45,18 @@ For restaurants, bars and hotels in Thailand: the visitor books a free tasting o
 
 **Thank you page:** "Thanks. We will contact you within 1 working day to book your tasting." Contact details. Link back home.
 
+**Founder story**, top to bottom:
+
+1. Intro: "Ansh, Founder of The Mexican Cola". Started at 18, with no background in drinks.
+2. The story in 8 chapters, each with real photos: Before it all (ACK Sneakers, est. 2022, 300+ pairs sold). The spark (Nike SB x Jarritos, 10.05.2023). The search (100+ emails to Jarritos). The yes (sole distributor agreement for Thailand). The wait (Jarritos could not enter, so we made our own cola). Soleados (three flavours, close to 400 bottles sampled at 23 venues). 30 calls (about 30 calls and 4 meetings to win Cholos, now the bestseller in all 4 Cholos stores). Today (one hero product, now in restaurants, bars and hotels across Thailand).
+3. Message to the next generation. Ends with: "If fortune favours the brave, then it also prefers the bold."
+4. Timeline from 2022 to 11.2026.
+5. Button: "Book a free tasting".
+
+Why it is in: Cholos said they chose us "probably because of the founder". The founder story post (01.11.2026) is our most-liked Instagram post.
+
+Rules: no Nike SB or Jarritos logos or product photos. They belong to other brands and could suggest a partnership. The story tells that part in words only.
+
 **Other pages:** already built on the current venue site. Same top bar, footer and button.
 
 ### 5. Forms and what happens after
@@ -56,6 +69,7 @@ For restaurants, bars and hotels in Thailand: the visitor books a free tasting o
 
 ### 6. Text and content
 - All text comes from Notion: Mandem HQ / Landing page / Copy (English and Thai).
+- Founder story text, photos and timeline come from Notion: Knowledge base / "What is our founder story?".
 - Photos: real photos only, listed in the Brand guide. No AI product photos.
 - Only venues that bought appear. Sampled venues stay off.
 - Thai text must be checked by a native speaker before launch.
@@ -117,6 +131,7 @@ New → Contacted → Tasting booked → Tasted → Ordered → Lost.
 - The founder gets an email alert for the test enquiry.
 - The same button text appears everywhere.
 - Every colour and font matches the Brand guide.
+- The founder story page shows all 8 chapters, the message and the timeline, with no Nike SB or Jarritos images.
 - A native Thai speaker has checked the Thai text.
 
 **Admin side**

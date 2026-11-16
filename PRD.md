@@ -1,6 +1,6 @@
 # PRD for The Mexican Cola
 
-Version: 2, 16.11.2026. Choices confirmed by the founder on 16.11.2026. Founder story added 16.11.2026.
+Version: 3, 16.11.2026. Choices confirmed by the founder on 16.11.2026. Founder story added 16.11.2026. Part 4 completed for all pages 16.11.2026.
 Sources: Notion HQ. Landing page / Copy, Brand guide, "How do we structure our landing page?", "Who are our three target audiences?", "Which venues are in our sales pipeline?", "What is our founder story?".
 Items marked **[Proposal]** are not in Notion. They are suggestions for you to accept or change.
 
@@ -57,7 +57,36 @@ Why it is in: Cholos said they chose us "probably because of the founder". The f
 
 Rules: no Nike SB or Jarritos logos or product photos. They belong to other brands and could suggest a partnership. The story tells that part in words only.
 
-**Other pages:** already built on the current venue site. Same top bar, footer and button.
+**What venues say**, top to bottom:
+
+1. Heading: "In their own words." Line: from video interviews and Instagram posts by venues that stock The Mexican Cola.
+2. Four quote cards, each with venue type, speaker, quotes and date: Cholos co-founder (28.09.2026), Matti's owner (03.11.2026), Sala Burger owner (08.09.2026, Thai, translated), Trans Blue Bar manager (09.11.2026, Thai, translated).
+3. Instagram quotes from venues, for example "Our cola is better than yours" (Cholos).
+
+**Where to find us**, top to bottom:
+
+1. Heading: "Pouring at over 30 venues across Thailand."
+2. City tags: Bangkok, Pattaya, Hua Hin, Koh Samui, Phuket.
+3. Featured venues: 7 cards with type, city and one line (Cholos, Delia, Trans Blue Bar, Daddy Chill Burger, Sala Burger, Matti's, Kha Gastrobar).
+4. Photo gallery: "Spotted at our venues".
+5. Call to action: "Want to stock it, or find a venue near you?" and the button.
+
+**Why us vs others**, top to bottom:
+
+1. Heading: "The premium cola made for Thai venues." Line: how we compare with the drinks venues stock today.
+2. Comparison table: The Mexican Cola, Coca-Cola, Fever-Tree, Fentimans. Rows: on sale in Thailand, price, sweetener, caffeine, speaks to venues. Note on sources and dates.
+3. Three reasons: the premium cola slot is open, guests already pay for craft cola, local supply.
+4. Quote: "The uniqueness of the product, there's nothing like that on the market in Thailand." (Cholos, co-founder, 28.09.2026)
+
+**Brand**, top to bottom:
+
+1. Heading: "How The Mexican Cola looks and sounds." Line: Bold, festive, proud. The look is called Bugambilia Pop.
+2. Colours with hex codes and use.
+3. Fonts: Bricolage Grotesque, Work Sans, Anuphan for Thai.
+4. Words we already use.
+5. Real photos only.
+
+All four pages use the same top bar, footer and button as Home.
 
 ### 5. Forms and what happens after
 - One form, in block 10. Button text: "Book a free tasting" / "จองชิมฟรี", the same everywhere.
@@ -131,6 +160,7 @@ New → Contacted → Tasting booked → Tasted → Ordered → Lost.
 - The founder gets an email alert for the test enquiry.
 - The same button text appears everywhere.
 - Every colour and font matches the Brand guide.
+- What venues say, Where to find us, Why us vs others and Brand show the blocks listed in part 4.
 - The founder story page shows all 8 chapters, the message and the timeline, with no Nike SB or Jarritos images.
 - A native Thai speaker has checked the Thai text.
 

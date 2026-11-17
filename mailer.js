@@ -83,8 +83,7 @@ function thankYou(e) {
     const subject = 'ขอบคุณที่จองชิมฟรี | The Mexican Cola';
     const steps = [
       `เราจะติดต่อกลับภายใน 1 วันทำการ เพื่อนัดวันและเวลา${when ? ` (คุณเลือกไว้ ${when})` : ''}`,
-      `เรานำโคล่าไปที่${e.venue ? oneLine(e.venue, 80) : 'ร้านของคุณ'} ให้ทีมของคุณชิมแบบเพียวๆ และในบาตังกา`,
-      'ถ้าชอบ สั่งขั้นต่ำ 1 ลัง (24 ขวด) ส่งฟรี มีแบบฝากขายให้เลือก',
+      `เรานำโคล่าไปที่${e.venue ? ` ${oneLine(e.venue, 80)}` : 'ร้านของคุณ'} ให้ทีมของคุณชิมแบบเพียวๆ และในบาตังกา เพื่อดูว่าเราเหมาะกันและสามารถร่วมงานกันได้หรือไม่`,
     ];
     const text = `สวัสดีคุณ${name}\n\nขอบคุณที่จองชิม The Mexican Cola ฟรี\n\nขั้นตอนต่อไป:\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nมีคำถาม? ตอบกลับอีเมลนี้ หรือโทร ${CONTACT_PHONE}\n\nAnsh\nผู้ก่อตั้ง The Mexican Cola\nHappiness without Guilt`;
     return { subject, text, html: htmlEmail({ lang: 'th', hello: `สวัสดีคุณ${name}`, intro: 'ขอบคุณที่จองชิม The Mexican Cola ฟรี', nextTitle: 'ขั้นตอนต่อไป', steps, questions: `มีคำถาม? ตอบกลับอีเมลนี้ หรือโทร ${CONTACT_PHONE}`, sign: 'ผู้ก่อตั้ง The Mexican Cola' }) };
@@ -92,8 +91,7 @@ function thankYou(e) {
   const subject = 'Thanks for booking a free tasting | The Mexican Cola';
   const steps = [
     `We contact you within 1 working day to set a day and time${when ? ` (you suggested ${when})` : ''}.`,
-    `We bring the cola to ${e.venue ? oneLine(e.venue, 80) : 'your venue'}. Your team tastes it on its own and in a Batanga.`,
-    'If you like it, order from 1 case (24 bottles), with free delivery. Consignment is an option.',
+    `We bring the cola to ${e.venue ? oneLine(e.venue, 80) : 'your venue'}. Your team tastes it on its own and in a Batanga, to see if we are a good fit and can potentially work together.`,
   ];
   const text = `Hi ${name},\n\nThanks for booking a free tasting of The Mexican Cola.\n\nWhat happens next:\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nQuestions? Reply to this email, or call ${CONTACT_PHONE}.\n\nAnsh\nFounder, The Mexican Cola\nHappiness without Guilt`;
   return { subject, text, html: htmlEmail({ lang: 'en', hello: `Hi ${name},`, intro: 'Thanks for booking a free tasting of The Mexican Cola.', nextTitle: 'What happens next', steps, questions: `Questions? Reply to this email, or call ${CONTACT_PHONE}.`, sign: 'Founder, The Mexican Cola' }) };

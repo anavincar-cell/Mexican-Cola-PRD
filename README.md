@@ -11,7 +11,8 @@ The plan is in [PRD.md](PRD.md).
 | `server.js` | The web server: serves the site, saves the form, runs the admin side. |
 | `db.js` | The database tables. They are created on start. |
 | `auth.js` | The admin login: admin users, hashed passwords, sessions. |
-| `views.js` | The admin pages. |
+| `views.js` | The admin pages, including the report and its chart. |
+| `source.js` | Works out where a visitor came from, for the report. |
 | `.env.example` | The names of the secret settings, with empty values. |
 
 ## Pages
@@ -19,6 +20,7 @@ The plan is in [PRD.md](PRD.md).
 - `/` home page. `/#th` opens it in Thai.
 - `/thanks` thank you page after the form.
 - `/admin` admin side: login, enquiries, counts, search, filters, status, notes, CSV export.
+- `/admin/report` report: enquiries this week and last week, by status, per day (chart), and by source.
 - `/admin/users` add or remove admin users.
 - `/admin/account` change your own password.
 - `/health` shows if the server runs and the database is connected.
@@ -44,6 +46,18 @@ The plan is in [PRD.md](PRD.md).
 - Add or remove admins at `/admin/users`. You cannot remove yourself.
 - Change your password at `/admin/account`. This logs you out on your other devices.
 - Forgot your password: set `ADMIN_PASSWORD` to a new one and `ADMIN_RESET_PASSWORD` to `true`, redeploy, log in, then delete both variables.
+
+## The report and where visitors come from
+
+The report at `/admin/report` reads live from the database. Times are Thailand time, and a week runs Monday to Sunday.
+
+The form saves where each visitor came from:
+
+1. A tagged link: `?utm_source=instagram&utm_medium=bio` (or the short `?ref=instagram`).
+2. Without a tag: the site that sent them, for example Google. Only the site name is saved, never the full address.
+3. Neither: "Direct or unknown link".
+
+Enquiries sent before tracking existed show as "Unknown (before tracking)". The report page lists ready-made links for Instagram, LINE, posters, email and cold calls.
 
 ## Run it on your laptop
 

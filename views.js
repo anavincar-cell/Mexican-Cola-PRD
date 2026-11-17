@@ -39,6 +39,25 @@ a{color:var(--main)}
 .nav a{color:var(--bg-light);font-weight:600;text-decoration:none;padding:8px 0;border-bottom:2px solid transparent}
 .nav a[aria-current]{border-bottom-color:var(--accent)}
 .hint{color:var(--text-soft);font-size:14px;margin:4px 0 0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:16px 0}
+.count .delta{display:block;margin-top:6px;font:400 14px/1.4 'Work Sans',sans-serif;text-transform:none;letter-spacing:0;color:var(--text-soft)}
+.section{margin-top:32px}
+.bars{display:grid;grid-template-columns:max-content 1fr max-content;gap:10px 12px;align-items:center}
+.bars .name{font-weight:600}.bars .val{font-variant-numeric:tabular-nums;color:var(--text);text-align:right;min-width:72px}
+.bars .track{height:20px;background:var(--bg-light);border-radius:4px;overflow:hidden}
+.bars .fill{height:100%;background:var(--main);border-radius:0 4px 4px 0;min-width:2px}
+.bars .fill.zero{background:transparent}
+.chart-wrap{position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chart svg{display:block;width:100%;min-width:620px;height:auto;overflow:visible}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .axis-label{fill:var(--text-soft);font:12px 'Work Sans',sans-serif}
+.chart .bar{fill:var(--main)}
+.chart .hit{fill:transparent;cursor:default}
+.chart g:hover .bar{fill:#8a1240}
+.tip{position:absolute;pointer-events:none;background:var(--bg-dark);color:var(--bg-light);border-radius:8px;padding:6px 10px;font:600 13px 'Work Sans',sans-serif;white-space:nowrap;transform:translate(-50%,-110%);display:none}
+details summary{cursor:pointer;font-weight:600;color:var(--main);margin-top:12px}
+code.link{display:block;background:var(--bg-light);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;word-break:break-all;margin-top:4px}
+.explain{color:var(--text-soft);font-size:14px;margin:8px 0 0}
 .wrap{max-width:1200px;margin:0 auto;padding:24px}
 .btn{display:inline-block;background:var(--main);color:var(--bg-light);border:0;border-radius:12px;padding:12px 20px;font:600 16px 'Work Sans',sans-serif;cursor:pointer;text-decoration:none;min-height:44px}
 .btn.second{background:var(--bg-light);color:var(--main);border:2px solid var(--main)}
@@ -87,7 +106,7 @@ function layout(title, body, { loggedIn = false, active = '' } = {}) {
 <style>${CSS}</style></head>
 <body>
 <header class="top"><a href="/admin"><img src="/logo.png" alt="The Mexican Cola admin"></a>
-${loggedIn ? `<nav class="nav" aria-label="Admin">${link('/admin', 'Enquiries', 'enquiries')}${link('/admin/users', 'Users', 'users')}${link('/admin/account', 'Change password', 'account')}
+${loggedIn ? `<nav class="nav" aria-label="Admin">${link('/admin', 'Enquiries', 'enquiries')}${link('/admin/report', 'Report', 'report')}${link('/admin/users', 'Users', 'users')}${link('/admin/account', 'Change password', 'account')}
 <form method="post" action="/admin/logout"><button class="btn small second" type="submit">Log out</button></form></nav>` : ''}
 </header>
 <main class="wrap">${body}</main>
@@ -234,4 +253,119 @@ ${error ? `<p class="error" role="alert">${esc(error)}</p>` : ''}
   return layout('Change password', body, { loggedIn: true, active: 'account' });
 }
 
-module.exports = { usersPage, accountPage, loginPage, listPage, detailPage, notFoundPage, fmtDate, fmtPreferred };
+const SOURCE_NAMES = {
+  '': 'Unknown (before tracking)', direct: 'Direct or unknown link', instagram: 'Instagram', facebook: 'Facebook',
+  google: 'Google', line: 'LINE', tiktok: 'TikTok', x: 'X (Twitter)', linkedin: 'LinkedIn', search: 'Other search engine',
+  email: 'Email', poster: 'Poster or table stand (QR)', 'table-stand': 'Table stand (QR)', 'cold-call': 'Cold call follow-up',
+};
+function sourceLabel(source) {
+  return Object.prototype.hasOwnProperty.call(SOURCE_NAMES, source) ? SOURCE_NAMES[source] : source;
+}
+
+function pct(n, total) {
+  return total ? Math.round((n / total) * 100) : 0;
+}
+
+function fmtDay(d) {
+  const x = new Date(d);
+  return `${String(x.getUTCDate()).padStart(2, '0')}.${String(x.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+function fmtDayLong(d) {
+  const x = new Date(d);
+  const wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][x.getUTCDay()];
+  return `${wd} ${fmtDay(d)}.${x.getUTCFullYear()}`;
+}
+
+// A list of horizontal bars: one per row, one colour, the label names each bar.
+function barList(rows, total) {
+  const max = Math.max(1, ...rows.map((r) => r.n));
+  return `<div class="bars" role="list">${rows.map((r) => `
+    <span class="name" role="listitem">${esc(r.label)}</span>
+    <span class="track" aria-hidden="true"><span class="fill${r.n ? '' : ' zero'}" style="display:block;width:${(r.n / max) * 100}%"></span></span>
+    <span class="val">${r.n} <small style="color:var(--text-soft)">(${pct(r.n, total)}%)</small></span>`).join('')}</div>`;
+}
+
+// Bar chart of enquiries per day. One series, so no legend: the title names it.
+function dayChart(perDay) {
+  const W = 900, H = 260, L = 36, R = 8, T = 12, B = 32;
+  const max = Math.max(...perDay.map((d) => d.n));
+  const step = max <= 4 ? 1 : max <= 10 ? 2 : Math.ceil(max / 5);
+  const top = Math.max(step * Math.ceil(Math.max(max, 1) / step), step);
+  const plotW = W - L - R, plotH = H - T - B;
+  const slot = plotW / perDay.length, gap = 2, bw = slot - gap;
+  const y = (v) => T + plotH - (v / top) * plotH;
+  let grid = '';
+  for (let v = 0; v <= top; v += step) {
+    grid += `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text class="axis-label" x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+  }
+  const bars = perDay.map((d, i) => {
+    const x = L + i * slot + gap / 2;
+    const h = (d.n / top) * plotH;
+    const r = Math.min(4, h, bw / 2);
+    const yTop = y(d.n);
+    const base = T + plotH;
+    const bar = d.n ? `<path class="bar" d="M${x},${base} V${yTop + r} Q${x},${yTop} ${x + r},${yTop} H${x + bw - r} Q${x + bw},${yTop} ${x + bw},${yTop + r} V${base} Z"/>` : '';
+    const label = (i % 7 === 0 || i === perDay.length - 1)
+      ? `<text class="axis-label" x="${x + bw / 2}" y="${H - 10}" text-anchor="middle">${fmtDay(d.day)}</text>` : '';
+    return `<g>${bar}<rect class="hit" x="${L + i * slot}" y="${T}" width="${slot}" height="${plotH}" data-tip="${esc(fmtDayLong(d.day))}: ${d.n} ${d.n === 1 ? 'enquiry' : 'enquiries'}"/></g>${label}`;
+  }).join('');
+  return `<div class="chart-wrap chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bar chart of enquiries per day for the last 30 days. The table below has the same numbers.">${grid}${bars}</svg><div class="tip" id="tip"></div></div>
+<script>
+(function(){var w=document.querySelector('.chart-wrap'),t=document.getElementById('tip');
+w.scrollLeft=w.scrollWidth; // On a phone, open at the newest days.
+w.querySelectorAll('.hit').forEach(function(h){
+  h.addEventListener('mouseenter',function(){t.textContent=h.getAttribute('data-tip');t.style.display='block';});
+  h.addEventListener('mousemove',function(e){var b=w.getBoundingClientRect(),half=t.offsetWidth/2,x=Math.min(Math.max(e.clientX-b.left+w.scrollLeft,half),w.scrollWidth-half);t.style.left=x+'px';t.style.top=(e.clientY-b.top)+'px';});
+  h.addEventListener('mouseleave',function(){t.style.display='none';});
+});})();
+</script>
+<details><summary>Show as table</summary><div class="table-wrap" style="margin-top:8px"><table><thead><tr><th>Day</th><th>Enquiries</th></tr></thead><tbody>
+${perDay.slice().reverse().map((d) => `<tr><td>${esc(fmtDayLong(d.day))}</td><td>${d.n}</td></tr>`).join('')}</tbody></table></div></details>`;
+}
+
+function reportPage({ weeks, byStatus, perDay, sources, siteUrl }) {
+  const total = weeks.total;
+  const last30 = perDay.reduce((a, d) => a + d.n, 0);
+  const change = (now, before) => {
+    if (!before) return now ? 'No enquiries in the same days last week' : 'Same as last week';
+    const p = Math.round(((now - before) / before) * 100);
+    return `${p > 0 ? '+' : ''}${p}% vs the same days last week (${before})`;
+  };
+  const dayCount = Math.round((new Date(weeks.today) - new Date(weeks.week_start)) / 86400000) + 1;
+  const statusRows = byStatus.map((r) => ({ label: r.status, n: r.n }));
+  const sourceRows = sources.map((r) => ({ label: sourceLabel(r.source), n: r.n }));
+  const links = [
+    ['Instagram bio', 'instagram', 'bio'], ['Instagram post or story', 'instagram', 'post'], ['LINE message', 'line', 'chat'],
+    ['Poster or table stand (as a QR code)', 'poster', 'qr'], ['Email signature or email', 'email', 'email'], ['After a cold call', 'cold-call', 'call'],
+  ];
+  const body = `
+<h1>Report</h1>
+<p>How the landing page is doing. All numbers come live from the enquiries database. Times are Thailand time. A week runs Monday to Sunday.</p>
+
+<section class="section"><h2>1. Enquiries this week and last week</h2>
+<div class="tiles">
+  <div class="count"><b>${weeks.this_week}</b><span>This week so far</span><span class="delta">${esc(fmtDay(weeks.week_start))} to ${esc(fmtDay(weeks.today))}, ${dayCount} ${dayCount === 1 ? 'day' : 'days'}. ${esc(change(weeks.this_week, weeks.last_week_same_days))}</span></div>
+  <div class="count"><b>${weeks.last_week}</b><span>Last week</span><span class="delta">Monday to Sunday, the full week</span></div>
+  <div class="count"><b>${last30}</b><span>Last 30 days</span><span class="delta">The sum of the chart below</span></div>
+  <div class="count"><b>${total}</b><span>All time</span><span class="delta">Every enquiry ever saved</span></div>
+</div>
+<p class="explain">"This week so far" is compared with the same weekdays of last week, so a half-finished week is not compared with a full one.</p></section>
+
+<section class="section"><h2>2. Enquiries by status</h2>
+<div class="card">${barList(statusRows, total)}
+<p class="explain">Each enquiry is counted once, at the status it has now. Percentages are of all ${total} enquiries. In your process: "Tasting booked" is the call booked, "Ordered" is won.</p></div></section>
+
+<section class="section"><h2>3. Enquiries per day, last 30 days</h2>
+<div class="card">${dayChart(perDay)}</div></section>
+
+<section class="section"><h2>4. Where people came from</h2>
+<div class="card">${sourceRows.length ? barList(sourceRows, total) : '<p>No enquiries yet.</p>'}
+<p class="explain">From the link the visitor used (for example <code>?utm_source=instagram</code>). Without a tagged link, the site that sent them (for example Google). "Direct or unknown link" means they typed the address, used a link without a tag, or their app hid where they came from. "Unknown (before tracking)" are enquiries sent before this report existed.</p></div>
+<div class="card"><h3>Use these links so the report knows the source</h3>
+<p class="explain" style="margin-top:0">Share the matching link in each place. Every visit through it is counted under that source.</p>
+${links.map(([label, src, med]) => `<p style="margin:12px 0 0"><b>${esc(label)}</b><code class="link">${esc(siteUrl)}/?utm_source=${src}&amp;utm_medium=${med}</code></p>`).join('')}
+</div></section>`;
+  return layout('Report', body, { loggedIn: true, active: 'report' });
+}
+
+module.exports = { reportPage, sourceLabel, usersPage, accountPage, loginPage, listPage, detailPage, notFoundPage, fmtDate, fmtPreferred };

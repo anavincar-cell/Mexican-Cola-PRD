@@ -4,6 +4,7 @@ const express = require('express');
 const db = require('./db');
 const auth = require('./auth');
 const views = require('./views');
+const { classify } = require('./source');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -59,10 +60,12 @@ app.post('/api/enquiry', async (req, res) => {
   if (!db.hasDatabase()) return res.status(503).json({ ok: false, error: 'not_ready' });
 
   try {
+    const src = classify(typeof b.src === 'object' && b.src ? b.src : {}, req.headers['x-forwarded-host'] || req.headers.host);
     const { rows } = await db.query(
-      `INSERT INTO enquiries (name, email, current_cola, venue, phone, city, preferred_date, language)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`,
-      [name, email, clean(b.cola, 200), clean(b.venue, 200), clean(b.phone, 60), city, preferred, language],
+      `INSERT INTO enquiries (name, email, current_cola, venue, phone, city, preferred_date, language, source, medium, campaign, referrer)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING id`,
+      [name, email, clean(b.cola, 200), clean(b.venue, 200), clean(b.phone, 60), city, preferred, language,
+        src.source, src.medium, src.campaign, src.referrer],
     );
     await db.query('INSERT INTO enquiry_status_history (enquiry_id, from_status, to_status) VALUES ($1, NULL, $2)', [rows[0].id, 'New']);
     // No personal data in the logs: only the id.
@@ -173,10 +176,11 @@ admin.get('/export.csv', async (req, res, next) => {
   if (!db.hasDatabase()) return res.status(503).send('Database not connected');
   try {
     const rows = await findEnquiries(readFilters(req.query));
-    const header = ['Date', 'Name', 'Email', 'Phone or LINE', 'Venue', 'City', 'Current cola', 'Preferred tasting', 'Language', 'Status'];
+    const header = ['Date', 'Name', 'Email', 'Phone or LINE', 'Venue', 'City', 'Current cola', 'Preferred tasting', 'Language', 'Status', 'Source', 'Medium', 'Campaign'];
     const lines = [header.map(csvCell).join(',')].concat(rows.map((r) => [
       views.fmtDate(r.created_at), r.name, r.email, r.phone, r.venue, r.city, r.current_cola,
       views.fmtPreferred(r.preferred_date), r.language.toUpperCase(), r.status,
+      views.sourceLabel(r.source), r.medium, r.campaign,
     ].map(csvCell).join(',')));
     const p = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Bangkok', day: '2-digit', month: '2-digit', year: 'numeric' })
       .formatToParts(new Date()).map((x) => [x.type, x.value]));
@@ -229,6 +233,45 @@ admin.post('/enquiries/:id/notes', auth.sameOrigin, async (req, res, next) => {
     await db.query('INSERT INTO enquiry_notes (enquiry_id, body) VALUES ($1,$2)', [id, body]);
     await db.query('UPDATE enquiries SET updated_at = now() WHERE id = $1', [id]);
     res.redirect(303, `/admin/enquiries/${id}?saved=note`);
+  } catch (err) { next(err); }
+});
+
+// ---------- Report ----------
+// All dates in Thailand time. A week runs Monday to Sunday.
+admin.get('/report', async (req, res, next) => {
+  if (!db.hasDatabase()) return res.status(503).send('Database not connected');
+  try {
+    const TZ = 'Asia/Bangkok';
+    const weeks = (await db.query(`
+      WITH b AS (SELECT date_trunc('week', now() AT TIME ZONE $1) AS this_week, (now() AT TIME ZONE $1)::date AS today)
+      SELECT
+        (SELECT count(*)::int FROM enquiries, b WHERE created_at AT TIME ZONE $1 >= b.this_week) AS this_week,
+        (SELECT count(*)::int FROM enquiries, b WHERE created_at AT TIME ZONE $1 >= b.this_week - interval '7 days'
+                                                  AND created_at AT TIME ZONE $1 <  b.this_week) AS last_week,
+        (SELECT count(*)::int FROM enquiries, b WHERE created_at AT TIME ZONE $1 >= b.this_week - interval '7 days'
+                                                  AND (created_at AT TIME ZONE $1)::date - (b.this_week - interval '7 days')::date
+                                                      <= b.today - b.this_week::date) AS last_week_same_days,
+        (SELECT this_week::date FROM b) AS week_start,
+        (SELECT today FROM b) AS today,
+        (SELECT count(*)::int FROM enquiries) AS total`, [TZ])).rows[0];
+
+    const statusRows = (await db.query('SELECT status, count(*)::int AS n FROM enquiries GROUP BY status', [])).rows;
+    const byStatus = db.STATUSES.map((s) => ({ status: s, n: (statusRows.find((r) => r.status === s) || {}).n || 0 }));
+
+    const perDay = (await db.query(`
+      SELECT d::date AS day, count(e.id)::int AS n
+      FROM generate_series((now() AT TIME ZONE $1)::date - 29, (now() AT TIME ZONE $1)::date, interval '1 day') AS d
+      LEFT JOIN enquiries e ON (e.created_at AT TIME ZONE $1)::date = d::date
+      GROUP BY d ORDER BY d`, [TZ])).rows;
+
+    const sources = (await db.query(`
+      SELECT source, count(*)::int AS n,
+             count(*) FILTER (WHERE status = 'Ordered')::int AS ordered
+      FROM enquiries GROUP BY source ORDER BY n DESC, source`)).rows;
+
+    const host = req.headers['x-forwarded-host'] || req.headers.host;
+    const proto = req.headers['x-forwarded-proto'] || req.protocol;
+    res.send(views.reportPage({ weeks, byStatus, perDay, sources, siteUrl: `${proto}://${host}` }));
   } catch (err) { next(err); }
 });
 

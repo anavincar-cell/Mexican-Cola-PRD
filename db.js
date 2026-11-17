@@ -1,5 +1,8 @@
 // Database: one Postgres connection pool, and the tables the site needs.
-const { Pool } = require('pg');
+const { Pool, types } = require('pg');
+
+// Return DATE columns as plain 'YYYY-MM-DD' text, so a day never shifts with the server's time zone.
+types.setTypeParser(1082, (v) => v);
 
 const STATUSES = ['New', 'Contacted', 'Tasting booked', 'Tasted', 'Ordered', 'Lost'];
 const CITIES = ['Bangkok', 'Pattaya', 'Hua Hin', 'Koh Samui', 'Phuket', 'Other'];
@@ -71,6 +74,12 @@ async function migrate() {
     );
     CREATE INDEX IF NOT EXISTS enquiries_created_idx ON enquiries (created_at DESC);
     CREATE INDEX IF NOT EXISTS enquiries_status_idx ON enquiries (status);
+
+    -- Where the visitor came from (added for the report). Empty = sent before tracking existed.
+    ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS source   TEXT NOT NULL DEFAULT '';
+    ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS medium   TEXT NOT NULL DEFAULT '';
+    ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS campaign TEXT NOT NULL DEFAULT '';
+    ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS referrer TEXT NOT NULL DEFAULT '';
   `);
   return true;
 }

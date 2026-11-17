@@ -1130,6 +1130,15 @@ td.up{color:var(--main);font-weight:700}
   show(0);
   }
 
+  // Remember where this visitor came from (first page of the visit), for the admin report.
+  var src={};
+  try{ src=JSON.parse(sessionStorage.getItem('mc_src')||'null'); }catch(e){ src=null; }
+  if(!src){
+    var q=new URLSearchParams(location.search);
+    src={utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',ref:q.get('ref')||'',referrer:document.referrer||''};
+    try{ sessionStorage.setItem('mc_src',JSON.stringify(src)); }catch(e){}
+  }
+
   var form=document.getElementById('form'), err=document.getElementById('f-error');
   if(form) form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -1145,7 +1154,7 @@ td.up{color:var(--main);font-weight:700}
       city:document.getElementById('f-city').value,
       preferred_date:document.getElementById('f-date').value,
       website:document.getElementById('f-website').value,
-      language:th?'th':'en'};
+      language:th?'th':'en', src:src};
     var btn=form.querySelector('button[type=submit]'); btn.disabled=true;
     function fallback(){
       var subject= th ? 'จองชิมฟรี: '+name : 'Free tasting: '+name;

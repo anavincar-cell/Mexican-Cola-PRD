@@ -61,6 +61,14 @@ async function migrate() {
       from_status TEXT,
       to_status   TEXT NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS admin_users (
+      id              SERIAL PRIMARY KEY,
+      email           TEXT NOT NULL UNIQUE,
+      password_hash   TEXT NOT NULL,
+      session_version INTEGER NOT NULL DEFAULT 1,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+      last_login_at   TIMESTAMPTZ
+    );
     CREATE INDEX IF NOT EXISTS enquiries_created_idx ON enquiries (created_at DESC);
     CREATE INDEX IF NOT EXISTS enquiries_status_idx ON enquiries (status);
   `);

@@ -83,29 +83,35 @@ admin.use((req, res, next) => {
 });
 
 const loginFails = new Map();
-admin.get('/login', (req, res) => {
-  if (auth.isLoggedIn(req)) return res.redirect(303, '/admin');
-  res.send(views.loginPage({ notConfigured: !auth.isConfigured() }));
+admin.get('/login', async (req, res, next) => {
+  try {
+    if (await auth.currentUser(req)) return res.redirect(303, '/admin');
+    res.send(views.loginPage({ notConfigured: !auth.isConfigured() }));
+  } catch (err) { next(err); }
 });
 
-admin.post('/login', auth.sameOrigin, (req, res) => {
-  const now = Date.now();
-  const fails = (loginFails.get(req.ip) || []).filter((t) => now - t < 15 * 60 * 1000);
-  if (fails.length >= 10) {
-    return res.status(429).send(views.loginPage({ error: 'Too many tries. Wait 15 minutes, then try again.' }));
-  }
-  const { email = '', password = '' } = req.body || {};
-  if (auth.checkLogin(email, password)) {
-    loginFails.delete(req.ip);
-    auth.setSession(res);
-    return res.redirect(303, '/admin');
-  }
-  fails.push(now);
-  loginFails.set(req.ip, fails);
-  return res.status(401).send(views.loginPage({
-    error: 'Wrong email or password.',
-    notConfigured: !auth.isConfigured(),
-  }));
+admin.post('/login', auth.sameOrigin, async (req, res, next) => {
+  try {
+    const now = Date.now();
+    const fails = (loginFails.get(req.ip) || []).filter((t) => now - t < 15 * 60 * 1000);
+    if (fails.length >= 10) {
+      return res.status(429).send(views.loginPage({ error: 'Too many tries. Wait 15 minutes, then try again.' }));
+    }
+    const { email = '', password = '' } = req.body || {};
+    const user = await auth.checkLogin(email, password);
+    if (user) {
+      loginFails.delete(req.ip);
+      auth.setSession(res, user);
+      return res.redirect(303, '/admin');
+    }
+    fails.push(now);
+    loginFails.set(req.ip, fails);
+    if (loginFails.size > 5000) loginFails.clear();
+    return res.status(401).send(views.loginPage({
+      error: 'Wrong email or password.',
+      notConfigured: !auth.isConfigured(),
+    }));
+  } catch (err) { next(err); }
 });
 
 admin.post('/logout', auth.sameOrigin, (req, res) => {
@@ -226,6 +232,75 @@ admin.post('/enquiries/:id/notes', auth.sameOrigin, async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+// ---------- Admin users ----------
+async function listAdmins() {
+  return (await db.query('SELECT id, email, created_at, last_login_at FROM admin_users ORDER BY created_at')).rows;
+}
+
+admin.get('/users', async (req, res, next) => {
+  try {
+    const flash = { added: 'Admin user added.', removed: 'Admin user removed.' }[req.query.saved] || '';
+    res.send(views.usersPage({ users: await listAdmins(), me: req.admin, flash }));
+  } catch (err) { next(err); }
+});
+
+admin.post('/users', auth.sameOrigin, async (req, res, next) => {
+  try {
+    const email = auth.normaliseEmail((req.body || {}).email);
+    const { password = '', confirm = '' } = req.body || {};
+    let error = '';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) error = 'Please enter a valid email.';
+    else if (password !== confirm) error = 'The two passwords do not match.';
+    else error = auth.passwordProblem(password);
+    if (!error) {
+      const taken = (await db.query('SELECT 1 FROM admin_users WHERE email = $1', [email])).rowCount;
+      if (taken) error = 'This email is already an admin user.';
+    }
+    if (error) return res.status(400).send(views.usersPage({ users: await listAdmins(), me: req.admin, error, emailValue: email }));
+    await db.query('INSERT INTO admin_users (email, password_hash) VALUES ($1, $2)', [email, await auth.hashPassword(password)]);
+    console.log(`Admin user added by admin #${req.admin.id}`);
+    res.redirect(303, '/admin/users?saved=added');
+  } catch (err) { next(err); }
+});
+
+admin.post('/users/:id/remove', auth.sameOrigin, async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) return res.status(400).send('Bad request');
+    if (id === req.admin.id) {
+      return res.status(400).send(views.usersPage({ users: await listAdmins(), me: req.admin, error: 'You cannot remove yourself.' }));
+    }
+    await db.query('DELETE FROM admin_users WHERE id = $1', [id]);
+    console.log(`Admin user #${id} removed by admin #${req.admin.id}`);
+    res.redirect(303, '/admin/users?saved=removed');
+  } catch (err) { next(err); }
+});
+
+// ---------- Change your own password ----------
+admin.get('/account', (req, res) => {
+  res.send(views.accountPage({ me: req.admin, flash: req.query.saved === 'password' ? 'Password changed.' : '' }));
+});
+
+admin.post('/account/password', auth.sameOrigin, async (req, res, next) => {
+  try {
+    const { current = '', password = '', confirm = '' } = req.body || {};
+    const row = (await db.query('SELECT * FROM admin_users WHERE id = $1', [req.admin.id])).rows[0];
+    let error = '';
+    if (!row || !(await auth.verifyPassword(current, row.password_hash))) error = 'Your current password is wrong.';
+    else if (password !== confirm) error = 'The two new passwords do not match.';
+    else if (password === current) error = 'The new password must be different.';
+    else error = auth.passwordProblem(password);
+    if (error) return res.status(400).send(views.accountPage({ me: req.admin, error }));
+    const updated = (await db.query(
+      'UPDATE admin_users SET password_hash = $1, session_version = session_version + 1 WHERE id = $2 RETURNING id, email, session_version',
+      [await auth.hashPassword(password), row.id],
+    )).rows[0];
+    auth.setSession(res, updated); // Keeps you logged in here; logs out your other devices.
+    console.log(`Admin #${row.id} changed their password`);
+    res.redirect(303, '/admin/account?saved=password');
+  } catch (err) { next(err); }
+});
+
 app.use('/admin', admin);
 
 // ---------- Errors ----------
@@ -238,12 +313,16 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 // ---------- Start ----------
 async function start() {
   try {
-    if (await db.migrate()) console.log('Database ready.');
-    else console.log('No DATABASE_URL yet: the website runs, but the form cannot save enquiries.');
+    if (await db.migrate()) {
+      console.log('Database ready.');
+      await auth.bootstrapAdmin();
+    } else {
+      console.log('No DATABASE_URL yet: the website runs, but the form cannot save enquiries.');
+    }
   } catch (err) {
     console.error('Database setup failed:', err.message);
   }
-  if (!auth.isConfigured()) console.log('Admin login is off: set ADMIN_EMAIL, ADMIN_PASSWORD and SESSION_SECRET (32+ characters).');
+  if (!auth.isConfigured()) console.log('Admin login is off: it needs DATABASE_URL and SESSION_SECRET (32+ characters).');
   app.listen(PORT, () => console.log(`The Mexican Cola is running on port ${PORT}`));
 }
 

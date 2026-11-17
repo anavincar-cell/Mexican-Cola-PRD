@@ -80,6 +80,11 @@ async function migrate() {
     ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS medium   TEXT NOT NULL DEFAULT '';
     ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS campaign TEXT NOT NULL DEFAULT '';
     ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS referrer TEXT NOT NULL DEFAULT '';
+
+    -- Result of the automatic emails: '' = before emails existed, off, sent or failed.
+    ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS thank_you_email TEXT NOT NULL DEFAULT '';
+    ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS alert_email     TEXT NOT NULL DEFAULT '';
+    ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS email_error     TEXT NOT NULL DEFAULT '';
   `);
   return true;
 }

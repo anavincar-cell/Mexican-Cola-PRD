@@ -5,6 +5,7 @@ const db = require('./db');
 const auth = require('./auth');
 const views = require('./views');
 const { classify } = require('./source');
+const mailer = require('./mailer');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -43,6 +44,19 @@ function clean(value, max) {
   return String(value ?? '').replace(/[\u0000-\u001F\u007F]/g, ' ').trim().slice(0, max);
 }
 
+function sendEmailsLater(enquiry, adminUrl) {
+  setImmediate(async () => {
+    try {
+      const r = await mailer.sendEnquiryEmails(enquiry, { adminUrl });
+      const error = [r.thankYouError && `thank-you: ${r.thankYouError}`, r.alertError && `alert: ${r.alertError}`].filter(Boolean).join(' | ').slice(0, 300);
+      await db.query('UPDATE enquiries SET thank_you_email = $1, alert_email = $2, email_error = $3 WHERE id = $4', [r.thankYou, r.alert, error, enquiry.id]);
+      console.log(`Emails for #${enquiry.id}: thank-you ${r.thankYou}, alert ${r.alert}${error ? ` (${error})` : ''}`);
+    } catch (err) {
+      console.error(`Emails for #${enquiry.id} crashed:`, err.message);
+    }
+  });
+}
+
 app.post('/api/enquiry', async (req, res) => {
   const b = req.body || {};
   // Hidden trap field: real visitors leave it empty, spam bots fill it in.
@@ -63,14 +77,21 @@ app.post('/api/enquiry', async (req, res) => {
     const src = classify(typeof b.src === 'object' && b.src ? b.src : {}, req.headers['x-forwarded-host'] || req.headers.host);
     const { rows } = await db.query(
       `INSERT INTO enquiries (name, email, current_cola, venue, phone, city, preferred_date, language, source, medium, campaign, referrer)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING id`,
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *`,
       [name, email, clean(b.cola, 200), clean(b.venue, 200), clean(b.phone, 60), city, preferred, language,
         src.source, src.medium, src.campaign, src.referrer],
     );
     await db.query('INSERT INTO enquiry_status_history (enquiry_id, from_status, to_status) VALUES ($1, NULL, $2)', [rows[0].id, 'New']);
     // No personal data in the logs: only the id.
     console.log(`New enquiry saved: #${rows[0].id}`);
-    return res.json({ ok: true });
+    res.json({ ok: true });
+
+    // The emails go out after the visitor already has their answer.
+    // If Mailgun fails, the enquiry stays saved and the visitor sees no error.
+    const host = req.headers['x-forwarded-host'] || req.headers.host;
+    const proto = req.headers['x-forwarded-proto'] || req.protocol;
+    sendEmailsLater(rows[0], `${proto}://${host}/admin/enquiries/${rows[0].id}`);
+    return undefined;
   } catch (err) {
     console.error('Could not save enquiry:', err.message);
     return res.status(500).json({ ok: false, error: 'server' });
@@ -365,6 +386,7 @@ async function start() {
   } catch (err) {
     console.error('Database setup failed:', err.message);
   }
+  console.log(mailer.isConfigured() ? 'Emails are on (Mailgun).' : 'Emails are off: set MAILGUN_API_KEY and MAILGUN_DOMAIN to send thank-you emails.');
   if (!auth.isConfigured()) console.log('Admin login is off: it needs DATABASE_URL and SESSION_SECRET (32+ characters).');
   app.listen(PORT, () => console.log(`The Mexican Cola is running on port ${PORT}`));
 }

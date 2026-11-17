@@ -56,7 +56,8 @@ a{color:var(--main)}
 .chart g:hover .bar{fill:#8a1240}
 .tip{position:absolute;pointer-events:none;background:var(--bg-dark);color:var(--bg-light);border-radius:8px;padding:6px 10px;font:600 13px 'Work Sans',sans-serif;white-space:nowrap;transform:translate(-50%,-110%);display:none}
 details summary{cursor:pointer;font-weight:600;color:var(--main);margin-top:12px}
-code.link{display:block;background:var(--bg-light);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;word-break:break-all;margin-top:4px}
+.linkrow{margin-top:16px}.linkline{display:flex;gap:8px;align-items:center;margin-top:4px}
+a.link{flex:1;display:block;background:var(--bg-light);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;word-break:break-all;color:var(--main)}
 .explain{color:var(--text-soft);font-size:14px;margin:8px 0 0}
 .wrap{max-width:1200px;margin:0 auto;padding:24px}
 .btn{display:inline-block;background:var(--main);color:var(--bg-light);border:0;border-radius:12px;padding:12px 20px;font:600 16px 'Work Sans',sans-serif;cursor:pointer;text-decoration:none;min-height:44px}
@@ -363,8 +364,24 @@ function reportPage({ weeks, byStatus, perDay, sources, siteUrl }) {
 <p class="explain">From the link the visitor used (for example <code>?utm_source=instagram</code>). Without a tagged link, the site that sent them (for example Google). "Direct or unknown link" means they typed the address, used a link without a tag, or their app hid where they came from. "Unknown (before tracking)" are enquiries sent before this report existed.</p></div>
 <div class="card"><h3>Use these links so the report knows the source</h3>
 <p class="explain" style="margin-top:0">Share the matching link in each place. Every visit through it is counted under that source.</p>
-${links.map(([label, src, med]) => `<p style="margin:12px 0 0"><b>${esc(label)}</b><code class="link">${esc(siteUrl)}/?utm_source=${src}&amp;utm_medium=${med}</code></p>`).join('')}
-</div></section>`;
+${links.map(([label, src, med]) => {
+    const url = `${siteUrl}/?utm_source=${src}&utm_medium=${med}`;
+    return `<div class="linkrow"><b>${esc(label)}</b>
+  <div class="linkline"><a class="link" href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a>
+  <button class="btn small second copy" type="button" data-url="${esc(url)}">Copy</button></div></div>`;
+  }).join('')}
+<p class="explain">Clicking a link opens your website as a visitor from that place. If you send the form from it, that test enquiry counts under that source.</p>
+</div></section>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var u=b.getAttribute('data-url');
+    function done(){ b.textContent='Copied'; setTimeout(function(){ b.textContent='Copy'; },1500); }
+    if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(u).then(done,function(){ prompt('Copy this link:',u); }); }
+    else { prompt('Copy this link:',u); }
+  });
+});
+</script>`;
   return layout('Report', body, { loggedIn: true, active: 'report' });
 }
 

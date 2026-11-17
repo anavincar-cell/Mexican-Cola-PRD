@@ -85,16 +85,16 @@ function thankYou(e) {
       `เราจะติดต่อกลับภายใน 1 วันทำการ เพื่อนัดวันและเวลา${when ? ` (คุณเลือกไว้ ${when})` : ''}`,
       `เรานำโคล่าไปที่${e.venue ? ` ${oneLine(e.venue, 80)}` : 'ร้านของคุณ'} ให้ทีมของคุณชิมแบบเพียวๆ และในบาตังกา เพื่อดูว่าเราเหมาะกันและสามารถร่วมงานกันได้หรือไม่`,
     ];
-    const text = `สวัสดีคุณ${name}\n\nขอบคุณที่จองชิม The Mexican Cola ฟรี\n\nขั้นตอนต่อไป:\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nมีคำถาม? ตอบกลับอีเมลนี้ หรือโทร ${CONTACT_PHONE}\n\nAnsh\nผู้ก่อตั้ง The Mexican Cola\nHappiness without Guilt`;
-    return { subject, text, html: htmlEmail({ lang: 'th', hello: `สวัสดีคุณ${name}`, intro: 'ขอบคุณที่จองชิม The Mexican Cola ฟรี', nextTitle: 'ขั้นตอนต่อไป', steps, questions: `มีคำถาม? ตอบกลับอีเมลนี้ หรือโทร ${CONTACT_PHONE}`, sign: 'ผู้ก่อตั้ง The Mexican Cola' }) };
+    const text = `สวัสดีคุณ${name}\n\nขอบคุณที่จองชิม The Mexican Cola ฟรี\n\nขั้นตอนต่อไป:\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nมีคำถาม? ตอบกลับอีเมลนี้ หรือโทร ${CONTACT_PHONE}\n\nทีม The Mexican Cola\nHappiness without Guilt`;
+    return { subject, text, html: htmlEmail({ lang: 'th', hello: `สวัสดีคุณ${name}`, intro: 'ขอบคุณที่จองชิม The Mexican Cola ฟรี', nextTitle: 'ขั้นตอนต่อไป', steps, questions: `มีคำถาม? ตอบกลับอีเมลนี้ หรือโทร ${CONTACT_PHONE}`, sign: 'ทีม The Mexican Cola' }) };
   }
   const subject = 'Thanks for booking a free tasting | The Mexican Cola';
   const steps = [
     `We contact you within 1 working day to set a day and time${when ? ` (you suggested ${when})` : ''}.`,
     `We bring the cola to ${e.venue ? oneLine(e.venue, 80) : 'your venue'}. Your team tastes it on its own and in a Batanga, to see if we are a good fit and can potentially work together.`,
   ];
-  const text = `Hi ${name},\n\nThanks for booking a free tasting of The Mexican Cola.\n\nWhat happens next:\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nQuestions? Reply to this email, or call ${CONTACT_PHONE}.\n\nAnsh\nFounder, The Mexican Cola\nHappiness without Guilt`;
-  return { subject, text, html: htmlEmail({ lang: 'en', hello: `Hi ${name},`, intro: 'Thanks for booking a free tasting of The Mexican Cola.', nextTitle: 'What happens next', steps, questions: `Questions? Reply to this email, or call ${CONTACT_PHONE}.`, sign: 'Founder, The Mexican Cola' }) };
+  const text = `Hi ${name},\n\nThanks for booking a free tasting of The Mexican Cola.\n\nWhat happens next:\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nQuestions? Reply to this email, or call ${CONTACT_PHONE}.\n\nThe Mexican Cola team\nHappiness without Guilt`;
+  return { subject, text, html: htmlEmail({ lang: 'en', hello: `Hi ${name},`, intro: 'Thanks for booking a free tasting of The Mexican Cola.', nextTitle: 'What happens next', steps, questions: `Questions? Reply to this email, or call ${CONTACT_PHONE}.`, sign: 'The Mexican Cola team' }) };
 }
 
 // Simple HTML in the brand colours. Plain tables, so every email app shows it the same.
@@ -110,7 +110,7 @@ function htmlEmail({ lang, hello, intro, nextTitle, steps, questions, sign }) {
 <p style="margin:0 0 8px;font-weight:700;color:#B0174F">${esc(nextTitle)}</p>
 <ol style="margin:0 0 20px;padding-left:20px">${steps.map((s) => `<li style="margin:0 0 8px">${esc(s)}</li>`).join('')}</ol>
 <p style="margin:0 0 20px">${esc(questions)}</p>
-<p style="margin:0">Ansh<br><span style="color:#5E5873">${esc(sign)}</span></p>
+<p style="margin:0">${esc(sign)}<br><span style="color:#5E5873">Happiness without Guilt</span></p>
 </td></tr>
 <tr><td style="padding:16px 28px;border-top:1px solid #EADFD3;font:13px Arial,sans-serif;color:#5E5873">Happiness without Guilt · ${CONTACT_EMAIL} · ${CONTACT_PHONE}</td></tr>
 </table></td></tr></table></body></html>`;

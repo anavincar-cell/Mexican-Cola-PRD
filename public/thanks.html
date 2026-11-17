@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Thank you · The Mexican Cola</title>
+<link rel="icon" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--main:#B0174F;--accent:#FFB400;--bg-light:#FFF7EC;--bg-dark:#1B1236;--text:#1B1236;--text-soft:#5E5873;--line:#EADFD3}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg-dark);color:var(--bg-light);font:400 18px/1.5 'Work Sans',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:32px 24px;text-align:center}
+html[lang="th"] body{font-family:'Anuphan',sans-serif;line-height:1.65}
+img.logo{width:180px;height:auto;margin-bottom:32px}
+.card{background:var(--bg-light);color:var(--text);border-radius:24px;padding:32px;max-width:560px;width:100%}
+h1{font:800 44px/1.1 'Bricolage Grotesque',sans-serif;margin:0 0 16px;color:var(--main)}
+html[lang="th"] h1{font-family:'Anuphan',sans-serif;font-weight:700;line-height:1.3}
+p{margin:0 0 16px}
+a{color:var(--main);font-weight:600}
+.btn{display:inline-block;margin-top:8px;background:var(--main);color:var(--bg-light);text-decoration:none;border-radius:12px;padding:14px 24px;min-height:44px}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+[lang="th"] [data-en],[lang="en"] [data-th]{display:none}
+@media (max-width:600px){h1{font-size:32px}}
+</style>
+</head>
+<body>
+<img class="logo" src="/logo.png" alt="The Mexican Cola">
+<main class="card">
+  <h1><span data-en>Thanks.</span><span data-th>ขอบคุณ</span></h1>
+  <p data-en>We will contact you within 1 working day to book your tasting.</p>
+  <p data-th>เราจะติดต่อกลับภายใน 1 วันทำการ เพื่อนัดวันชิม</p>
+  <p data-en>Questions? <a href="mailto:hello.themexicancola@gmail.com">hello.themexicancola@gmail.com</a> or <a href="tel:+66816003343">+66 81 600 3343</a></p>
+  <p data-th>มีคำถาม? <a href="mailto:hello.themexicancola@gmail.com">hello.themexicancola@gmail.com</a> หรือ <a href="tel:+66816003343">+66 81 600 3343</a></p>
+  <a class="btn" id="home" href="/"><span data-en>Back to home</span><span data-th>กลับหน้าแรก</span></a>
+</main>
+<script>
+  if (new URLSearchParams(location.search).get('lang') === 'th') {
+    document.documentElement.lang = 'th';
+    document.getElementById('home').href = '/#th';
+  }
+</script>
+</body>
+</html>

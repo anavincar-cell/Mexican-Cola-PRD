@@ -13,6 +13,7 @@ The plan is in [PRD.md](PRD.md).
 | `auth.js` | The admin login: admin users, hashed passwords, sessions. |
 | `views.js` | The admin pages, including the report and its chart. |
 | `source.js` | Works out where a visitor came from, for the report. |
+| `mailer.js` | Sends the thank-you email and the new-enquiry alert through Mailgun. |
 | `.env.example` | The names of the secret settings, with empty values. |
 
 ## Pages
@@ -58,6 +59,19 @@ The form saves where each visitor came from:
 3. Neither: "Direct or unknown link".
 
 Enquiries sent before tracking existed show as "Unknown (before tracking)". The report page lists ready-made links for Instagram, LINE, posters, email and cold calls.
+
+## Emails (Mailgun)
+
+When the form is saved, two emails go out through Mailgun:
+
+1. **A thank-you to the visitor**, in English or Thai: thanks, what happens next, and that we reply within 1 working day.
+2. **An alert to you** (`NOTIFY_EMAIL`, else `ADMIN_EMAIL`), with all the details and a link to the enquiry.
+
+Set in Railway Variables: `MAILGUN_API_KEY` (secret), `MAILGUN_DOMAIN` and `MAILGUN_REGION` (`eu` or `us`).
+
+- The emails are sent after the enquiry is saved. If Mailgun fails or is slow, the enquiry stays saved and the visitor sees no error.
+- The result (sent, failed or off) shows on each enquiry in the admin.
+- On the free sandbox domain, Mailgun only sends to up to 5 authorized recipients that confirmed by email. Add them in Mailgun, under **Sending** → **Domains** → your sandbox domain.
 
 ## Run it on your laptop
 

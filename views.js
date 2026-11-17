@@ -189,6 +189,8 @@ ${flash ? `<p class="msg" role="status">${esc(flash)}</p>` : ''}
     <dt>Current cola</dt><dd>${esc(e.current_cola) || '–'}</dd>
     <dt>Preferred tasting</dt><dd>${fmtPreferred(e.preferred_date) || '–'}</dd>
     <dt>Language</dt><dd>${esc(e.language.toUpperCase())}</dd>
+    <dt>Source</dt><dd>${esc(sourceLabel(e.source))}</dd>
+    <dt>Thank-you email</dt><dd>${emailStatus(e.thank_you_email)}${e.email_error ? `<br><small style="color:var(--text-soft)">${esc(e.email_error)}</small>` : ''}</dd>
   </dl></div>
   <div class="card"><h2>Status</h2>
     <form method="post" action="/admin/enquiries/${e.id}/status">
@@ -259,6 +261,10 @@ const SOURCE_NAMES = {
   google: 'Google', line: 'LINE', tiktok: 'TikTok', x: 'X (Twitter)', linkedin: 'LinkedIn', search: 'Other search engine',
   email: 'Email', poster: 'Poster or table stand (QR)', 'table-stand': 'Table stand (QR)', 'cold-call': 'Cold call follow-up',
 };
+function emailStatus(v) {
+  return ({ sent: 'Sent', failed: '<span class="error">Failed</span>', off: 'Off (Mailgun not set up)', '': 'Not sent (before emails existed)' })[v] || esc(v);
+}
+
 function sourceLabel(source) {
   return Object.prototype.hasOwnProperty.call(SOURCE_NAMES, source) ? SOURCE_NAMES[source] : source;
 }

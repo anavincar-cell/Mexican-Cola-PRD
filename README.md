@@ -62,6 +62,16 @@ The form saves where each visitor came from:
 
 Enquiries sent before tracking existed show as "Unknown (before tracking)". The report page lists ready-made links for Instagram, LINE, posters, email and cold calls.
 
+## Finding and sharing the page (SEO)
+
+- **Title** (59 characters) and **description** (147 characters) use the keywords from the Notion research: craft soda, restaurants, bars, hotels.
+- **Share preview** (WhatsApp, LINE, Telegram, Facebook, Instagram, LinkedIn): Open Graph and Twitter tags, plus `public/og-image.jpg` (1200 × 630, brand colours and fonts, the real Delia photo).
+- **Favicon:** `favicon.ico`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png` and `site.webmanifest`.
+- **robots.txt** and **sitemap.xml** are made by the server. Admin, API and thank-you pages stay out of Google.
+- **Search Console:** the `google-site-verification` tag sits in the `<head>` of `public/index.html`.
+- **Speed:** pages are compressed, photos load only when scrolled to, and photos are cached for 7 days. On a phone with slow 4G, the page loads in about 2 s instead of 6 s.
+- `SITE_URL` (optional) changes the public address, for example after buying your own domain.
+
 ## Visitors and conversion
 
 Two ways of measuring, side by side:

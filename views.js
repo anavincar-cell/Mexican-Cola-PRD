@@ -107,6 +107,7 @@ function layout(title, body, { loggedIn = false, active = '' } = {}) {
 <style>${CSS}</style></head>
 <body>
 <header class="top"><a href="/admin"><img src="/logo.png" alt="The Mexican Cola admin"></a>
+${loggedIn ? `<script>try{if(!localStorage.getItem('mc_ignore_set')){localStorage.setItem('mc_ignore','1');localStorage.setItem('mc_ignore_set','1');}}catch(e){}</script>` : ''}
 ${loggedIn ? `<nav class="nav" aria-label="Admin">${link('/admin', 'Enquiries', 'enquiries')}${link('/admin/report', 'Report', 'report')}${link('/admin/users', 'Users', 'users')}${link('/admin/account', 'Change password', 'account')}
 <form method="post" action="/admin/logout"><button class="btn small second" type="submit">Log out</button></form></nav>` : ''}
 </header>
@@ -293,7 +294,7 @@ function barList(rows, total) {
 }
 
 // Bar chart of enquiries per day. One series, so no legend: the title names it.
-function dayChart(perDay) {
+function dayChart(perDay, { id = 'enq', one = 'enquiry', many = 'enquiries', title = 'Enquiries' } = {}) {
   const W = 900, H = 260, L = 36, R = 8, T = 12, B = 32;
   const max = Math.max(...perDay.map((d) => d.n));
   const step = max <= 4 ? 1 : max <= 10 ? 2 : Math.ceil(max / 5);
@@ -312,13 +313,14 @@ function dayChart(perDay) {
     const yTop = y(d.n);
     const base = T + plotH;
     const bar = d.n ? `<path class="bar" d="M${x},${base} V${yTop + r} Q${x},${yTop} ${x + r},${yTop} H${x + bw - r} Q${x + bw},${yTop} ${x + bw},${yTop + r} V${base} Z"/>` : '';
-    const label = (i % 7 === 0 || i === perDay.length - 1)
+    const last = perDay.length - 1;
+    const label = ((i % 7 === 0 && last - i >= 3) || i === last)
       ? `<text class="axis-label" x="${x + bw / 2}" y="${H - 10}" text-anchor="middle">${fmtDay(d.day)}</text>` : '';
-    return `<g>${bar}<rect class="hit" x="${L + i * slot}" y="${T}" width="${slot}" height="${plotH}" data-tip="${esc(fmtDayLong(d.day))}: ${d.n} ${d.n === 1 ? 'enquiry' : 'enquiries'}"/></g>${label}`;
+    return `<g>${bar}<rect class="hit" x="${L + i * slot}" y="${T}" width="${slot}" height="${plotH}" data-tip="${esc(fmtDayLong(d.day))}: ${d.n} ${d.n === 1 ? one : many}"/></g>${label}`;
   }).join('');
-  return `<div class="chart-wrap chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bar chart of enquiries per day for the last 30 days. The table below has the same numbers.">${grid}${bars}</svg><div class="tip" id="tip"></div></div>
+  return `<div class="chart-wrap chart" id="chart-${id}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bar chart of ${many} per day for the last 30 days. The table below has the same numbers.">${grid}${bars}</svg><div class="tip" id="tip-${id}"></div></div>
 <script>
-(function(){var w=document.querySelector('.chart-wrap'),t=document.getElementById('tip');
+(function(){var w=document.getElementById('chart-${id}'),t=document.getElementById('tip-${id}');
 w.scrollLeft=w.scrollWidth; // On a phone, open at the newest days.
 w.querySelectorAll('.hit').forEach(function(h){
   h.addEventListener('mouseenter',function(){t.textContent=h.getAttribute('data-tip');t.style.display='block';});
@@ -326,11 +328,52 @@ w.querySelectorAll('.hit').forEach(function(h){
   h.addEventListener('mouseleave',function(){t.style.display='none';});
 });})();
 </script>
-<details><summary>Show as table</summary><div class="table-wrap" style="margin-top:8px"><table><thead><tr><th>Day</th><th>Enquiries</th></tr></thead><tbody>
+<details><summary>Show as table</summary><div class="table-wrap" style="margin-top:8px"><table><thead><tr><th>Day</th><th>${esc(title)}</th></tr></thead><tbody>
 ${perDay.slice().reverse().map((d) => `<tr><td>${esc(fmtDayLong(d.day))}</td><td>${d.n}</td></tr>`).join('')}</tbody></table></div></details>`;
 }
 
-function reportPage({ weeks, byStatus, perDay, sources, siteUrl }) {
+function rate(n, d) {
+  if (!d) return '–';
+  const p = (n / d) * 100;
+  return `${p >= 10 || p === 0 ? Math.round(p) : p.toFixed(1)}%`;
+}
+
+// Block 1: visitors, enquiries and the conversion rate, from our own counter.
+function trafficSection(t) {
+  if (!t) return '';
+  const period = (label, note, p) => `<div class="count"><b>${rate(p.enquiries, p.visitors)}</b><span>${esc(label)}: conversion rate</span>
+    <span class="delta">${p.enquiries} ${p.enquiries === 1 ? 'enquiry' : 'enquiries'} from ${p.visitors} ${p.visitors === 1 ? 'visitor' : 'visitors'}. ${esc(note)}</span></div>`;
+  const deviceRows = t.devices.map((d) => ({ label: { phone: 'Phone', computer: 'Laptop or computer', tablet: 'Tablet' }[d.device] || d.device, n: d.n }));
+  const deviceTotal = t.devices.reduce((a, d) => a + d.n, 0);
+  const started = t.started ? `Counting started ${esc(fmtDayLong(t.started))}.` : 'No visits counted yet.';
+  return `
+<section class="section"><h2>1. Visitors and conversion</h2>
+<div class="tiles">
+  ${period('This week', 'Monday to today.', t.thisWeek)}
+  ${period('Last week', 'Monday to Sunday.', t.lastWeek)}
+  ${period('Last 30 days', 'Including today.', t.last30)}
+  <div class="count"><b>${rate(t.last30.clickers, t.last30.visitors)}</b><span>Clicked "Book a free tasting"</span>
+    <span class="delta">${t.last30.clickers} of ${t.last30.visitors} visitors in the last 30 days (${t.last30.clicks} clicks).</span></div>
+</div>
+<p class="explain"><b>Conversion rate = enquiries ÷ visitors.</b> A visitor is one person (one phone or computer) on one day: someone who comes back on another day counts again. Visits by bots and by browsers set to "ignore" are not counted. Only enquiries sent since counting started are used. ${started}</p>
+<div class="card" style="margin-top:16px"><h3>Visitors per day, last 30 days</h3>${dayChart(t.perDay, { id: 'vis', one: 'visitor', many: 'visitors', title: 'Visitors' })}</div>
+<div class="card"><h3>Phone or laptop, last 30 days</h3>${deviceTotal ? barList(deviceRows, deviceTotal) : '<p>No visits counted yet.</p>'}</div>
+<div class="card"><h3>Don't count yourself</h3>
+  <p id="ignore-state" class="explain" style="margin-top:0"></p>
+  <p><button class="btn small second" type="button" id="ignore-toggle"></button></p>
+  <p class="explain">Logging in to this admin turns "ignore" on for this browser. To ignore your phone too, open <code>/?ignore=1</code> on it once. To test as a visitor, open the site in a private window, or turn ignore off here.</p>
+</div>
+<script>
+(function(){var s=document.getElementById('ignore-state'),b=document.getElementById('ignore-toggle');
+function on(){try{return localStorage.getItem('mc_ignore')==='1';}catch(e){return false;}}
+function show(){s.textContent=on()?'This browser is ignored: its visits and clicks are not counted.':'This browser is counted like a visitor.';b.textContent=on()?'Count this browser again':'Ignore this browser';}
+b.addEventListener('click',function(){try{if(on())localStorage.removeItem('mc_ignore');else localStorage.setItem('mc_ignore','1');}catch(e){}window.__mcManual=true;show();});
+show();})();
+</script>
+</section>`;
+}
+
+function reportPage({ weeks, byStatus, perDay, sources, siteUrl, traffic }) {
   const total = weeks.total;
   const last30 = perDay.reduce((a, d) => a + d.n, 0);
   const change = (now, before) => {
@@ -347,9 +390,10 @@ function reportPage({ weeks, byStatus, perDay, sources, siteUrl }) {
   ];
   const body = `
 <h1>Report</h1>
-<p>How the landing page is doing. All numbers come live from the enquiries database. Times are Thailand time. A week runs Monday to Sunday.</p>
+<p>How the landing page is doing. All numbers come live from the database. Times are Thailand time. A week runs Monday to Sunday.</p>
+${trafficSection(traffic)}
 
-<section class="section"><h2>1. Enquiries this week and last week</h2>
+<section class="section"><h2>2. Enquiries this week and last week</h2>
 <div class="tiles">
   <div class="count"><b>${weeks.this_week}</b><span>This week so far</span><span class="delta">${esc(fmtDay(weeks.week_start))} to ${esc(fmtDay(weeks.today))}, ${dayCount} ${dayCount === 1 ? 'day' : 'days'}. ${esc(change(weeks.this_week, weeks.last_week_same_days))}</span></div>
   <div class="count"><b>${weeks.last_week}</b><span>Last week</span><span class="delta">Monday to Sunday, the full week</span></div>
@@ -358,14 +402,14 @@ function reportPage({ weeks, byStatus, perDay, sources, siteUrl }) {
 </div>
 <p class="explain">"This week so far" is compared with the same weekdays of last week, so a half-finished week is not compared with a full one.</p></section>
 
-<section class="section"><h2>2. Enquiries by status</h2>
+<section class="section"><h2>3. Enquiries by status</h2>
 <div class="card">${barList(statusRows, total)}
 <p class="explain">Each enquiry is counted once, at the status it has now. Percentages are of all ${total} enquiries. In your process: "Tasting booked" is the call booked, "Ordered" is won.</p></div></section>
 
-<section class="section"><h2>3. Enquiries per day, last 30 days</h2>
+<section class="section"><h2>4. Enquiries per day, last 30 days</h2>
 <div class="card">${dayChart(perDay)}</div></section>
 
-<section class="section"><h2>4. Where people came from</h2>
+<section class="section"><h2>5. Where people came from</h2>
 <div class="card">${sourceRows.length ? barList(sourceRows, total) : '<p>No enquiries yet.</p>'}
 <p class="explain">From the link the visitor used (for example <code>?utm_source=instagram</code>). Without a tagged link, the site that sent them (for example Google). "Direct or unknown link" means they typed the address, used a link without a tag, or their app hid where they came from. "Unknown (before tracking)" are enquiries sent before this report existed.</p></div>
 <div class="card"><h3>Use these links so the report knows the source</h3>

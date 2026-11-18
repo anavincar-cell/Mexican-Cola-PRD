@@ -85,6 +85,26 @@ async function migrate() {
     ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS thank_you_email TEXT NOT NULL DEFAULT '';
     ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS alert_email     TEXT NOT NULL DEFAULT '';
     ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS email_error     TEXT NOT NULL DEFAULT '';
+
+    -- Our own visit counter. visitor is a daily-changing code, never an IP address.
+    CREATE TABLE IF NOT EXISTS visits (
+      id         BIGSERIAL PRIMARY KEY,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      day        DATE NOT NULL,
+      visitor    TEXT NOT NULL,
+      path       TEXT NOT NULL DEFAULT '/',
+      source     TEXT NOT NULL DEFAULT '',
+      device     TEXT NOT NULL DEFAULT ''
+    );
+    CREATE INDEX IF NOT EXISTS visits_day_idx ON visits (day);
+    CREATE TABLE IF NOT EXISTS events (
+      id         BIGSERIAL PRIMARY KEY,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      day        DATE NOT NULL,
+      visitor    TEXT NOT NULL,
+      type       TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS events_day_idx ON events (day);
   `);
   return true;
 }

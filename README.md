@@ -14,6 +14,8 @@ The plan is in [PRD.md](PRD.md).
 | `views.js` | The admin pages, including the report and its chart. |
 | `source.js` | Works out where a visitor came from, for the report. |
 | `mailer.js` | Sends the thank-you email and the new-enquiry alert through Mailgun. |
+| `visits.js` | Our own visit counter and button-click counter (no cookies). |
+| `public/track.js` | In the browser: cookie banner, Google Analytics, visit and click counting, "ignore me". |
 | `.env.example` | The names of the secret settings, with empty values. |
 
 ## Pages
@@ -59,6 +61,17 @@ The form saves where each visitor came from:
 3. Neither: "Direct or unknown link".
 
 Enquiries sent before tracking existed show as "Unknown (before tracking)". The report page lists ready-made links for Instagram, LINE, posters, email and cold calls.
+
+## Visitors and conversion
+
+Two ways of measuring, side by side:
+
+1. **Our own counter** (for the admin report). No cookies and no IP addresses are stored. Each visitor becomes a code made from a secret, the date, the IP and the browser. The code changes every day. Bots are not counted. It counts every visit and every click on **Book a free tasting**.
+2. **Google Analytics 4** (for detail). It loads **only after the visitor clicks Accept** in the cookie banner. Events: `cta_click` (main button) and `generate_lead` (form sent). Set `GA_MEASUREMENT_ID` in Railway. Visitors change their choice under "Cookie settings" in the footer.
+
+The report's first block shows visitors, enquiries and the **conversion rate = enquiries ÷ visitors**. It covers this week, last week and the last 30 days, plus the click rate, visitors per day, and phone versus laptop. Only enquiries sent since counting started go into the rate.
+
+**Don't count yourself:** logging in to `/admin` marks that browser as ignored. Open `/?ignore=1` once on your phone to ignore it too, and `/?ignore=0` to undo it. The report page has a switch.
 
 ## Emails (Mailgun)
 

@@ -1,6 +1,8 @@
 // The Mexican Cola website: public pages, the tasting form, and the admin side.
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
+const compression = require('compression');
 const db = require('./db');
 const auth = require('./auth');
 const views = require('./views');
@@ -21,6 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(compression()); // Smaller pages: faster on phones.
 app.use(express.urlencoded({ extended: false, limit: '20kb' }));
 app.use(express.json({ limit: '20kb', type: ['application/json', 'text/plain'] }));
 
@@ -46,8 +49,51 @@ app.post('/api/event', async (req, res) => {
   res.status(204).end();
 });
 
+// ---------- Finding and sharing the page (SEO) ----------
+// The public address, used in the share preview, canonical link and sitemap.
+const DEFAULT_SITE = 'https://mexican-cola-prd-production.up.railway.app';
+function siteUrl() {
+  const u = String(process.env.SITE_URL || DEFAULT_SITE).trim().replace(/\/+$/, '');
+  return /^https?:\/\/[a-z0-9.-]+(:\d+)?$/i.test(u) ? u : DEFAULT_SITE;
+}
+
+// Google Search Console "HTML tag" check. GOOGLE_SITE_VERIFICATION holds only the content value.
+function verificationTag() {
+  const v = String(process.env.GOOGLE_SITE_VERIFICATION || '').trim();
+  return /^[A-Za-z0-9_-]{10,100}$/.test(v) ? `<meta name="google-site-verification" content="${v}">` : '';
+}
+
+const indexTemplate = fs.readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf8');
+function sendHome(req, res) {
+  const html = indexTemplate.split('%SITE_URL%').join(siteUrl())
+    .replace('<!-- Search Console verification goes here -->', verificationTag());
+  res.setHeader('Cache-Control', 'no-cache');
+  res.type('html').send(html);
+}
+app.get(['/', '/index.html'], sendHome);
+
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /thanks\n\nSitemap: ${siteUrl()}/sitemap.xml\n`);
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  const day = new Date().toISOString().slice(0, 10);
+  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${siteUrl()}/</loc><lastmod>${day}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+</urlset>
+`);
+});
+
 // ---------- Public website ----------
-app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'], maxAge: '1h' }));
+// Photos and icons rarely change: browsers keep them for 7 days. Pages and scripts are checked every time.
+app.use(express.static(path.join(__dirname, 'public'), {
+  extensions: ['html'],
+  setHeaders(res, file) {
+    if (/\.(jpe?g|png|webp|svg|ico)$/i.test(file)) res.setHeader('Cache-Control', 'public, max-age=604800');
+    else res.setHeader('Cache-Control', 'no-cache');
+  },
+}));
 
 // Simple in-memory limit: 5 form submissions per visitor per hour.
 const hits = new Map();

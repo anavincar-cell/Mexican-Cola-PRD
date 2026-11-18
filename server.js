@@ -6,6 +6,7 @@ const auth = require('./auth');
 const views = require('./views');
 const { classify } = require('./source');
 const mailer = require('./mailer');
+const visits = require('./visits');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -21,10 +22,29 @@ app.use((req, res, next) => {
 });
 
 app.use(express.urlencoded({ extended: false, limit: '20kb' }));
-app.use(express.json({ limit: '20kb' }));
+app.use(express.json({ limit: '20kb', type: ['application/json', 'text/plain'] }));
 
 // ---------- Health check (Railway can use this) ----------
 app.get('/health', (req, res) => res.json({ ok: true, database: db.hasDatabase() }));
+
+// ---------- Settings for the page (no secrets: the Measurement ID is public by design) ----------
+app.get('/config.js', (req, res) => {
+  const id = String(process.env.GA_MEASUREMENT_ID || '').trim().toUpperCase();
+  const gaId = /^G-[A-Z0-9]{4,20}$/.test(id) ? id : '';
+  res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.send(`window.MC_CONFIG=${JSON.stringify({ gaId })};`);
+});
+
+// ---------- Our own visit counter and button clicks ----------
+app.post('/api/visit', async (req, res) => {
+  try { await visits.recordVisit(req); } catch (err) { console.error('Visit not counted:', err.message); }
+  res.status(204).end();
+});
+app.post('/api/event', async (req, res) => {
+  try { await visits.recordEvent(req); } catch (err) { console.error('Event not counted:', err.message); }
+  res.status(204).end();
+});
 
 // ---------- Public website ----------
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'], maxAge: '1h' }));
@@ -290,9 +310,41 @@ admin.get('/report', async (req, res, next) => {
              count(*) FILTER (WHERE status = 'Ordered')::int AS ordered
       FROM enquiries GROUP BY source ORDER BY n DESC, source`)).rows;
 
+    // Visitors from our own counter. A visitor = one daily code on one day.
+    const t = (await db.query(`
+      WITH b AS (SELECT (now() AT TIME ZONE $1)::date AS today, date_trunc('week', now() AT TIME ZONE $1)::date AS ws),
+      started AS (SELECT min(created_at) AS at, min(day) AS day FROM visits),
+      dv AS (SELECT DISTINCT day, visitor FROM visits),
+      dc AS (SELECT DISTINCT day, visitor FROM events WHERE type = 'cta_click'),
+      en AS (SELECT (e.created_at AT TIME ZONE $1)::date AS day FROM enquiries e, started s WHERE s.at IS NOT NULL AND e.created_at >= s.at)
+      SELECT
+        (SELECT count(*)::int FROM dv, b WHERE day >= b.ws) AS tw_v,
+        (SELECT count(*)::int FROM en, b WHERE day >= b.ws) AS tw_e,
+        (SELECT count(*)::int FROM dv, b WHERE day >= b.ws - 7 AND day < b.ws) AS lw_v,
+        (SELECT count(*)::int FROM en, b WHERE day >= b.ws - 7 AND day < b.ws) AS lw_e,
+        (SELECT count(*)::int FROM dv, b WHERE day >= b.today - 29) AS m_v,
+        (SELECT count(*)::int FROM en, b WHERE day >= b.today - 29) AS m_e,
+        (SELECT count(*)::int FROM dc, b WHERE day >= b.today - 29) AS m_clickers,
+        (SELECT count(*)::int FROM events, b WHERE type = 'cta_click' AND day >= b.today - 29) AS m_clicks,
+        (SELECT day FROM started) AS started`, [TZ])).rows[0];
+    const visitorsPerDay = (await db.query(`
+      SELECT d::date AS day, count(DISTINCT v.visitor)::int AS n
+      FROM generate_series((now() AT TIME ZONE $1)::date - 29, (now() AT TIME ZONE $1)::date, interval '1 day') AS d
+      LEFT JOIN visits v ON v.day = d::date
+      GROUP BY d ORDER BY d`, [TZ])).rows;
+    const devices = (await db.query(`
+      SELECT device, count(*)::int AS n FROM (SELECT DISTINCT day, visitor, device FROM visits
+        WHERE day >= (now() AT TIME ZONE $1)::date - 29) x GROUP BY device ORDER BY n DESC`, [TZ])).rows;
+    const traffic = {
+      thisWeek: { visitors: t.tw_v, enquiries: t.tw_e },
+      lastWeek: { visitors: t.lw_v, enquiries: t.lw_e },
+      last30: { visitors: t.m_v, enquiries: t.m_e, clickers: t.m_clickers, clicks: t.m_clicks },
+      started: t.started, perDay: visitorsPerDay, devices,
+    };
+
     const host = req.headers['x-forwarded-host'] || req.headers.host;
     const proto = req.headers['x-forwarded-proto'] || req.protocol;
-    res.send(views.reportPage({ weeks, byStatus, perDay, sources, siteUrl: `${proto}://${host}` }));
+    res.send(views.reportPage({ weeks, byStatus, perDay, sources, traffic, siteUrl: `${proto}://${host}` }));
   } catch (err) { next(err); }
 });
 

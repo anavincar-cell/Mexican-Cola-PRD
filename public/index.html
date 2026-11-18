@@ -355,6 +355,16 @@ td.up{color:var(--main);font-weight:700}
 }
 @media (max-width:420px){.top .btn{display:none}}
 </style>
+<style>
+#mc-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:1000;max-width:720px;margin:0 auto;background:#1B1236;color:#FFF7EC;border:2px solid #FFB400;border-radius:24px;padding:20px 24px;box-shadow:0 8px 32px rgba(27,18,54,.35);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+#mc-consent p{margin:0;flex:1 1 320px;font-size:16px;line-height:1.5}
+#mc-consent .mc-consent-btns{display:flex;gap:8px}
+#mc-consent .btn{padding:12px 20px;min-height:44px}
+#mc-consent .btn.second{background:transparent;color:#FFF7EC;border:2px solid #FFF7EC}
+footer .cookie-link{color:inherit;text-decoration:underline;cursor:pointer}
+</style>
+<script src="/config.js"></script>
+<script src="/track.js" defer></script>
 </head>
 <body>
 
@@ -1073,7 +1083,7 @@ td.up{color:var(--main);font-weight:700}
   <div class="wrap">
     <img src="logo.png" alt="Mexican Cola">
     <p>The Mexican Cola</p>
-    <p class="small">hello.themexicancola@gmail.com · +66 81 600 3343</p>
+    <p class="small">hello.themexicancola@gmail.com · +66 81 600 3343 · <a href="#" class="cookie-link" data-cookie-settings><span lang="en">Cookie settings</span><span lang="th">ตั้งค่าคุกกี้</span></a></p>
     <p class="small note" lang="en">We use your details only to book your tasting. We never share them. The quotes on this page come from recorded interviews with venues that stock The Mexican Cola.</p>
     <p class="small note" lang="th">เราใช้ข้อมูลของคุณเพื่อนัดชิมเท่านั้น และจะไม่แชร์ให้ใคร คำพูดในหน้านี้มาจากวิดีโอสัมภาษณ์ร้านที่ใช้ The Mexican Cola</p>
   </div>
@@ -1168,7 +1178,7 @@ td.up{color:var(--main);font-weight:700}
     fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
       .then(function(r){ return r.json().catch(function(){ return {ok:false}; }).then(function(j){ return {status:r.status,j:j}; }); })
       .then(function(x){
-        if(x.j && x.j.ok){ location.href='/thanks?lang='+(th?'th':'en'); return; }
+        if(x.j && x.j.ok){ var go=function(){ location.href='/thanks?lang='+(th?'th':'en'); }; if(window.mcTrackLead) window.mcTrackLead(go); else go(); return; }
         btn.disabled=false;
         if(x.status===400 && x.j.error==='email'){ err.textContent= th?'กรุณากรอกอีเมลให้ถูกต้อง เช่น you@restaurant.com':'Please add a valid email, for example you@restaurant.com.'; fE.focus(); return; }
         if(x.status===429){ err.textContent= th?'ส่งบ่อยเกินไป กรุณาลองใหม่ภายหลัง หรือโทร +66 81 600 3343':'Too many tries. Please try again later, or call +66 81 600 3343.'; return; }

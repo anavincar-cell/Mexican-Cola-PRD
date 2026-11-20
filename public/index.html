@@ -29,7 +29,7 @@
 <meta name="twitter:title" content="The Mexican Cola | Craft Soda for Restaurants, Bars, Hotels">
 <meta name="twitter:description" content="A craft soda with real herbs, spices and 100% natural sugar, made for restaurants, bars and hotels in Thailand. Book a free tasting for your venue.">
 <meta name="twitter:image" content="%SITE_URL%/og-image.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"The Mexican Cola","url":"%SITE_URL%/","logo":"%SITE_URL%/logo.png","email":"hello.themexicancola@gmail.com","telephone":"+66816003343","sameAs":["https://www.instagram.com/themexicancola/"],"areaServed":"TH","slogan":"Happiness without Guilt"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"The Mexican Cola","url":"%SITE_URL%/","logo":"%SITE_URL%/logo.png","email":"hello.themexicancola@gmail.com","telephone":"+66816003343","sameAs":["https://www.instagram.com/themexicancola/","https://www.facebook.com/share/1J7RkeKHLN/"],"areaServed":"TH","slogan":"Happiness without Guilt"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -143,9 +143,6 @@ form,.thanks{background:var(--bg-light);color:var(--text);border-radius:var(--r-
 .field label{color:var(--text)}
 input,textarea,select{font:400 18px/1.5 var(--body);color:var(--text);background:var(--bg-light);border:1px solid var(--line);border-radius:var(--r-medium);padding:var(--s16);width:100%}
 html[lang="th"] input,html[lang="th"] textarea,html[lang="th"] select{font-family:var(--thai)}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.opt{font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-soft)}
-.btn[disabled]{opacity:.6;cursor:wait}
 input::placeholder,textarea::placeholder{color:var(--text-soft);opacity:1}
 .error{color:var(--main);font-size:14px;min-height:0}
 .thanks[hidden],form[hidden]{display:none}
@@ -175,8 +172,8 @@ main[hidden]{display:none}
 .link-card .go{color:var(--main);font-weight:600;margin-top:auto}
 @media (prefers-reduced-motion:reduce){.link-card{transition:none}.link-card:hover{transform:none}}
 .chips{display:flex;flex-wrap:wrap;gap:var(--s8)}
-.chips span{border:1px solid var(--line);background:var(--bg-light);color:var(--text);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
-.chips.light span{background:transparent;color:var(--bg-light)}
+.chips > span{border:1px solid var(--line);background:var(--bg-light);color:var(--text);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
+.chips.light > span{background:transparent;color:var(--bg-light)}
 ul.plain{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:var(--s8)}
 .mini-h{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--main);margin-top:var(--s8)}
 .first-card{border:2px solid var(--main)}
@@ -298,8 +295,8 @@ td.up{color:var(--main);font-weight:700}
 .ch-body h2{font-size:40px}
 .ch-body p{max-width:62ch}
 .flavours{display:flex;gap:var(--s8);flex-wrap:wrap}
-.flavours span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600;color:var(--text-soft);text-decoration:line-through;text-decoration-color:var(--main)}
-.flavours .hero-flavour{background:var(--main);color:var(--bg-light);border-color:var(--main);text-decoration:none}
+.flavours > span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600;color:var(--text-soft);text-decoration:line-through;text-decoration-color:var(--main)}
+.flavours > .hero-flavour{background:var(--main);color:var(--bg-light);border-color:var(--main);text-decoration:none}
 .sign{font-family:var(--display);font-weight:700;color:var(--main)}
 .nikesb-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s16);margin-top:var(--s8)}
 .nikesb-row figure{margin:0}
@@ -380,6 +377,69 @@ td.up{color:var(--main);font-weight:700}
   .btn{white-space:normal}
 }
 @media (max-width:420px){.top .btn{display:none}}
+.mich{display:flex;align-items:center;gap:12px}
+.mich img{width:64px!important;height:64px!important;max-width:none!important;aspect-ratio:1/1!important;object-fit:contain!important;border-radius:10px!important;border:0!important;flex:none}
+.mich.sm img{width:44px!important;height:44px!important;border-radius:8px!important}
+.mich p,.mich span{margin:0}
+.hero figcaption.mich{color:var(--bg-light)}
+.slide-fig{margin:0;display:flex;flex-direction:column;gap:12px;justify-self:end;max-width:300px;width:100%}
+.slide-fig .slide-photo{justify-self:auto}
+
+/* one page per section: links to the other pages */
+.more-pages .grid-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s16)}
+.more-pages a{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--text);background:var(--bg-light);border:1px solid var(--line);border-radius:var(--r-large);padding:var(--s24)}
+.more-pages a:hover{border-color:var(--main)}
+.more-pages a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.more-pages a strong{font-family:var(--display);font-size:20px}
+.more-pages a span.soft{font-size:14px}
+.more-pages a .go{color:var(--main);font-weight:600;font-size:14px;margin-top:var(--s8)}
+.page-cta{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s16)}
+
+/* what's inside */
+.inside .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s48);align-items:start}
+.ingr{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s16)}
+.ingr li{display:grid;grid-template-columns:1fr auto;gap:6px var(--s16);align-items:baseline}
+.ingr .name{font-weight:600}
+.ingr .pct{font-family:var(--display);font-weight:700;font-size:22px;color:var(--main);font-variant-numeric:tabular-nums}
+.ingr .bar{grid-column:1/-1;height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.ingr .bar i{display:block;height:100%;min-width:6px;background:var(--main);border-radius:999px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:var(--s16)}
+.facts .card{padding:var(--s24);gap:var(--s8)}
+.facts .span2{grid-column:1/-1}
+.fact{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.15}
+.fact [lang="th"],html[lang="th"] .fact{font-family:var(--thai);font-size:22px}
+@media (max-width:960px){.inside .wrap{grid-template-columns:1fr}}
+
+/* footer links and legal */
+.foot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,320px));gap:var(--s32);margin-top:var(--s16)}
+.foot-col{display:flex;flex-direction:column;gap:var(--s8)}
+footer .foot-col a{text-decoration:none;font-size:16px}
+footer .foot-col a:hover{text-decoration:underline}
+footer a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.legal{margin-top:var(--s16)}
+.legal details{border-top:1px solid rgba(234,223,211,.25);padding:var(--s16) 0}
+.legal summary{cursor:pointer;font-weight:600}
+.legal .body{display:flex;flex-direction:column;gap:var(--s8);margin-top:var(--s16);max-width:70ch;font-size:15px}
+.legal ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
+@media (max-width:600px){.foot-grid{grid-template-columns:1fr}}
+
+/* page tabs and sub-pages */
+blockquote p.tr{font-size:.85em;color:var(--text-soft)}
+blockquote p.tr small,.ig-quote.tr small{font-size:12px;font-weight:600}
+.ig-quote.tr{font-size:22px;color:var(--text-soft)}
+html[lang="th"] h1,html[lang="th"] h2,html[lang="th"] h3,html[lang="th"] .pull,html[lang="th"] .brave,html[lang="th"] .big-quote p{line-height:1.4}
+.subnav a{font-size:15px}
+.est{display:inline-block;align-self:flex-start;background:var(--accent);color:var(--text);font-size:12px;font-weight:700;padding:2px 8px;border-radius:var(--r-small);letter-spacing:.06em;text-transform:uppercase}
+.nutri td.num-cell{white-space:nowrap}
+.spotlight{padding:var(--s48) 0}
+.spot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s24)}
+.spot{border:2px solid var(--accent);border-radius:var(--r-large);padding:var(--s32);display:flex;flex-direction:column;gap:var(--s16)}
+.spot-icon{color:var(--accent);font-size:28px;line-height:1}
+.spot strong{font-family:var(--display);font-weight:800;font-size:32px;line-height:1.15;color:var(--bg-light)}
+html[lang="th"] .spot strong{font-family:var(--thai);font-weight:700;font-size:26px;line-height:1.4}
+@media (max-width:960px){.spot-grid{grid-template-columns:1fr}.spot strong{font-size:26px}}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.opt{font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-soft)}
 </style>
 <style>
 #mc-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:1000;max-width:720px;margin:0 auto;background:#1B1236;color:#FFF7EC;border:2px solid #FFB400;border-radius:24px;padding:20px 24px;box-shadow:0 8px 32px rgba(27,18,54,.35);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
@@ -407,17 +467,13 @@ footer .cookie-link{color:inherit;text-decoration:underline;cursor:pointer}
       <a class="btn" href="#book"><span lang="en">Book a free tasting</span><span lang="th">จองชิมฟรี</span></a>
     </div>
   </div>
-  <nav class="subnav" aria-label="Sections">
-    <div class="wrap">
-      <a href="#home" data-nav="home"><span lang="en">Landing page</span><span lang="th">หน้าแรก</span></a>
-      <a href="#what-venues-say" data-nav="what-venues-say"><span lang="en">What venues say</span><span lang="th">เสียงจากร้าน</span></a>
-      <a href="#where-to-find-us" data-nav="where-to-find-us"><span lang="en">Where to find us</span><span lang="th">หาเราได้ที่ไหน</span></a>
-      <a href="#why-us" data-nav="why-us"><span lang="en">Why us vs others</span><span lang="th">ทำไมต้องเรา</span></a>
-      <a href="#brand" data-nav="brand"><span lang="en">Brand</span><span lang="th">แบรนด์</span></a>
-      <a href="#pitch-deck" data-nav="pitch-deck"><span lang="en">Pitch deck</span><span lang="th">พิทช์เด็ค</span></a>
-      <a href="#founder-story" data-nav="founder-story"><span lang="en">Founder story</span><span lang="th">เรื่องราวผู้ก่อตั้ง</span></a>
-    </div>
-  </nav>
+  <nav class="subnav" aria-label="Pages"><div class="wrap">
+    <a href="#home"><span lang="en">Home</span><span lang="th">หน้าแรก</span></a>
+    <a href="#venues"><span lang="en">What venues say</span><span lang="th">เสียงจากร้าน</span></a>
+    <a href="#find-us"><span lang="en">Where to find us</span><span lang="th">หาเราได้ที่ไหน</span></a>
+    <a href="#nutrition"><span lang="en">Nutrition</span><span lang="th">โภชนาการ</span></a>
+    <a href="#story"><span lang="en">Founder story</span><span lang="th">เรื่องราวผู้ก่อตั้ง</span></a>
+  </div></nav>
 </header>
 
 <main id="top" data-view="home">
@@ -426,15 +482,15 @@ footer .cookie-link{color:inherit;text-decoration:underline;cursor:pointer}
   <div class="wrap">
     <div class="stack">
       <span class="tag label"><span lang="en">Built for the Thai hospitality industry</span><span lang="th">สร้างมาเพื่อธุรกิจโรงแรมและร้านอาหารในไทย</span></span>
-      <h1 lang="en">Your guests will ask: “What is this?”</h1>
-      <h1 lang="th">ลูกค้าจะถามว่า “อันนี้คืออะไร?”</h1>
+      <h1 lang="en">A cola you have never tasted before.</h1>
+      <h1 lang="th">โคล่าที่คุณไม่เคยลองมาก่อน</h1>
       <p class="lead" lang="en">A cola with real herbs, spices and 100% natural sugar. For restaurants, bars and hotels in Thailand that want a drinks menu guests remember.</p>
       <p class="lead" lang="th">โคล่าจากสมุนไพรและเครื่องเทศแท้ น้ำตาลธรรมชาติ 100% สำหรับร้านอาหาร บาร์ และโรงแรมในไทยที่อยากมีเมนูเครื่องดื่มให้ลูกค้าจำได้</p>
       <a class="btn" href="#book"><span lang="en">Book a free tasting</span><span lang="th">จองชิมฟรี</span></a>
     </div>
     <figure>
       <img src="delia.jpg" alt="A bottle of The Mexican Cola held up outside Delia Mexican Eatery" width="800" height="1000" fetchpriority="high" decoding="async">
-      <figcaption><span lang="en"><b>At Delia</b>, a Mexican restaurant that reordered.</span><span lang="th"><b>ที่ร้าน Delia</b> ร้านอาหารเม็กซิกันที่สั่งซ้ำ</span></figcaption>
+      <figcaption class="mich"><img src="michelin-guide.png" alt="MICHELIN Guide 2026" width="64" height="64"><span><span lang="en"><b>At Delia</b>, a Mexican restaurant in the MICHELIN Guide Thailand that reordered.</span><span lang="th"><b>ที่ร้าน Delia</b> ร้านอาหารเม็กซิกันในมิชลิน ไกด์ ประเทศไทย ที่สั่งซ้ำ</span></span></figcaption>
     </figure>
   </div>
 </section>
@@ -445,8 +501,8 @@ footer .cookie-link{color:inherit;text-decoration:underline;cursor:pointer}
     <span class="label main"><span lang="en">The problem</span><span lang="th">ปัญหา</span></span>
     <h2 lang="en">Every menu in town has the same cola.</h2>
     <h2 lang="th">ทุกร้านเสิร์ฟโคล่าแบบเดียวกัน</h2>
-    <p class="soft lead" lang="en">Coke, Pepsi, Fever-Tree, Schweppes. The same four brands sit next to your authentic food. Guests have nothing to remember.</p>
-    <p class="soft lead" lang="th">โค้ก เป๊ปซี่ ฟีเวอร์-ทรี ชเวปส์ สี่แบรนด์เดิมวางอยู่ข้างอาหารแท้ๆ ของคุณ ลูกค้าจึงไม่มีอะไรให้จำ</p>
+    <p class="soft lead" lang="en">The same big soda brands sit next to your authentic food. Guests have nothing to remember.</p>
+    <p class="soft lead" lang="th">โซดาแบรนด์ใหญ่แบบเดิมๆ วางอยู่ข้างอาหารแท้ๆ ของคุณ ลูกค้าจึงไม่มีอะไรให้จำ</p>
     <blockquote>
       <p lang="en">“Sucralose is gross. It has a disgusting aftertaste.”</p>
       <p lang="th">“ซูคราโลสแย่มาก รสที่ค้างในปากน่ารังเกียจ”</p>
@@ -549,26 +605,26 @@ footer .cookie-link{color:inherit;text-decoration:underline;cursor:pointer}
     <div class="stack" style="gap:var(--s32)">
       <h2 lang="en">Start with a free tasting.</h2><h2 lang="th">เริ่มด้วยการชิมฟรี</h2>
       <div class="prices">
-        <div class="num"><strong>฿1,320</strong><span lang="en">A case of 24 bottles</span><span lang="th">ต่อลัง 24 ขวด</span></div>
-        <div class="num"><strong>฿55</strong><span lang="en">A bottle, or ฿49 from 10 cases</span><span lang="th">ต่อขวด หรือ ฿49 เมื่อสั่ง 10 ลังขึ้นไป</span></div>
-        <div class="num"><strong>฿95–180</strong><span lang="en">What venues charge guests a bottle. Cholos sells it for ฿129.</span><span lang="th">ราคาที่ร้านขายให้ลูกค้าต่อขวด Cholos ขายขวดละ ฿129</span></div>
+        <div class="num"><strong>1</strong><span lang="en">Case to start. 24 bottles.</span><span lang="th">ลังก็เริ่มได้ (24 ขวด)</span></div>
+        <div class="num"><strong lang="en">Free</strong><strong lang="th">ฟรี</strong><span lang="en">Delivery</span><span lang="th">ค่าจัดส่ง</span></div>
+        <div class="num"><strong lang="en">Free</strong><strong lang="th">ฟรี</strong><span lang="en">Posters and table stands for your venue</span><span lang="th">โปสเตอร์และป้ายตั้งโต๊ะสำหรับร้านคุณ</span></div>
       </div>
-      <p class="soft" lang="en">Minimum order: 1 case. Free delivery. Consignment is an option. Free posters and table stands, designed for your venue.</p>
-      <p class="soft" lang="th">สั่งขั้นต่ำ 1 ลัง ส่งฟรี มีแบบฝากขายให้เลือก พร้อมโปสเตอร์และป้ายตั้งโต๊ะฟรี ออกแบบให้เข้ากับร้านของคุณ</p>
+      <p class="soft" lang="en">We share our trade prices at your free tasting or in a meeting. Consignment is an option.</p>
+      <p class="soft" lang="th">เราแจ้งราคาส่งให้ตอนชิมฟรีหรือตอนนัดคุย มีแบบฝากขายให้เลือก</p>
       <a class="btn" href="#book"><span lang="en">Book a free tasting</span><span lang="th">จองชิมฟรี</span></a>
     </div>
-    <img src="bottle-bar.jpg" alt="A cold bottle of The Mexican Cola on a marble bar" width="800" height="1000" loading="lazy" decoding="async">
+    <img src="bottle-bar.jpg" alt="A cold bottle of The Mexican Cola on a marble bar" width="800" height="1000">
   </div>
 </section>
 
 <!-- 09 Questions and worries -->
-<section style="padding-top:0">
+<section id="faq" style="padding-top:0">
   <div class="wrap stack" style="gap:var(--s48)">
     <h2 lang="en">Questions before you say yes.</h2><h2 lang="th">คำถามก่อนตัดสินใจ</h2>
     <div class="faq">
       <div class="card"><h3 lang="en">“We already have drinks sorted.”</h3><h3 lang="th">“เรามีเครื่องดื่มครบแล้ว”</h3><p lang="en">Keep them. Add one cola guests ask about, from just 1 case.</p><p lang="th">เก็บไว้เหมือนเดิมได้เลย แค่เพิ่มโคล่าที่ลูกค้าถามถึง เริ่มแค่ 1 ลัง</p></div>
       <div class="card"><h3 lang="en">“We're happy with our current cola.”</h3><h3 lang="th">“เราพอใจกับโคล่าที่ใช้อยู่”</h3><p lang="en">Taste them side by side at the free tasting. Then decide.</p><p lang="th">ลองชิมเทียบกันตอนชิมฟรี แล้วค่อยตัดสินใจ</p></div>
-      <div class="card"><h3 lang="en">“Is it cheaper elsewhere?”</h3><h3 lang="th">“ที่อื่นถูกกว่าไหม?”</h3><p lang="en">A bottle costs you ฿55, or ฿49 from 10 cases. Venues sell it for ฿95–180.</p><p lang="th">ต้นทุนขวดละ ฿55 หรือ ฿49 เมื่อสั่ง 10 ลังขึ้นไป ร้านขายได้ขวดละ ฿95–180</p></div>
+      <div class="card"><h3 lang="en">“What does it cost?”</h3><h3 lang="th">“ราคาเท่าไหร่?”</h3><p lang="en">We share our trade prices at your free tasting or in a meeting. You can start with 1 case.</p><p lang="th">เราแจ้งราคาส่งให้ตอนชิมฟรีหรือตอนนัดคุย เริ่มได้ตั้งแต่ 1 ลัง</p></div>
       <div class="card"><h3 lang="en">“What if it doesn't sell?”</h3><h3 lang="th">“ถ้าขายไม่ออกล่ะ?”</h3><p lang="en">Consignment is an option, so you do not carry the risk. Cholos sold out its first order in weeks.</p><p lang="th">มีแบบฝากขายให้เลือก คุณจึงไม่ต้องแบกความเสี่ยง Cholos ขายออร์เดอร์แรกหมดในไม่กี่สัปดาห์</p></div>
       <div class="card"><h3 lang="en">“Can you send me some info?”</h3><h3 lang="th">“ส่งข้อมูลมาให้ได้ไหม?”</h3><p lang="en">Yes. Leave your email below, or call +66 81 600 3343.</p><p lang="th">ได้ ฝากอีเมลไว้ด้านล่าง หรือโทร +66 81 600 3343</p></div>
       <div class="card"><h3 lang="en">“What do we get besides the cola?”</h3><h3 lang="th">“นอกจากโคล่าแล้วได้อะไรอีก?”</h3><p lang="en">Free posters and table stands, designed for your venue with your logo next to ours. See them at Cholos, Catrika, Kha and Sala Burger.</p><p lang="th">โปสเตอร์และป้ายตั้งโต๊ะฟรี ออกแบบให้ร้านของคุณ มีโลโก้ร้านคู่กับโลโก้เรา ดูตัวอย่างได้ที่ Cholos, Catrika, Kha และ Sala Burger</p></div>
@@ -603,503 +659,329 @@ footer .cookie-link{color:inherit;text-decoration:underline;cursor:pointer}
   </div>
 </section>
 
-<!-- Links to more pages -->
-<section>
+<section class="more-pages">
   <div class="wrap stack" style="gap:var(--s32)">
     <span class="label main"><span lang="en">More about us</span><span lang="th">เพิ่มเติม</span></span>
-    <div class="more-grid">
-      <a class="card link-card" href="#what-venues-say"><span class="tag label">Voices</span><h3>What venues say</h3><p class="soft">Interview quotes and Instagram posts.</p><span class="go">Open →</span></a>
-      <a class="card link-card" href="#where-to-find-us"><span class="tag label">Venues</span><h3>Where to find us</h3><p class="soft">Over 30 venues in 5 cities.</p><span class="go">Open →</span></a>
-      <a class="card link-card" href="#why-us"><span class="tag label">Compare</span><h3>Why us vs others</h3><p class="soft">Us next to Coca-Cola, Fever-Tree and Fentimans.</p><span class="go">Open →</span></a>
-      <a class="card link-card" href="#brand"><span class="tag label">Brand</span><h3>Brand</h3><p class="soft">Our colours, fonts, words and photos.</p><span class="go">Open →</span></a>
-      <a class="card link-card" href="#pitch-deck"><span class="tag label">Pitch deck</span><h3>Our story in 10 slides</h3><p class="soft">Problem, traction, market, and the intros we ask for.</p><span class="go">Open →</span></a>
-      <a class="card link-card" href="#founder-story"><span class="tag label">Founder story</span><h3>From sneakers to soda</h3><p class="soft">How a Nike SB drop led to our own cola, in one year.</p><span class="go">Open →</span></a>
-    </div>
+    <div class="grid-links"><a href="#venues"><strong><span lang="en">What venues say</span><span lang="th">เสียงจากร้าน</span></strong><span class="soft">Interview quotes and Instagram posts.</span><span class="go">Open →</span></a><a href="#find-us"><strong><span lang="en">Where to find us</span><span lang="th">หาเราได้ที่ไหน</span></strong><span class="soft">Over 30 venues in 5 cities.</span><span class="go">Open →</span></a><a href="#nutrition"><strong><span lang="en">Nutrition</span><span lang="th">โภชนาการ</span></strong><span class="soft">Ingredients and nutrition facts.</span><span class="go">Open →</span></a><a href="#story"><strong><span lang="en">Founder story</span><span lang="th">เรื่องราวผู้ก่อตั้ง</span></strong><span class="soft">From sneakers to soda, in one year.</span><span class="go">Open →</span></a></div>
   </div>
 </section>
 </main>
 
-<!-- WHAT VENUES SAY -->
-<main data-view="what-venues-say" hidden>
+<!-- PAGE: What venues say -->
+<main data-view="venues" hidden>
   <section class="dark page-head">
     <div class="wrap stack">
-      <span class="label accent-text">What venues say</span>
-      <h1>In their own words.</h1>
-      <p class="lead">From video interviews and Instagram posts by venues that stock The Mexican Cola.</p>
-      <p class="small th-note" lang="th">ส่วนนี้มีเฉพาะภาษาอังกฤษ</p>
+      <span class="label accent-text"><span lang="en">What venues say</span><span lang="th">เสียงจากร้าน</span></span>
+      <h1><span lang="en">In their own words.</span><span lang="th">จากปากของพวกเขาเอง</span></h1>
+      <p class="lead"><span lang="en">From video interviews and Instagram posts by venues that stock The Mexican Cola.</span><span lang="th">จากวิดีโอสัมภาษณ์และโพสต์อินสตาแกรมของร้านที่มี The Mexican Cola</span></p>
     </div>
   </section>
   <section>
     <div class="wrap stack" style="gap:var(--s48)">
       <div class="grid2 voices">
         <article class="card">
-          <span class="tag label">Mexican restaurant group</span>
-          <h3>Cholos, co-founder</h3>
-          <blockquote><p>“Our first order sold out in less than a few weeks.”</p></blockquote>
-          <blockquote><p>“Goes amazingly with tacos, and it's something that Bangkok I don't think has seen yet.”</p></blockquote>
-          <blockquote><p>“Great quality drinks is something that we always been looking for.”</p></blockquote>
-          <p class="who">Video interview, 28.09.2026</p>
+          <span class="tag label"><span lang="en">Mexican restaurant group</span><span lang="th">กลุ่มร้านอาหารเม็กซิกัน</span></span>
+          <h3><span lang="en">Cholos, co-founder</span><span lang="th">Cholos ผู้ร่วมก่อตั้ง</span></h3>
+          <blockquote><p>“Our first order sold out in less than a few weeks.”</p><p lang="th" class="tr">“ออร์เดอร์แรกขายหมดภายในไม่กี่สัปดาห์” <small>(แปล)</small></p></blockquote>
+          <blockquote><p>“Goes amazingly with tacos, and it's something that Bangkok I don't think has seen yet.”</p><p lang="th" class="tr">“เข้ากับทาโก้ได้ดีมาก และผมคิดว่ากรุงเทพฯ ยังไม่เคยมีอะไรแบบนี้มาก่อน” <small>(แปล)</small></p></blockquote>
+          <blockquote><p>“Great quality drinks is something that we always been looking for.”</p><p lang="th" class="tr">“เครื่องดื่มคุณภาพดีคือสิ่งที่เรามองหามาตลอด” <small>(แปล)</small></p></blockquote>
+          <p class="who"><span lang="en">Video interview, 28.09.2026</span><span lang="th">วิดีโอสัมภาษณ์ 28.09.2026</span></p>
         </article>
         <article class="card">
-          <span class="tag label">Organic, health-focused restaurant</span>
-          <h3>Matti's, owner</h3>
-          <blockquote><p>“We see that Mexican cola uses natural ingredients and natural sugars, no artificial sweetness and uses natural spices, which align with our concept.”</p></blockquote>
-          <blockquote><p>“It could fit a pretty wide range, from adults to kids.”</p></blockquote>
-          <p class="who">Video interview, 03.11.2026</p>
+          <span class="tag label"><span lang="en">Organic, health-focused restaurant</span><span lang="th">ร้านอาหารออร์แกนิกเพื่อสุขภาพ</span></span>
+          <h3><span lang="en">Matti's, owner</span><span lang="th">Matti's เจ้าของร้าน</span></h3>
+          <blockquote><p>“We see that Mexican cola uses natural ingredients and natural sugars, no artificial sweetness and uses natural spices, which align with our concept.”</p><p lang="th" class="tr">“เราเห็นว่า Mexican Cola ใช้วัตถุดิบธรรมชาติและน้ำตาลธรรมชาติ ไม่มีความหวานเทียม และใช้เครื่องเทศธรรมชาติ ซึ่งตรงกับคอนเซปต์ของเรา” <small>(แปล)</small></p></blockquote>
+          <blockquote><p>“It could fit a pretty wide range, from adults to kids.”</p><p lang="th" class="tr">“เหมาะกับลูกค้าหลากหลาย ตั้งแต่ผู้ใหญ่ไปจนถึงเด็ก” <small>(แปล)</small></p></blockquote>
+          <p class="who"><span lang="en">Video interview, 03.11.2026</span><span lang="th">วิดีโอสัมภาษณ์ 03.11.2026</span></p>
         </article>
         <article class="card">
-          <span class="tag label">Burger restaurant</span>
-          <h3>Sala Burger, owner</h3>
-          <blockquote><p>“ฟีดแบกของลูกค้าค่อนข้างดี ดีมากๆเลยครับ”</p><cite>Customer feedback has been really good, very good.</cite></blockquote>
-          <blockquote><p>“first impression ลูกค้าจะถามก่อนแล้วว่า อันนี้คืออะไร”</p><cite>On first impression, customers first ask: what is this?</cite></blockquote>
-          <p class="who">Video interview in Thai, 08.09.2026</p>
+          <span class="tag label"><span lang="en">Burger restaurant</span><span lang="th">ร้านเบอร์เกอร์</span></span>
+          <h3><span lang="en">Sala Burger, owner</span><span lang="th">Sala Burger เจ้าของร้าน</span></h3>
+          <blockquote><p>“ฟีดแบกของลูกค้าค่อนข้างดี ดีมากๆเลยครับ”</p><cite lang="en">Customer feedback has been really good, very good.</cite></blockquote>
+          <blockquote><p>“first impression ลูกค้าจะถามก่อนแล้วว่า อันนี้คืออะไร”</p><cite lang="en">On first impression, customers first ask: what is this?</cite></blockquote>
+          <p class="who"><span lang="en">Video interview in Thai, 08.09.2026</span><span lang="th">วิดีโอสัมภาษณ์ภาษาไทย 08.09.2026</span></p>
         </article>
         <article class="card">
-          <span class="tag label">Hotel bar</span>
-          <h3>Trans Blue Bar, bar manager</h3>
-          <blockquote><p>“The herbs … cinnamon … make it different from the ordinary soft drinks on the market.”</p></blockquote>
-          <blockquote><p>“We can use it as a mixer, and it gives our drinks more dimension, in cocktails or with spirits.”</p></blockquote>
-          <p class="who">Video interview in Thai, translated, 09.11.2026</p>
+          <span class="tag label"><span lang="en">Hotel bar</span><span lang="th">บาร์ในโรงแรม</span></span>
+          <h3><span lang="en">Trans Blue Bar, bar manager</span><span lang="th">Trans Blue Bar ผู้จัดการบาร์</span></h3>
+          <blockquote><p>“The herbs … cinnamon … make it different from the ordinary soft drinks on the market.”</p><p lang="th" class="tr">“สมุนไพร … อบเชย … ทำให้แตกต่างจากน้ำอัดลมทั่วไปในตลาด” <small>(แปล)</small></p></blockquote>
+          <blockquote><p>“We can use it as a mixer, and it gives our drinks more dimension, in cocktails or with spirits.”</p><p lang="th" class="tr">“เราใช้เป็นมิกเซอร์ได้ และช่วยให้เครื่องดื่มของเรามีมิติมากขึ้น ทั้งในค็อกเทลและกับสปิริต” <small>(แปล)</small></p></blockquote>
+          <p class="who"><span lang="en">Video interview in Thai, translated, 09.11.2026</span><span lang="th">วิดีโอสัมภาษณ์ภาษาไทย 09.11.2026</span></p>
         </article>
       </div>
       <div class="stack">
-        <span class="label main">On Instagram</span>
+        <span class="label main"><span lang="en">On Instagram</span><span lang="th">บนอินสตาแกรม</span></span>
         <div class="grid2">
-          <div class="card ig"><p class="ig-quote">“Our cola is better than yours.”</p><p class="who">Cholos, on its own Instagram, 29.09.2026</p></div>
-          <div class="card ig"><p class="ig-quote">“What's a better match than American burger and Mexican cola?”</p><p class="who">Daddy Chill Burger, on its own Instagram, 09.08.2026</p></div>
+          <div class="card ig"><p class="ig-quote">“Our cola is better than yours.”</p><p class="ig-quote tr" lang="th">“โคล่าของเราดีกว่าของคุณ” <small>(แปล)</small></p><p class="who"><span lang="en">Cholos, on its own Instagram, 29.09.2026</span><span lang="th">Cholos บนอินสตาแกรมของร้าน 29.09.2026</span></p></div>
+          <div class="card ig"><p class="ig-quote">“What's a better match than American burger and Mexican cola?”</p><p class="ig-quote tr" lang="th">“มีอะไรเข้ากันได้ดีกว่าเบอร์เกอร์อเมริกันกับโคล่าเม็กซิกันอีกไหม?” <small>(แปล)</small></p><p class="who"><span lang="en">Daddy Chill Burger, on its own Instagram, 09.08.2026</span><span lang="th">Daddy Chill Burger บนอินสตาแกรมของร้าน 09.08.2026</span></p></div>
         </div>
       </div>
       <div class="card wide event">
-        <span class="tag label">Event</span>
-        <h3>Día de los Muertos with Cholos</h3>
-        <p>A night at three Cholos locations in Bangkok, with limited Mexican Cola cocktails. 01.11.2026.</p>
+        <span class="tag label"><span lang="en">Event</span><span lang="th">อีเวนต์</span></span>
+        <h3><span lang="en">Día de los Muertos with Cholos</span><span lang="th">Día de los Muertos กับ Cholos</span></h3>
+        <p><span lang="en">A night at three Cholos locations in Bangkok, with limited Mexican Cola cocktails. 01.11.2026.</span><span lang="th">ค่ำคืนพิเศษที่ Cholos 3 สาขาในกรุงเทพฯ พร้อมค็อกเทล Mexican Cola แบบลิมิเต็ด 01.11.2026</span></p>
       </div>
-      <p class="small soft">Sources: Notion knowledge base pages “What do venue owners say in our interview videos?” and “What do venues say about us on Instagram?” (11.11.2026). Interviews were machine-transcribed. Thai lines are shown as spoken, with a translation.</p>
+      <p class="small soft"><span lang="en">Sources: our interview videos and venues' Instagram posts (11.11.2026). Interviews were machine-transcribed. Thai lines are shown as spoken, with a translation.</span><span lang="th">ที่มา: วิดีโอสัมภาษณ์และโพสต์อินสตาแกรมของร้าน (11.11.2026) บทสัมภาษณ์ถอดความด้วยเครื่อง ประโยคภาษาไทยแสดงตามที่พูดจริง ประโยคที่มีป้าย (แปล) เป็นคำแปลของเรา</span></p>
+      <a class="btn" href="#book"><span lang="en">Book a free tasting</span><span lang="th">จองชิมฟรี</span></a>
     </div>
   </section>
 </main>
 
-<!-- WHERE TO FIND US -->
-<main data-view="where-to-find-us" hidden>
+<!-- PAGE: Where to find us -->
+<main data-view="find-us" hidden>
   <section class="dark page-head">
     <div class="wrap stack">
-      <span class="label accent-text">Where to find us</span>
-      <h1>Pouring at over 30 venues across Thailand.</h1>
-      <div class="chips light"><span>Bangkok</span><span>Pattaya</span><span>Hua Hin</span><span>Koh Samui</span><span>Phuket</span></div>
-      <p class="small th-note" lang="th">ส่วนนี้มีเฉพาะภาษาอังกฤษ</p>
+      <span class="label accent-text"><span lang="en">Where to find us</span><span lang="th">หาเราได้ที่ไหน</span></span>
+      <h1><span lang="en">Pouring at over 30 venues across Thailand.</span><span lang="th">เสิร์ฟแล้วกว่า 30 ร้านทั่วประเทศไทย</span></h1>
+      <div class="chips light"><span><span lang="en">Bangkok</span><span lang="th">กรุงเทพฯ</span></span><span><span lang="en">Pattaya</span><span lang="th">พัทยา</span></span><span><span lang="en">Hua Hin</span><span lang="th">หัวหิน</span></span><span><span lang="en">Koh Samui</span><span lang="th">เกาะสมุย</span></span><span><span lang="en">Phuket</span><span lang="th">ภูเก็ต</span></span></div>
     </div>
   </section>
   <section>
     <div class="wrap stack" style="gap:var(--s48)">
       <div class="stack">
-        <span class="label main">Featured venues</span>
-        <p class="soft lead">Venues that have shown The Mexican Cola on their own pages or in posts with us.</p>
+        <span class="label main"><span lang="en">Featured venues</span><span lang="th">ร้านเด่น</span></span>
+        <p class="soft lead"><span lang="en">Venues that have shown The Mexican Cola on their own pages or in posts with us.</span><span lang="th">ร้านที่โชว์ The Mexican Cola บนเพจของตัวเอง หรือในโพสต์ร่วมกับเรา</span></p>
       </div>
       <div class="grid3">
-        <article class="card venue"><img src="v-cholos.jpg" alt="The Mexican Cola at the Cholos bar" class="venue-photo" loading="lazy" decoding="async"><span class="tag label">Mexican restaurant group</span><h3>Cholos</h3><p>Four branches, including Bangkok and Pattaya. Has reordered.</p></article>
-        <article class="card venue"><img src="delia.jpg" alt="The Mexican Cola outside Delia" class="venue-photo" loading="lazy" decoding="async"><span class="tag label">Mexican restaurant</span><h3>Delia</h3><p>Bangkok. A Mexican eatery that has reordered.</p></article>
-        <article class="card venue"><img src="v-trans-blue-bar.jpg" alt="The Mexican Cola at Trans Blue Bar" class="venue-photo" loading="lazy" decoding="async"><span class="tag label">Hotel bar</span><h3>Trans Blue Bar</h3><p>Asoke, Bangkok. Uses it on its own and as a mixer.</p></article>
-        <article class="card venue"><img src="v-daddy-chill.jpg" alt="The Mexican Cola at Daddy Chill Burger" class="venue-photo" loading="lazy" decoding="async"><span class="tag label">Burger restaurant</span><h3>Daddy Chill Burger</h3><p>Bangkok. Serves it in a burger, fries and Mexican Cola combo.</p></article>
-        <article class="card venue"><img src="v-sala-burger.jpg" alt="The Mexican Cola at Sala Burger" class="venue-photo" loading="lazy" decoding="async"><span class="tag label">Burger restaurant</span><h3>Sala Burger</h3><p>Bangkok. “Customers first ask: what is this?”</p></article>
-        <article class="card venue"><img src="v-mattis.jpg" alt="Matti's x Mexican Cola poster" class="venue-photo" loading="lazy" decoding="async"><span class="tag label">Organic restaurant</span><h3>Matti's</h3><p>Bangkok. An organic farm restaurant that chose it for natural ingredients.</p></article>
-        <article class="card venue"><img src="v-kha-poster.jpg" alt="A Mexican Cola poster at Kha Gastrobar" class="venue-photo" loading="lazy" decoding="async"><span class="tag label">Gastrobar</span><h3>Kha Gastrobar</h3><p>Bangkok. On its own, with Kha's food, and behind the bar as a mixer.</p></article>
+        <article class="card venue"><img src="v-cholos.jpg" alt="The Mexican Cola at the Cholos bar" class="venue-photo" loading="lazy"><span class="tag label"><span lang="en">Mexican restaurant group</span><span lang="th">กลุ่มร้านอาหารเม็กซิกัน</span></span><h3>Cholos</h3><p><span lang="en">Four branches, including Bangkok and Pattaya.</span><span lang="th">4 สาขา รวมถึงกรุงเทพฯ และพัทยา</span></p></article>
+        <article class="card venue"><img src="delia.jpg" alt="The Mexican Cola outside Delia" class="venue-photo" loading="lazy"><span class="tag label"><span lang="en">Mexican restaurant</span><span lang="th">ร้านอาหารเม็กซิกัน</span></span><h3>Delia</h3><p><span lang="en">Bangkok. A Mexican eatery.</span><span lang="th">กรุงเทพฯ ร้านอาหารเม็กซิกัน</span></p><div class="mich sm"><img src="michelin-guide.png" alt="MICHELIN Guide 2026" width="64" height="64"><p class="small"><b><span lang="en">In the MICHELIN Guide Thailand</span><span lang="th">อยู่ในมิชลิน ไกด์ ประเทศไทย</span></b></p></div></article>
+        <article class="card venue"><img src="v-trans-blue-bar.jpg" alt="The Mexican Cola at Trans Blue Bar" class="venue-photo" loading="lazy"><span class="tag label"><span lang="en">Hotel bar</span><span lang="th">บาร์ในโรงแรม</span></span><h3>Trans Blue Bar</h3><p><span lang="en">Asoke, Bangkok. Uses it on its own and as a mixer.</span><span lang="th">อโศก กรุงเทพฯ เสิร์ฟทั้งแบบดื่มเปล่าและเป็นมิกเซอร์</span></p></article>
+        <article class="card venue"><img src="v-daddy-chill.jpg" alt="The Mexican Cola at Daddy Chill Burger" class="venue-photo" loading="lazy"><span class="tag label"><span lang="en">Burger restaurant</span><span lang="th">ร้านเบอร์เกอร์</span></span><h3>Daddy Chill Burger</h3><p><span lang="en">Bangkok. Serves it in a burger, fries and Mexican Cola combo.</span><span lang="th">กรุงเทพฯ เสิร์ฟในชุดคอมโบ เบอร์เกอร์ เฟรนช์ฟรายส์ และ Mexican Cola</span></p></article>
+        <article class="card venue"><img src="v-sala-burger.jpg" alt="The Mexican Cola at Sala Burger" class="venue-photo" loading="lazy"><span class="tag label"><span lang="en">Burger restaurant</span><span lang="th">ร้านเบอร์เกอร์</span></span><h3>Sala Burger</h3><p><span lang="en">Bangkok. “Customers first ask: what is this?”</span><span lang="th">กรุงเทพฯ “ลูกค้าจะถามก่อนเลยว่า อันนี้คืออะไร”</span></p></article>
+        <article class="card venue"><img src="v-mattis.jpg" alt="Matti's x Mexican Cola poster" class="venue-photo" loading="lazy"><span class="tag label"><span lang="en">Organic restaurant</span><span lang="th">ร้านอาหารออร์แกนิก</span></span><h3>Matti's</h3><p><span lang="en">Bangkok. An organic farm restaurant that chose it for natural ingredients.</span><span lang="th">กรุงเทพฯ ร้านอาหารออร์แกนิกจากฟาร์ม ที่เลือกเราเพราะวัตถุดิบธรรมชาติ</span></p></article>
+        <article class="card venue"><img src="v-kha-poster.jpg" alt="A Mexican Cola poster at Kha Gastrobar" class="venue-photo" loading="lazy"><span class="tag label"><span lang="en">Gastrobar</span><span lang="th">แกสโตรบาร์</span></span><h3>Kha Gastrobar</h3><p><span lang="en">Bangkok. On its own, with Kha's food, and behind the bar as a mixer.</span><span lang="th">กรุงเทพฯ ดื่มเปล่า ทานคู่กับอาหารของ Kha และใช้เป็นมิกเซอร์หลังบาร์</span></p></article>
       </div>
       <div class="stack">
-        <span class="label main">Spotted at our venues</span>
+        <span class="label main"><span lang="en">Spotted at our venues</span><span lang="th">พบได้ที่ร้านของเรา</span></span>
         <div class="gallery">
           <figure><img src="v-cholos.jpg" alt="The Mexican Cola at the Cholos bar" width="600" height="750" loading="lazy"><figcaption>Cholos</figcaption></figure>
-          <figure><img src="v-cholos-tag.jpg" alt="A Mexican Cola x Cholos bottle tag" width="600" height="750" loading="lazy"><figcaption>Cholos: our co-branded bottle tag</figcaption></figure>
-          <figure><img src="v-cholos-fridge.jpg" alt="Mexican Cola poster on a fridge at Cholos Sukhumvit" width="600" height="750" loading="lazy"><figcaption>Our poster on the fridge at Cholos Sukhumvit</figcaption></figure>
+          <figure><img src="v-cholos-tag.jpg" alt="A Mexican Cola x Cholos bottle tag" width="600" height="750" loading="lazy"><figcaption><span lang="en">Cholos: our co-branded bottle tag</span><span lang="th">Cholos: ป้ายห้อยขวดร่วมแบรนด์ของเรา</span></figcaption></figure>
+          <figure><img src="v-cholos-fridge.jpg" alt="Mexican Cola poster on a fridge at Cholos Sukhumvit" width="600" height="750" loading="lazy"><figcaption><span lang="en">Our poster on the fridge at Cholos Sukhumvit</span><span lang="th">โปสเตอร์ของเราบนตู้เย็นที่ Cholos สุขุมวิท</span></figcaption></figure>
           <figure><img src="v-trans-blue-bar.jpg" alt="The Mexican Cola at Trans Blue Bar" width="600" height="750" loading="lazy"><figcaption>Trans Blue Bar</figcaption></figure>
           <figure><img src="fs-lamaya.jpg" alt="The Mexican Cola at Lamaya" width="600" height="750" loading="lazy"><figcaption>Lamaya</figcaption></figure>
           <figure><img src="delia.jpg" alt="The Mexican Cola outside Delia" width="600" height="750" loading="lazy"><figcaption>Delia</figcaption></figure>
-          <figure><img src="v-catrika.jpg" alt="A Mexican Cola table card outside Catrika" width="600" height="750" loading="lazy"><figcaption>Catrika: our table card</figcaption></figure>
-          <figure><img src="v-kha-poster.jpg" alt="A Mexican Cola poster in the Kha Gastrobar window" width="600" height="750" loading="lazy"><figcaption>Kha Gastrobar: our window poster</figcaption></figure>
-          <figure><img src="v-sala-burger.jpg" alt="The Mexican Cola and a table card at Sala Burger" width="600" height="750" loading="lazy"><figcaption>Sala Burger: our counter display</figcaption></figure>
+          <figure><img src="v-catrika.jpg" alt="A Mexican Cola table card outside Catrika" width="600" height="750" loading="lazy"><figcaption><span lang="en">Catrika: our table card</span><span lang="th">Catrika: ป้ายตั้งโต๊ะของเรา</span></figcaption></figure>
+          <figure><img src="v-kha-poster.jpg" alt="A Mexican Cola poster in the Kha Gastrobar window" width="600" height="750" loading="lazy"><figcaption><span lang="en">Kha Gastrobar: our window poster</span><span lang="th">Kha Gastrobar: โปสเตอร์ที่หน้าต่างร้าน</span></figcaption></figure>
+          <figure><img src="v-sala-burger.jpg" alt="The Mexican Cola and a table card at Sala Burger" width="600" height="750" loading="lazy"><figcaption><span lang="en">Sala Burger: our counter display</span><span lang="th">Sala Burger: ป้ายบนเคาน์เตอร์</span></figcaption></figure>
           <figure><img src="v-taco-and-tango.jpg" alt="The Mexican Cola at Taco and Tango" width="600" height="750" loading="lazy"><figcaption>Taco and Tango</figcaption></figure>
-          <figure><img src="v-daddy-chill.jpg" alt="The Mexican Cola and a table card at Daddy Chill Burger" width="600" height="750" loading="lazy"><figcaption>Daddy Chill Burger: our table card</figcaption></figure>
-          <figure><img src="v-mattis.jpg" alt="Matti's BKK x Mexican Cola launch poster" width="600" height="750" loading="lazy"><figcaption>Matti's: our launch poster</figcaption></figure>
+          <figure><img src="v-daddy-chill.jpg" alt="The Mexican Cola and a table card at Daddy Chill Burger" width="600" height="750" loading="lazy"><figcaption><span lang="en">Daddy Chill Burger: our table card</span><span lang="th">Daddy Chill Burger: ป้ายตั้งโต๊ะของเรา</span></figcaption></figure>
+          <figure><img src="v-mattis.jpg" alt="Matti's BKK x Mexican Cola launch poster" width="600" height="750" loading="lazy"><figcaption><span lang="en">Matti's: our launch poster</span><span lang="th">Matti's: โปสเตอร์เปิดตัวของเรา</span></figcaption></figure>
         </div>
       </div>
       <div class="stack">
-        <span class="label main">Every venue on our list</span>
+        <span class="label main"><span lang="en">Every venue on our list</span><span lang="th">ร้านทั้งหมดในรายชื่อของเรา</span></span>
         <div class="city-grid">
-          <div class="card city-bkk"><h3>Bangkok</h3><ul class="plain small cols"><li>Cholos (3 branches)</li><li>Delia</li><li>Trans Blue Bar, Asoke</li><li>Daddy Chill Burger</li><li>Sala Burger</li><li>Matti's</li><li>Kha Gastrobar</li><li>Taco and Tango</li><li>Catrika</li><li>Santiaga</li><li>Frickin' Fried Chicken</li><li>Tree House Social</li><li>Lamaya</li><li>The White Mulberry Bar</li><li>Blue Ray Bar</li><li>On Top Rooftop Bar</li><li>Aces Nightclub</li></ul></div>
-          <div class="card"><h3>Pattaya</h3><ul class="plain small"><li>Cholos</li></ul></div>
-          <div class="card"><h3>Hua Hin</h3><ul class="plain small"><li>El Patron Grill</li><li>Hermanos Grill</li></ul></div>
-          <div class="card"><h3>Koh Samui</h3><ul class="plain small"><li>Federico's</li></ul></div>
-          <div class="card"><h3>Phuket</h3><ul class="plain small"><li>The Nai Harn Cosmo Bar, The Nai Harn</li><li>Cholos (opening December 2026)</li></ul></div>
+          <div class="card city-bkk"><h3><span lang="en">Bangkok</span><span lang="th">กรุงเทพฯ</span></h3><ul class="plain small cols"><li><span lang="en">Cholos (3 branches)</span><span lang="th">Cholos (3 สาขา)</span></li><li>Delia</li><li>Trans Blue Bar, Asoke</li><li>Daddy Chill Burger</li><li>Sala Burger</li><li>Matti's</li><li>Kha Gastrobar</li><li>Taco and Tango</li><li>Catrika</li><li>Santiaga</li><li>Frickin' Fried Chicken</li><li>Tree House Social</li><li>Lamaya</li><li>The White Mulberry Bar</li><li>Blue Ray Bar</li><li>On Top Rooftop Bar</li><li>Aces Nightclub</li></ul></div>
+          <div class="card"><h3><span lang="en">Pattaya</span><span lang="th">พัทยา</span></h3><ul class="plain small"><li>Cholos</li></ul></div>
+          <div class="card"><h3><span lang="en">Hua Hin</span><span lang="th">หัวหิน</span></h3><ul class="plain small"><li>El Patron Grill</li><li>Hermanos Grill</li></ul></div>
+          <div class="card"><h3><span lang="en">Koh Samui</span><span lang="th">เกาะสมุย</span></h3><ul class="plain small"><li>Federico's</li></ul></div>
+          <div class="card"><h3><span lang="en">Phuket</span><span lang="th">ภูเก็ต</span></h3><ul class="plain small"><li>The Nai Harn Cosmo Bar, The Nai Harn</li><li><span lang="en">Cholos (opening December 2026)</span><span lang="th">Cholos (เปิดธันวาคม 2026)</span></li></ul></div>
         </div>
       </div>
-      <div class="card wide">
-        <h3>Want to stock it, or find a venue near you?</h3>
-        <p>Email hello.themexicancola@gmail.com or call +66 81 600 3343.</p>
-        <a class="btn" href="#book">Book a free tasting</a>
-      </div>
-      <p class="small soft">Sources: Notion knowledge base pages “What have we sold so far, and to which venues?”, “What do venues say about us on Instagram?” and “What problem are we solving, and for whom?” (10–11.11.2026). All venues listed have agreed to appear (founder, 12.11.2026).</p>
+      <p class="small soft"><span lang="en">Sources: our venue list and venues’ own Instagram posts (10–11.11.2026). All venues listed have agreed to appear (founder, 12.11.2026).</span><span lang="th">ที่มา: รายชื่อร้านของเรา และโพสต์อินสตาแกรมของร้านต่างๆ (10–11.11.2026) ทุกร้านในรายชื่อยินยอมให้แสดงชื่อแล้ว (ผู้ก่อตั้ง, 12.11.2026)</span></p>
+      <a class="btn" href="#book"><span lang="en">Book a free tasting</span><span lang="th">จองชิมฟรี</span></a>
     </div>
   </section>
 </main>
 
-<!-- WHY US -->
-<main data-view="why-us" hidden>
+<!-- PAGE: Nutrition -->
+<main data-view="nutrition" hidden>
   <section class="dark page-head">
     <div class="wrap stack">
-      <span class="label accent-text">Why us vs others</span>
-      <h1>The premium cola made for Thai venues.</h1>
-      <p class="lead">How we compare with the drinks venues stock today.</p>
-      <p class="small th-note" lang="th">ส่วนนี้มีเฉพาะภาษาอังกฤษ</p>
+      <span class="label accent-text"><span lang="en">Nutrition</span><span lang="th">โภชนาการ</span></span>
+      <h1><span lang="en">What's in the bottle.</span><span lang="th">ในขวดมีอะไรบ้าง</span></h1>
+      <p class="lead"><span lang="en">Five simple ingredients. 0% caffeine. No artificial sweeteners.</span><span lang="th">ส่วนผสมง่ายๆ 5 อย่าง คาเฟอีน 0% ไม่มีสารให้ความหวานเทียม</span></p>
     </div>
   </section>
-  <section>
-    <div class="wrap stack" style="gap:var(--s48)">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th scope="col"></th><th scope="col" class="first">The Mexican Cola</th><th scope="col">Coca-Cola</th><th scope="col">Fever-Tree</th><th scope="col">Fentimans</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">A cola on sale in Thailand?</th><td class="first">Yes</td><td>Yes</td><td>No cola found at Tops</td><td>Yes: Curiosity Cola, imported from the UK</td></tr>
-            <tr><th scope="row">Price we found</th><td class="first">฿55 a bottle to venues (฿49 from 10 cases)</td><td>฿16–19 retail (325–510 ml)</td><td>฿72 retail for 200 ml tonic or ginger</td><td>฿165–180 retail for 275 ml</td></tr>
-            <tr><th scope="row">Says what it is sweetened with?</th><td class="first">Yes: 100% natural sugar, no artificial sweeteners</td><td>Not on its Thai home page</td><td>Not on its home page</td><td>Not on its home page</td></tr>
-            <tr><th scope="row">Caffeine</th><td class="first">0%</td><td>Not on its home page</td><td>—</td><td>Not on its home page</td></tr>
-            <tr><th scope="row">Speaks to venues?</th><td class="first">Yes: free tasting, 1-case minimum, free delivery</td><td>No</td><td>No trade content on its home page</td><td>Only a “Trade” link in the footer</td></tr>
-          </tbody>
-        </table>
+  <section class="magenta spotlight" aria-label="What makes it different">
+    <div class="wrap">
+      <div class="spot-grid">
+        <div class="spot"><span class="spot-icon" aria-hidden="true">✦</span><strong><span lang="en">Rich with natural herbs and spices</span><span lang="th">อุดมด้วยสมุนไพรและเครื่องเทศธรรมชาติ</span></strong></div>
+        <div class="spot"><span class="spot-icon" aria-hidden="true">✦</span><strong><span lang="en">No artificial flavours</span><span lang="th">ไม่แต่งกลิ่นรสสังเคราะห์</span></strong></div>
+        <div class="spot"><span class="spot-icon" aria-hidden="true">✦</span><strong><span lang="en">No chemicals or acids</span><span lang="th">ไม่มีสารเคมีหรือกรดเติมแต่ง</span></strong></div>
       </div>
-      <p class="small soft">Retail prices from Tops Online, checked 10.11.2026. Competitor home pages read 11.11.2026. Our price is the wholesale price to venues, so it is not a like-for-like retail price.</p>
-      <div class="grid3">
-        <div class="card"><span class="tag label">1</span><h3>The premium cola slot is open</h3><p>Fever-Tree, the mixer venues trust, sells no cola in Thai shops.</p></div>
-        <div class="card"><span class="tag label">2</span><h3>Guests already pay for craft cola</h3><p>Fentimans Curiosity Cola sells for ฿165–180 at Tops. Venues sell ours for ฿95–180 and buy it for ฿55.</p></div>
-        <div class="card"><span class="tag label">3</span><h3>Local supply</h3><p>No import wait. Order from 1 case, with free delivery and consignment as an option.</p></div>
-      </div>
-      <blockquote><p>“The uniqueness of the product, there's nothing like that on the market in Thailand.”</p><cite>Cholos, co-founder (28.09.2026)</cite></blockquote>
-      <p class="small soft">Sources: Notion knowledge base pages “Who are our competitors in Thailand, and where are they weak?” (10.11.2026) and “How do our competitors in Thailand sell on their websites?” (11.11.2026).</p>
     </div>
   </section>
-</main>
-
-<!-- BRAND -->
-<main data-view="brand" hidden>
-  <section class="dark page-head">
-    <div class="wrap stack">
-      <span class="label accent-text">Brand</span>
-      <h1>How The Mexican Cola looks and sounds.</h1>
-      <p class="lead">Bold, festive, proud. We call the look Bugambilia Pop.</p>
-      <p class="small th-note" lang="th">ส่วนนี้มีเฉพาะภาษาอังกฤษ</p>
-    </div>
-  </section>
-  <section>
-    <div class="wrap stack" style="gap:var(--s48)">
-      <div class="brand-logo"><img src="logo.png" alt="Mexican Cola logo, cream script on dark" loading="lazy" decoding="async"></div>
+  <section class="inside">
+    <div class="wrap">
       <div class="stack">
-        <span class="label main">Colours</span>
-        <div class="swatches">
-          <div><span class="sw" style="background:#B0174F"></span><b>Main</b><code>#B0174F</code><small>Buttons, highlights, big numbers</small></div>
-          <div><span class="sw" style="background:#FFB400"></span><b>Accent</b><code>#FFB400</code><small>Fills, tags, highlights</small></div>
-          <div><span class="sw" style="background:#FFF7EC"></span><b>Background light</b><code>#FFF7EC</code><small>Default background</small></div>
-          <div><span class="sw" style="background:#1B1236"></span><b>Background dark</b><code>#1B1236</code><small>Hero and dark sections</small></div>
-          <div><span class="sw" style="background:#5E5873"></span><b>Soft text</b><code>#5E5873</code><small>Secondary text on light</small></div>
-          <div><span class="sw" style="background:#EADFD3"></span><b>Line</b><code>#EADFD3</code><small>Borders and dividers</small></div>
-        </div>
-        <p class="small soft">Never use the accent as text on the light background. It is too faint to read.</p>
+        <span class="label main"><span lang="en">Ingredients</span><span lang="th">ส่วนผสม</span></span>
+        <h2 lang="en">Five simple ingredients.</h2><h2 lang="th">ส่วนผสมง่ายๆ 5 อย่าง</h2>
+        <ul class="ingr">
+          <li><span class="name"><span lang="en">Water</span><span lang="th">น้ำ</span></span><span class="pct">80%</span><span class="bar"><i style="width:80%"></i></span></li>
+          <li><span class="name"><span lang="en">Natural sugar</span><span lang="th">น้ำตาลธรรมชาติ</span></span><span class="pct">9%</span><span class="bar"><i style="width:9%"></i></span></li>
+          <li><span class="name"><span lang="en">Plum juice</span><span lang="th">น้ำบ๊วย</span></span><span class="pct">5%</span><span class="bar"><i style="width:5%"></i></span></li>
+          <li><span class="name"><span lang="en">Cola syrup</span><span lang="th">ไซรัปโคล่า</span></span><span class="pct">4%</span><span class="bar"><i style="width:4%"></i></span></li>
+          <li><span class="name"><span lang="en">Cinnamon</span><span lang="th">อบเชย</span></span><span class="pct">2%</span><span class="bar"><i style="width:2%"></i></span></li>
+        </ul>
+        <p class="small soft"><span lang="en">Main ingredients, from our bottle label.</span><span lang="th">ส่วนผสมหลัก จากฉลากขวดของเรา</span></p>
       </div>
-      <div class="grid2">
-        <div class="card"><span class="label main">Headings</span><p class="spec-display">Bricolage Grotesque</p><p class="soft">ExtraBold, Bold and SemiBold.</p></div>
-        <div class="card"><span class="label main">Body text</span><p class="spec-body">Work Sans</p><p class="soft">Regular and SemiBold. Thai text uses Anuphan: <span class="spec-thai">โคล่าเม็กซิกัน</span></p></div>
+      <div class="facts">
+        <div class="card"><span class="label main"><span lang="en">Bottle</span><span lang="th">ขวด</span></span><strong class="fact">270 ml</strong></div>
+        <div class="card"><span class="label main"><span lang="en">Caffeine</span><span lang="th">คาเฟอีน</span></span><strong class="fact">0%</strong></div>
+        <div class="card"><span class="label main"><span lang="en">Sweeteners</span><span lang="th">สารให้ความหวาน</span></span><strong class="fact"><span lang="en">None artificial</span><span lang="th">ไม่มีสารให้ความหวานเทียม</span></strong></div>
+        <div class="card"><span class="label main"><span lang="en">Keep cold</span><span lang="th">เก็บเย็น</span></span><strong class="fact">2–5°C</strong></div>
       </div>
-      <div class="stack">
-        <span class="label main">Words we already use</span>
-        <div class="chips"><span>A new bubbling experience</span><span>A different kind of cola</span><span>It just tastes better</span><span>RICH. BOLD. AUTHENTIC.</span><span>A New Classic Inspired by Mexico</span><span>#yourcolacouldnever</span></div>
-      </div>
-      <div class="stack">
-        <span class="label main">Real photos</span>
-        <div class="photo-row"><img src="delia.jpg" alt="The Mexican Cola outside Delia" loading="lazy" decoding="async"><img src="bottle-bar.jpg" alt="The Mexican Cola on a marble bar" loading="lazy" decoding="async"></div>
-      </div>
-      <p class="small soft">Sources: Notion pages “Brand guide” (11.11.2026) and “What do venues say about us on Instagram?” (11.11.2026).</p>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="wrap stack narrow">
+      <span class="label main"><span lang="en">Nutrition facts</span><span lang="th">ข้อมูลโภชนาการ</span></span>
+      <h2 lang="en">Per bottle, estimated.</h2><h2 lang="th">ต่อขวด โดยประมาณ</h2>
+      <span class="est"><span lang="en">Estimate</span><span lang="th">ประมาณการ</span></span>
+      <div class="table-wrap nutri"><table class="compact">
+        <thead><tr><th></th><th><span lang="en">Per bottle (270 ml)</span><span lang="th">ต่อขวด (270 มล.)</span></th><th><span lang="en">Per 100 ml</span><span lang="th">ต่อ 100 มล.</span></th></tr></thead>
+        <tbody>
+          <tr><th><span lang="en">Energy</span><span lang="th">พลังงาน</span></th><td class="num-cell">~100 kcal</td><td class="num-cell">~36 kcal</td></tr>
+          <tr><th><span lang="en">Sugar</span><span lang="th">น้ำตาล</span></th><td class="num-cell">~24 g</td><td class="num-cell">~9 g</td></tr>
+          <tr><th><span lang="en">Fat</span><span lang="th">ไขมัน</span></th><td class="num-cell">0 g</td><td class="num-cell">0 g</td></tr>
+          <tr><th><span lang="en">Protein</span><span lang="th">โปรตีน</span></th><td class="num-cell">0 g</td><td class="num-cell">0 g</td></tr>
+          <tr class="total"><th><span lang="en">Caffeine</span><span lang="th">คาเฟอีน</span></th><td class="num-cell">0 mg</td><td class="num-cell">0 mg</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small soft"><span lang="en">Estimated from our recipe: 9% of each bottle is sugar. The plum juice and cola syrup may add a little more. These are not lab-tested values. We will update this page when we have them.</span><span lang="th">ประมาณจากสูตรของเรา: น้ำตาลคิดเป็น 9% ของแต่ละขวด น้ำบ๊วยและไซรัปโคล่าอาจเพิ่มน้ำตาลอีกเล็กน้อย ค่าเหล่านี้ยังไม่ได้ผ่านการทดสอบในห้องแล็บ เราจะอัปเดตหน้านี้เมื่อมีผลแล็บ</span></p>
+      <a class="btn" href="#book"><span lang="en">Book a free tasting</span><span lang="th">จองชิมฟรี</span></a>
     </div>
   </section>
 </main>
 
-<!-- PITCH DECK -->
-<main data-view="pitch-deck" hidden>
+<!-- PAGE: Founder story -->
+<main data-view="story" hidden>
   <section class="dark page-head">
     <div class="wrap stack">
-      <span class="label accent-text">Pitch deck</span>
-      <h1>Our story in 10 slides.</h1>
-      <p class="lead">Our story in 10 slides, built from our Notion knowledge base. The ask is introductions to venues, not money. Use the arrows, the slide list, or your keyboard's arrow keys.</p>
-      <p class="small th-note" lang="th">ส่วนนี้มีเฉพาะภาษาอังกฤษ</p>
+      <span class="label accent-text"><span lang="en">Founder story</span><span lang="th">เรื่องราวผู้ก่อตั้ง</span></span>
+      <h1><span lang="en">From sneakers to soda.</span><span lang="th">จากสนีกเกอร์สู่โซดา</span></h1>
+      <p class="lead"><span lang="en">How a Nike SB collaboration, 100 emails and one stubborn idea became The Mexican Cola, in one year.</span><span lang="th">คอลแลบของ Nike SB อีเมล 100 ฉบับ และไอเดียดื้อๆ หนึ่งไอเดีย กลายมาเป็น The Mexican Cola ได้อย่างไรภายในหนึ่งปี</span></p>
     </div>
   </section>
-  <section>
-    <div class="wrap deck">
-      <ol class="deck-index" aria-label="Slides"></ol>
-      <div class="deck-stage">
-        <div class="slides">
-
-          <article class="slide slide-dark" data-title="Title">
-            <div class="slide-body two">
-              <div class="stack">
-                <img src="logo.png" alt="Mexican Cola" class="slide-logo" loading="lazy" decoding="async">
-                <h2>A cola with real herbs and spices for Thai venues that want a menu guests remember.</h2>
-                <div class="chips light"><span>Natural herbs and spices</span><span>0% caffeine</span><span>100% natural sugar</span></div>
-              </div>
-              <img src="delia.jpg" alt="The Mexican Cola outside Delia" class="slide-photo" loading="lazy" decoding="async">
-            </div>
-          </article>
-
-          <article class="slide" data-title="Problem">
-            <div class="slide-body">
-              <h2>Thai venues all serve the same cola, so guests have nothing to remember.</h2>
-              <div class="chips"><span>Coke</span><span>Pepsi</span><span>Fever-Tree</span><span>Schweppes</span></div>
-              <p class="soft">The same four brands on every menu.</p>
-              <blockquote><p>“Different from the ordinary soft drinks on the market.”</p><cite>Trans Blue Bar, bar manager (09.11.2026, translated)</cite></blockquote>
-            </div>
-          </article>
-
-          <article class="slide" data-title="Solution">
-            <div class="slide-body">
-              <h2>We give venues a cola with herbs, spices and natural sugar that works on its own and as a mixer.</h2>
-              <div class="grid3">
-                <div class="mini"><strong>Herbs and spices</strong><span>A taste guests ask about</span></div>
-                <div class="mini"><strong>100% natural sugar</strong><span>No artificial sweeteners, 0% caffeine</span></div>
-                <div class="mini"><strong>Two uses</strong><span>On its own, or in a Batanga</span></div>
-              </div>
-              <blockquote><p>“It goes with our cocktails, it goes well just on its own.”</p><cite>Cholos, co-founder (28.09.2026)</cite></blockquote>
-            </div>
-          </article>
-
-          <article class="slide" data-title="Traction">
-            <div class="slide-body">
-              <h2>26 venues have bought 95 cases from us, and 10 have already reordered.</h2>
-              <div class="grid4">
-                <div class="num"><strong>49</strong><span>Orders</span></div>
-                <div class="num"><strong>95</strong><span>Cases</span></div>
-                <div class="num"><strong>฿118,252</strong><span>Sales</span></div>
-                <div class="num"><strong>10 / 26</strong><span>Venues reordered</span></div>
-              </div>
-              <p class="small soft">Source: sales record, 10.11.2026.</p>
-            </div>
-          </article>
-
-          <article class="slide" data-title="More traction">
-            <div class="slide-body">
-              <h2>Guests finish every bottle, and the first venue sold out in weeks.</h2>
-              <div class="grid3">
-                <blockquote><p>“Our first order sold out in less than a few weeks.”</p><cite>Cholos</cite></blockquote>
-                <blockquote><p>“Everybody finishes it. Nobody leaves any in the bottle.”</p><cite>Cholos</cite></blockquote>
-                <blockquote><p>“Customers first ask: what is this?”</p><cite>Sala Burger (08.09.2026, translated)</cite></blockquote>
-              </div>
-              <div class="slide-photos"><img src="v-cholos-fridge.jpg" alt="Mexican Cola poster on a fridge at Cholos Sukhumvit" loading="lazy" decoding="async"><img src="v-catrika.jpg" alt="Table card at Catrika" loading="lazy" decoding="async"><img src="v-kha-poster.jpg" alt="Poster at Kha Gastrobar" loading="lazy" decoding="async"><img src="v-sala-burger.jpg" alt="Display at Sala Burger" loading="lazy" decoding="async"></div>
-            </div>
-          </article>
-
-          <article class="slide" data-title="Insight">
-            <div class="slide-body">
-              <h2>The premium cola slot on Thai menus is empty.</h2>
-              <div class="table-wrap">
-                <table class="compact">
-                  <thead><tr><th scope="col">Brand</th><th scope="col">Premium cola for Thai venues?</th></tr></thead>
-                  <tbody>
-                    <tr><th scope="row">Coca-Cola</th><td>Everywhere, but no premium story</td></tr>
-                    <tr><th scope="row">Fever-Tree</th><td>No cola in Thai shops</td></tr>
-                    <tr><th scope="row">Fentimans</th><td>Imported, ฿165–180</td></tr>
-                    <tr class="total"><th scope="row">The Mexican Cola</th><td>Made for Thai venues, ฿55 a bottle</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <blockquote><p>“There's nothing like that on the market in Thailand.”</p><cite>Cholos</cite></blockquote>
-            </div>
-          </article>
-
-          <article class="slide" data-title="Business model">
-            <div class="slide-body">
-              <h2>We sell a bottle for ฿55, and venues resell it for ฿95–180.</h2>
-              <div class="ladder two-step">
-                <div><span class="label">Our price to venues</span><strong>฿55</strong><span>a bottle, or ฿49 from 10 cases. ฿1,320 for a case of 24.</span></div>
-                <div><span class="label">Venue price to guests</span><strong>฿95–180</strong><span>a bottle</span></div>
-              </div>
-            </div>
-          </article>
-
-          <article class="slide" data-title="Market">
-            <div class="slide-body two">
-              <div class="stack">
-                <h2>Thailand has 388,219 food and beverage outlets. We serve about 0.1% of the realistic buyers.</h2>
-                <p class="small soft">Outlets: Krungsri Research, 2024. Realistic buyers is our estimate. Searches for “mexican coke”: 40,500 a month worldwide, up 22% (not Thailand-only).</p>
-              </div>
-              <div class="circles" aria-hidden="true">
-                <div class="c1"><span>388,219 outlets</span></div>
-                <div class="c2"><span>20,000–40,000 realistic buyers</span></div>
-                <div class="c3"><span>26 venues</span></div>
-              </div>
-            </div>
-          </article>
-
-          <article class="slide" data-title="Team">
-            <div class="slide-body">
-              <h2>Venues say the founder is the reason they said yes.</h2>
-              <blockquote><p>“Probably because of the founder of Mexicola … his passion and his drive, and of course the product itself was amazing.”</p><cite>Cholos, co-founder (28.09.2026)</cite></blockquote>
-              <p class="soft">The Mexican Cola has one founder, who sells to every venue in person.</p>
-            </div>
-          </article>
-
-          <article class="slide slide-magenta" data-title="The ask">
-            <div class="slide-body">
-              <h2>Introduce us to restaurants, bars and hotels, starting with Mexican restaurant owners and hotel purchasing teams.</h2>
-              <p class="lead">Warm intros close faster than cold tastings: 0 of the 14 venues we sampled cold have ordered yet.</p>
-              <p class="small">“Warm intros close faster” is our reading of the pipeline, not a measured fact.</p>
-              <p><a class="btn light" href="mailto:hello.themexicancola@gmail.com">hello.themexicancola@gmail.com</a></p>
-              <p class="small">+66 81 600 3343</p>
-            </div>
-          </article>
-
-        </div>
-        <div class="deck-controls">
-          <button type="button" class="arrow" id="prev" aria-label="Previous slide">←</button>
-          <span id="counter" aria-live="polite">1 / 10</span>
-          <button type="button" class="arrow" id="next" aria-label="Next slide">→</button>
-        </div>
-      </div>
-      <p class="small soft">Source: Notion knowledge base page “What is in our pitch deck?” (11.11.2026), following the YC seed deck method. Venue photos and free venue materials: founder (12–13.11.2026).</p>
-    </div>
-  </section>
-</main>
-
-<!-- FOUNDER STORY -->
-<main data-view="founder-story" hidden>
-  <section class="dark page-head">
-    <div class="wrap stack">
-      <span class="label accent-text">Founder story</span>
-      <h1>From sneakers to soda.</h1>
-      <p class="lead">How a Nike SB collaboration, 100 emails and one stubborn idea became The Mexican Cola, in one year.</p>
-      <p class="small th-note" lang="th">ส่วนนี้มีเฉพาะภาษาอังกฤษ</p>
-    </div>
-  </section>
-
   <section>
     <div class="wrap story">
       <article class="chapter">
         <span class="ch-num">01</span>
         <div class="ch-body">
-          <span class="label main">The spark</span>
-          <h2>It started with shoes.</h2>
-          <p>I have loved sneakers since I was young. At 14, I started my own business, ACK Sneakers, reselling sneakers, and I have now sold over 300 pairs. Then, on 10 May 2023, Nike SB released a collaboration with Jarritos, a Mexican soda brand. I was studying Spanish at school, and I thought: if it is on a Nike shoe, it must be something big. The bottle just looked so good. I had to try it.</p>
+          <span class="label main"><span lang="en">The spark</span><span lang="th">จุดเริ่มต้น</span></span>
+          <h2><span lang="en">It started with shoes.</span><span lang="th">ทุกอย่างเริ่มจากรองเท้า</span></h2>
+          <p><span lang="en">I have loved sneakers since I was young. At 14, I started my own business, ACK Sneakers, reselling sneakers, and I have now sold over 300 pairs. Then, on 10 May 2023, Nike SB released a collaboration with Jarritos, a Mexican soda brand. I was studying Spanish at school, and I thought: if it is on a Nike shoe, it must be something big. The bottle just looked so good. I had to try it.</span><span lang="th">ผมรักสนีกเกอร์มาตั้งแต่เด็ก ตอนอายุ 14 ผมเริ่มธุรกิจของตัวเองชื่อ ACK Sneakers รีเซลสนีกเกอร์ และตอนนี้ขายไปแล้วกว่า 300 คู่ แล้ววันที่ 10 พฤษภาคม 2023 Nike SB ก็ปล่อยคอลแลบกับ Jarritos แบรนด์โซดาจากเม็กซิโก ตอนนั้นผมเรียนภาษาสเปนอยู่ที่โรงเรียน และคิดว่า ถ้าได้อยู่บนรองเท้า Nike ก็ต้องเป็นของใหญ่แน่ๆ ขวดก็ดูดีมาก ผมต้องได้ลองให้ได้</span></p>
+          <div class="nikesb-row">
+            <figure><img src="fs-nikesb-1.jpg" alt="Nike SB x Jarritos Dunk Low" width="750" height="600" loading="lazy"></figure>
+            <figure><img src="fs-nikesb-2.jpg" alt="Nike SB x Jarritos Dunk Low with its box" width="750" height="600" loading="lazy"></figure>
+            <p class="credit"><span lang="en">The spark: the Nike SB x Jarritos Dunk Low, released 10.05.2023. Images: Nike SB and Jarritos.</span><span lang="th">จุดเริ่มต้น: Nike SB x Jarritos Dunk Low วางขาย 10.05.2023 ภาพ: Nike SB และ Jarritos</span></p>
+          </div>
           <div class="ack-row">
-            <figure><img src="fs-ack-logo.jpg" alt="ACK Sneakers logo" width="600" height="750" loading="lazy"><figcaption>ACK Sneakers, est. 2022. Over 300 pairs sold.</figcaption></figure>
-            <figure class="wide-shot"><img src="fs-ack-insta.jpg" alt="ACK Sneakers Instagram profile" width="700" height="395" loading="lazy"><figcaption>Buy, sell and trade in Bangkok. <a href="https://www.instagram.com/ack_sneakers">@ack_sneakers on Instagram</a></figcaption></figure>
+            <figure><img src="fs-ack-logo.jpg" alt="ACK Sneakers logo" width="600" height="750" loading="lazy"><figcaption><span lang="en">ACK Sneakers, est. 2022. Over 300 pairs sold.</span><span lang="th">ACK Sneakers ก่อตั้งปี 2022 ขายไปแล้วกว่า 300 คู่</span></figcaption></figure>
+            <figure class="wide-shot"><img src="fs-ack-insta.jpg" alt="ACK Sneakers Instagram profile" width="700" height="395" loading="lazy"><figcaption><span lang="en">Buy, sell and trade in Bangkok.</span><span lang="th">ซื้อ ขาย แลก ในกรุงเทพฯ</span> <a href="https://www.instagram.com/ack_sneakers" target="_blank" rel="noopener"><span lang="en">@ack_sneakers on Instagram</span><span lang="th">@ack_sneakers บนอินสตาแกรม</span></a></figcaption></figure>
           </div>
         </div>
       </article>
       <article class="chapter">
         <span class="ch-num">02</span>
         <div class="ch-body">
-          <span class="label main">The search</span>
-          <h2>No one in Thailand had it.</h2>
-          <p>I searched Mexican restaurants across Thailand. Not one of them served it. So I sent over 100 emails to Jarritos teams in Singapore, Australia and around the world.</p>
-          <p class="pull">100+ emails. Almost no replies.</p>
-          <div class="email-shot"><figure><img src="fs-email.jpg" alt="Email to Jarritos about bringing Jarritos to Thailand" width="600" height="1002" loading="lazy"><figcaption>One of the 100+ emails, sent 29.10.2024.</figcaption></figure></div>
+          <span class="label main"><span lang="en">The search</span><span lang="th">การตามหา</span></span>
+          <h2><span lang="en">No one in Thailand had it.</span><span lang="th">ไม่มีใครในไทยมีขาย</span></h2>
+          <p><span lang="en">I searched Mexican restaurants across Thailand. Not one of them served it. So I sent over 100 emails to Jarritos teams in Singapore, Australia and around the world.</span><span lang="th">ผมตามหาตามร้านอาหารเม็กซิกันทั่วไทย ไม่มีร้านไหนเสิร์ฟเลย ผมจึงส่งอีเมลกว่า 100 ฉบับไปหาทีม Jarritos ทั้งที่สิงคโปร์ ออสเตรเลีย และทั่วโลก</span></p>
+          <p class="pull"><span lang="en">100+ emails. Almost no replies.</span><span lang="th">อีเมลกว่า 100 ฉบับ แทบไม่มีใครตอบ</span></p>
+          <div class="email-shot"><figure><img src="fs-email.jpg" alt="Email to Jarritos about bringing Jarritos to Thailand" width="600" height="1002" loading="lazy"><figcaption><span lang="en">One of the 100+ emails, sent 29.10.2024.</span><span lang="th">หนึ่งในอีเมลกว่า 100 ฉบับ ส่งเมื่อ 29.10.2024</span></figcaption></figure></div>
         </div>
       </article>
       <article class="chapter">
         <span class="ch-num">03</span>
         <div class="ch-body">
-          <span class="label main">The yes</span>
-          <h2>One reply changed everything.</h2>
-          <p>For a long time, nothing came back. Then one day, the regional manager for Asia and the Middle East wrote to me. I got a gentleman's agreement to be the sole distributor of Jarritos in Thailand.</p>
-          <p class="pull">Sole distributor of Jarritos in Thailand, on a handshake.</p>
+          <span class="label main"><span lang="en">The yes</span><span lang="th">คำตอบรับ</span></span>
+          <h2><span lang="en">One reply changed everything.</span><span lang="th">คำตอบเดียวเปลี่ยนทุกอย่าง</span></h2>
+          <p><span lang="en">For a long time, nothing came back. Then one day, the regional manager for Asia and the Middle East wrote to me. I got a gentleman's agreement to be the sole distributor of Jarritos in Thailand.</span><span lang="th">เป็นเวลานานที่ไม่มีใครตอบกลับ แล้ววันหนึ่ง ผู้จัดการภูมิภาคเอเชียและตะวันออกกลางก็เขียนมาหาผม ผมได้ข้อตกลงแบบสุภาพบุรุษ ให้เป็นผู้จัดจำหน่าย Jarritos แต่เพียงผู้เดียวในประเทศไทย</span></p>
+          <p class="pull"><span lang="en">Sole distributor of Jarritos in Thailand, on a handshake.</span><span lang="th">ผู้จัดจำหน่าย Jarritos แต่เพียงผู้เดียวในไทย ด้วยการจับมือ</span></p>
         </div>
       </article>
       <article class="chapter">
         <span class="ch-num">04</span>
         <div class="ch-body">
-          <span class="label main">The wait</span>
-          <h2>What if they never come?</h2>
-          <p>Jarritos could not get into the country yet. After a couple of months of waiting, I asked myself what would happen if they never arrived. Instead of waiting, I decided to make our own.</p>
-          <p>I had no background in drinks or beverages at all. I started anyway, and I learnt. I got scammed, and I learnt more. I failed, got back up, and just kept going.</p>
-          <p class="pull">No background. Got scammed. Failed. Kept going.</p>
-          <div class="story-photos"><figure><img src="fs-production-crates.jpg" alt="Our first bottling, crate by crate" width="600" height="750" loading="lazy"><figcaption>Our first bottling, crate by crate</figcaption></figure><figure><img src="fs-soleados-icebox.jpg" alt="The first batch, on ice" width="600" height="750" loading="lazy"><figcaption>The first batch, on ice</figcaption></figure></div>
+          <span class="label main"><span lang="en">The wait</span><span lang="th">การรอคอย</span></span>
+          <h2><span lang="en">What if they never come?</span><span lang="th">ถ้าพวกเขาไม่มาเลยล่ะ?</span></h2>
+          <p><span lang="en">Jarritos could not get into the country yet. After a couple of months of waiting, I asked myself what would happen if they never arrived. Instead of waiting, I decided to make our own.</span><span lang="th">Jarritos ยังเข้ามาในประเทศไม่ได้ หลังจากรออยู่สองสามเดือน ผมถามตัวเองว่า ถ้าพวกเขาไม่มาเลยจะเป็นยังไง แทนที่จะรอ ผมตัดสินใจทำของเราเอง</span></p>
+          <p><span lang="en">I had no background in drinks or beverages at all. I started anyway, and I learnt. I got scammed, and I learnt more. I failed, got back up, and just kept going.</span><span lang="th">ผมไม่มีพื้นฐานด้านเครื่องดื่มเลย แต่ก็เริ่มทำ และเรียนรู้ไปเรื่อยๆ ผมโดนโกง และได้เรียนรู้มากขึ้นอีก ผมล้มเหลว ลุกขึ้นใหม่ และเดินหน้าต่อ</span></p>
+          <p class="pull"><span lang="en">No background. Got scammed. Failed. Kept going.</span><span lang="th">ไม่มีพื้นฐาน โดนโกง ล้มเหลว แต่ไม่หยุด</span></p>
+          <div class="story-photos"><figure><img src="fs-production-crates.jpg" alt="Our first bottling, crate by crate" width="600" height="750" loading="lazy"><figcaption><span lang="en">Our first bottling, crate by crate</span><span lang="th">การบรรจุขวดครั้งแรกของเรา ทีละลัง</span></figcaption></figure><figure><img src="fs-soleados-icebox.jpg" alt="The first batch, on ice" width="600" height="750" loading="lazy"><figcaption><span lang="en">The first batch, on ice</span><span lang="th">ล็อตแรก แช่น้ำแข็ง</span></figcaption></figure></div>
         </div>
       </article>
       <article class="chapter">
         <span class="ch-num">05</span>
         <div class="ch-body">
           <span class="label main">Soleados</span>
-          <h2>Three flavours, 400 bottles, 23 venues.</h2>
-          <p>We started as Soleados, which means “full of sun”, a name about happiness. We had three flavours: tepache (fermented pineapple), pandan coconut with a Mexican twist, and Mexican cola. We sampled close to 400 bottles across 23 venues in Thailand.</p>
-          <div class="flavours"><span>Tepache</span><span>Pandan coconut</span><span class="hero-flavour">Mexican cola</span></div>
-          <div class="story-photos"><figure><img src="fs-soleados-tepache.jpg" alt="Soleados Tepache Pineapple" width="600" height="750" loading="lazy"><figcaption>Soleados Tepache Pineapple</figcaption></figure><figure><img src="fs-soleados-pandan.jpg" alt="Soleados Pandan & Coconut" width="600" height="750" loading="lazy"><figcaption>Soleados Pandan & Coconut</figcaption></figure><figure><img src="fs-soleados-cola.jpg" alt="Soleados Mexican Cola, spiced vanilla" width="600" height="750" loading="lazy"><figcaption>Soleados Mexican Cola, spiced vanilla</figcaption></figure></div>
-          <p class="label main" style="margin-top:8px">On the road</p>
-          <div class="story-photos"><figure><img src="fs-sampling-molino.jpg" alt="Sampling at Molino Bangkok" width="600" height="750" loading="lazy"><figcaption>Sampling at Molino Bangkok</figcaption></figure><figure><img src="fs-sampling-restaurant.jpg" alt="With the front of house of Delia Mexican Eatery (Michelin Guide)" width="600" height="750" loading="lazy"><figcaption>With the front of house of Delia Mexican Eatery (Michelin Guide)</figcaption></figure><figure><img src="fs-sampling-flag.jpg" alt="Sampling day" width="600" height="750" loading="lazy"><figcaption>Sampling day</figcaption></figure><figure><img src="fs-sampling-bar.jpg" alt="Behind the bar" width="600" height="750" loading="lazy"><figcaption>Behind the bar</figcaption></figure></div>
+          <h2><span lang="en">Three flavours, 400 bottles, 23 venues.</span><span lang="th">สามรสชาติ 400 ขวด 23 ร้าน</span></h2>
+          <p><span lang="en">We started as Soleados, which means “full of sun”, a name about happiness. We had three flavours: tepache (fermented pineapple), pandan coconut with a Mexican twist, and Mexican cola. We sampled close to 400 bottles across 23 venues in Thailand.</span><span lang="th">เราเริ่มต้นในชื่อ Soleados ซึ่งแปลว่า “เต็มไปด้วยแสงแดด” ชื่อที่สื่อถึงความสุข เรามีสามรสชาติ: เตปาเช่ (สับปะรดหมัก) ใบเตยมะพร้าวสไตล์เม็กซิกัน และโคล่าเม็กซิกัน เราแจกชิมเกือบ 400 ขวดใน 23 ร้านทั่วไทย</span></p>
+          <div class="flavours"><span><span lang="en">Tepache</span><span lang="th">เตปาเช่</span></span><span><span lang="en">Pandan coconut</span><span lang="th">ใบเตยมะพร้าว</span></span><span class="hero-flavour"><span lang="en">Mexican cola</span><span lang="th">โคล่าเม็กซิกัน</span></span></div>
+          <div class="story-photos"><figure><img src="fs-soleados-tepache.jpg" alt="Soleados Tepache Pineapple" width="600" height="750" loading="lazy"><figcaption>Soleados Tepache Pineapple</figcaption></figure><figure><img src="fs-soleados-pandan.jpg" alt="Soleados Pandan &amp; Coconut" width="600" height="750" loading="lazy"><figcaption>Soleados Pandan &amp; Coconut</figcaption></figure><figure><img src="fs-soleados-cola.jpg" alt="Soleados Mexican Cola, spiced vanilla" width="600" height="750" loading="lazy"><figcaption><span lang="en">Soleados Mexican Cola, spiced vanilla</span><span lang="th">Soleados Mexican Cola รสวานิลลาเครื่องเทศ</span></figcaption></figure></div>
+          <p class="label main" style="margin-top:8px"><span lang="en">On the road</span><span lang="th">ออกเดินสาย</span></p>
+          <div class="story-photos"><figure><img src="fs-sampling-molino.jpg" alt="Sampling at Molino Bangkok" width="600" height="750" loading="lazy"><figcaption><span lang="en">Sampling at Molino Bangkok</span><span lang="th">แจกชิมที่ Molino Bangkok</span></figcaption></figure><figure><img src="fs-sampling-restaurant.jpg" alt="With the front of house of Delia Mexican Eatery (Michelin Guide)" width="600" height="750" loading="lazy"><figcaption class="mich sm"><img src="michelin-guide.png" alt="MICHELIN Guide 2026" width="64" height="64"><span><span lang="en">With the front of house of Delia Mexican Eatery, in the MICHELIN Guide Thailand</span><span lang="th">กับทีมหน้าร้าน Delia Mexican Eatery ร้านในมิชลิน ไกด์ ประเทศไทย</span></span></figcaption></figure><figure><img src="fs-sampling-flag.jpg" alt="Sampling day" width="600" height="750" loading="lazy"><figcaption><span lang="en">Sampling day</span><span lang="th">วันแจกชิม</span></figcaption></figure><figure><img src="fs-sampling-bar.jpg" alt="Behind the bar" width="600" height="750" loading="lazy"><figcaption><span lang="en">Behind the bar</span><span lang="th">หลังบาร์</span></figcaption></figure></div>
         </div>
       </article>
       <article class="chapter">
         <span class="ch-num">06</span>
         <div class="ch-body">
-          <span class="label main">One hero</span>
-          <h2>One flavour stood out.</h2>
-          <p>It was the Mexican cola. Soleados was hard for local guests to connect with, so we chose a name that says what it is: The Mexican Cola. Instead of many flavours, we perfected one. Rich with herbs and spices, 0% caffeine, 100% natural sugar.</p>
-          <div class="story-photos"><figure><img src="bottle-bar.jpg" alt="The Mexican Cola" width="600" height="750" loading="lazy"><figcaption>The Mexican Cola</figcaption></figure><figure><img src="fs-today-bottle.jpg" alt="On the back bar" width="600" height="750" loading="lazy"><figcaption>On the back bar</figcaption></figure><figure><img src="delia.jpg" alt="At Delia" width="600" height="750" loading="lazy"><figcaption>At Delia</figcaption></figure></div>
+          <span class="label main"><span lang="en">One hero</span><span lang="th">ฮีโร่หนึ่งเดียว</span></span>
+          <h2><span lang="en">One flavour stood out.</span><span lang="th">มีรสชาติเดียวที่โดดเด่น</span></h2>
+          <p><span lang="en">It was the Mexican cola. Soleados was hard for local guests to connect with, so we chose a name that says what it is: The Mexican Cola. Instead of many flavours, we perfected one. Rich with herbs and spices, 0% caffeine, 100% natural sugar.</span><span lang="th">นั่นคือโคล่าเม็กซิกัน ชื่อ Soleados เข้าถึงลูกค้าคนไทยได้ยาก เราจึงเลือกชื่อที่บอกตรงๆ ว่าคืออะไร: The Mexican Cola แทนที่จะมีหลายรส เราทำรสเดียวให้สมบูรณ์แบบ อุดมด้วยสมุนไพรและเครื่องเทศ คาเฟอีน 0% น้ำตาลธรรมชาติ 100%</span></p>
+          <div class="story-photos"><figure><img src="bottle-bar.jpg" alt="The Mexican Cola" width="600" height="750" loading="lazy"><figcaption>The Mexican Cola</figcaption></figure><figure><img src="fs-today-bottle.jpg" alt="On the back bar" width="600" height="750" loading="lazy"><figcaption><span lang="en">On the back bar</span><span lang="th">บนชั้นหลังบาร์</span></figcaption></figure><figure><img src="delia.jpg" alt="At Delia" width="600" height="750" loading="lazy"><figcaption><span lang="en">At Delia</span><span lang="th">ที่ร้าน Delia</span></figcaption></figure></div>
         </div>
       </article>
       <article class="chapter">
         <span class="ch-num">07</span>
         <div class="ch-body">
-          <span class="label main">30 calls</span>
-          <h2>Persistence opened the door.</h2>
-          <p>I cold-called Cholos about 30 times. I went to 4 meetings before we got to sit down with the owner. Only then did we get a trial run. Today, we are the bestseller in all 4 of their stores, with a fifth opening in Phuket in December 2026.</p>
-          <p class="pull">30 cold calls. 4 meetings. 1 trial run. Now the bestseller in every Cholos store.</p>
-          <div class="story-photos"><figure><img src="v-cholos.jpg" alt="Cholos" width="600" height="750" loading="lazy"><figcaption>Cholos</figcaption></figure><figure><img src="v-cholos-fridge.jpg" alt="Mexican Cola poster on a fridge at Cholos Sukhumvit" width="600" height="750" loading="lazy"><figcaption>Our poster on the fridge at Cholos Sukhumvit</figcaption></figure><figure><img src="v-cholos-tag.jpg" alt="Mexican Cola x Cholos" width="600" height="750" loading="lazy"><figcaption>Mexican Cola x Cholos</figcaption></figure></div>
+          <span class="label main"><span lang="en">30 calls</span><span lang="th">30 สาย</span></span>
+          <h2><span lang="en">Persistence opened the door.</span><span lang="th">ความไม่ยอมแพ้เปิดประตู</span></h2>
+          <p><span lang="en">I cold-called Cholos about 30 times. I went to 4 meetings before we got to sit down with the owner. Only then did we get a trial run. Today, we are the bestseller in all 4 of their stores, with a fifth opening in Phuket in December 2026.</span><span lang="th">ผมโทรหา Cholos ประมาณ 30 ครั้ง ไปประชุม 4 ครั้งกว่าจะได้นั่งคุยกับเจ้าของ แล้วจึงได้ทดลองขาย วันนี้เราเป็นสินค้าขายดีที่สุดในทั้ง 4 สาขาของพวกเขา และสาขาที่ 5 จะเปิดที่ภูเก็ตในเดือนธันวาคม 2026</span></p>
+          <p class="pull"><span lang="en">30 cold calls. 4 meetings. 1 trial run. Now the bestseller in every Cholos store.</span><span lang="th">โทร 30 สาย ประชุม 4 ครั้ง ทดลองขาย 1 ครั้ง วันนี้ขายดีที่สุดในทุกสาขาของ Cholos</span></p>
+          <div class="story-photos"><figure><img src="v-cholos.jpg" alt="Cholos" width="600" height="750" loading="lazy"><figcaption>Cholos</figcaption></figure><figure><img src="v-cholos-fridge.jpg" alt="Mexican Cola poster on a fridge at Cholos Sukhumvit" width="600" height="750" loading="lazy"><figcaption><span lang="en">Our poster on the fridge at Cholos Sukhumvit</span><span lang="th">โปสเตอร์ของเราบนตู้เย็นที่ Cholos สุขุมวิท</span></figcaption></figure><figure><img src="v-cholos-tag.jpg" alt="Mexican Cola x Cholos" width="600" height="750" loading="lazy"><figcaption>Mexican Cola x Cholos</figcaption></figure></div>
         </div>
       </article>
       <article class="chapter last">
         <span class="ch-num">08</span>
         <div class="ch-body">
-          <span class="label main">Today</span>
-          <h2>Proving itself, one venue at a time.</h2>
-          <p>It is a bestseller in Mexican venues, and now it is going into bars, hotels and restaurants across Thailand. It has been a tough journey, and growing will be tougher. We will fight until we succeed.</p>
-          <div class="story-photos"><figure><img src="fs-today-hotelbar.jpg" alt="Trans Blue Bar, Solaria Nishitetsu Hotel Bangkok" width="600" height="750" loading="lazy"><figcaption>Trans Blue Bar, Solaria Nishitetsu Hotel Bangkok</figcaption></figure><figure><img src="fs-today-mexican.jpg" alt="With the head chef of La Lupita Taqueria" width="600" height="750" loading="lazy"><figcaption>With the head chef of La Lupita Taqueria</figcaption></figure><figure><img src="fs-lamaya.jpg" alt="Lamaya, Bangkok" width="600" height="750" loading="lazy"><figcaption>Lamaya, Bangkok</figcaption></figure><figure><img src="fs-today-silq.jpg" alt="SILQ Hotel & Residence, Bangkok" width="600" height="750" loading="lazy"><figcaption>SILQ Hotel & Residence, Bangkok</figcaption></figure><figure><img src="fs-today-cheers.jpg" alt="With a venue owner" width="600" height="750" loading="lazy"><figcaption>With a venue owner</figcaption></figure><figure><img src="fs-today-bar.jpg" alt="Behind the bar" width="600" height="750" loading="lazy"><figcaption>Behind the bar</figcaption></figure></div>
-          <p class="pull">The cost of being disciplined: every day stays the same, but every year is different. The cost of being undisciplined: every day is different, but every year is the same.</p>
-          <p class="sign">Ansh, Founder of Mexican Cola</p>
+          <span class="label main"><span lang="en">Today</span><span lang="th">วันนี้</span></span>
+          <h2><span lang="en">Proving itself, one venue at a time.</span><span lang="th">พิสูจน์ตัวเองทีละร้าน</span></h2>
+          <p><span lang="en">It is a bestseller in Mexican venues, and now it is going into bars, hotels and restaurants across Thailand. It has been a tough journey, and growing will be tougher. We will fight until we succeed.</span><span lang="th">เราเป็นสินค้าขายดีในร้านเม็กซิกัน และตอนนี้กำลังเข้าสู่บาร์ โรงแรม และร้านอาหารทั่วไทย เส้นทางนี้ไม่ง่าย และการเติบโตจะยากยิ่งกว่า เราจะสู้จนกว่าจะสำเร็จ</span></p>
+          <div class="story-photos"><figure><img src="fs-today-hotelbar.jpg" alt="Trans Blue Bar, Solaria Nishitetsu Hotel Bangkok" width="600" height="750" loading="lazy"><figcaption>Trans Blue Bar, Solaria Nishitetsu Hotel Bangkok</figcaption></figure><figure><img src="fs-today-mexican.jpg" alt="With the head chef of La Lupita Taqueria" width="600" height="750" loading="lazy"><figcaption><span lang="en">With the head chef of La Lupita Taqueria</span><span lang="th">กับหัวหน้าเชฟของ La Lupita Taqueria</span></figcaption></figure><figure><img src="fs-lamaya.jpg" alt="Lamaya, Bangkok" width="600" height="750" loading="lazy"><figcaption><span lang="en">Lamaya, Bangkok</span><span lang="th">Lamaya กรุงเทพฯ</span></figcaption></figure><figure><img src="fs-today-silq.jpg" alt="SILQ Hotel &amp; Residence, Bangkok" width="600" height="750" loading="lazy"><figcaption><span lang="en">SILQ Hotel &amp; Residence, Bangkok</span><span lang="th">SILQ Hotel &amp; Residence กรุงเทพฯ</span></figcaption></figure><figure><img src="fs-today-cheers.jpg" alt="With a venue owner" width="600" height="750" loading="lazy"><figcaption><span lang="en">With a venue owner</span><span lang="th">กับเจ้าของร้าน</span></figcaption></figure><figure><img src="fs-today-bar.jpg" alt="Behind the bar" width="600" height="750" loading="lazy"><figcaption><span lang="en">Behind the bar</span><span lang="th">หลังบาร์</span></figcaption></figure></div>
+          <p class="pull"><span lang="en">The cost of being disciplined: every day stays the same, but every year is different. The cost of being undisciplined: every day is different, but every year is the same.</span><span lang="th">ราคาของการมีวินัย: ทุกวันเหมือนเดิม แต่ทุกปีแตกต่าง ราคาของการไม่มีวินัย: ทุกวันแตกต่าง แต่ทุกปีเหมือนเดิม</span></p>
+          <p class="sign"><span lang="en">Ansh, Founder of Mexican Cola</span><span lang="th">Ansh ผู้ก่อตั้ง Mexican Cola</span></p>
         </div>
       </article>
     </div>
   </section>
-
-
   <section class="magenta message">
     <div class="wrap stack">
-      <span class="label">A message to the next generation</span>
-      <h2>It was never a straight line.</h2>
+      <span class="label"><span lang="en">A message to the next generation</span><span lang="th">ถึงคนรุ่นต่อไป</span></span>
+      <h2><span lang="en">It was never a straight line.</span><span lang="th">มันไม่เคยเป็นเส้นตรง</span></h2>
       <div class="msg-body">
-        <p>I was 18 when I started The Mexican Cola, with no background in drinks. Reading this, you might think it was a straight line. It wasn't. I got scammed. I got rejected at venues. My stomach filled with butterflies before every meeting. I called Cholos about 30 times before they gave us a chance.</p>
-        <p>Every one of those challenges and failures taught me something. You will fail. Learn to fail forward. You will pivot many times. For a while, you will be your biggest supporter, because this path is lonely.</p>
-        <p>So if you are fighting to start a business, or to keep one alive, the worst thing you can do is give up. Keep moving. Keep fighting for your chance. If you don't give up, it will come one way or another.</p>
-        <p class="brave">If fortune favours the brave, then it also prefers the bold.</p>
+        <p><span lang="en">I was 18 when I started The Mexican Cola, with no background in drinks. Reading this, you might think it was a straight line. It wasn't. I got scammed. I got rejected at venues. My stomach filled with butterflies before every meeting. I called Cholos about 30 times before they gave us a chance.</span><span lang="th">ผมอายุ 18 ตอนเริ่ม The Mexican Cola โดยไม่มีพื้นฐานด้านเครื่องดื่มเลย อ่านมาถึงตรงนี้ คุณอาจคิดว่ามันราบรื่นมาตลอด แต่ไม่ใช่ ผมโดนโกง โดนร้านปฏิเสธ ใจเต้นตึกตักทุกครั้งก่อนเข้าประชุม ผมโทรหา Cholos ประมาณ 30 ครั้งกว่าพวกเขาจะให้โอกาส</span></p>
+        <p><span lang="en">Every one of those challenges and failures taught me something. You will fail. Learn to fail forward. You will pivot many times. For a while, you will be your biggest supporter, because this path is lonely.</span><span lang="th">ทุกความท้าทายและความล้มเหลวสอนอะไรผมเสมอ คุณจะล้มเหลว จงเรียนรู้ที่จะล้มไปข้างหน้า คุณจะต้องเปลี่ยนทิศทางหลายครั้ง และในช่วงหนึ่ง คุณจะเป็นผู้สนับสนุนที่ใหญ่ที่สุดของตัวเอง เพราะเส้นทางนี้โดดเดี่ยว</span></p>
+        <p><span lang="en">So if you are fighting to start a business, or to keep one alive, the worst thing you can do is give up. Keep moving. Keep fighting for your chance. If you don't give up, it will come one way or another.</span><span lang="th">ถ้าคุณกำลังสู้เพื่อเริ่มธุรกิจ หรือประคองธุรกิจให้อยู่รอด สิ่งที่แย่ที่สุดคือการยอมแพ้ เดินต่อไป สู้เพื่อโอกาสของคุณ ถ้าคุณไม่ยอมแพ้ โอกาสจะมาถึงไม่ทางใดก็ทางหนึ่ง</span></p>
+        <p class="brave"><span lang="en">If fortune favours the brave, then it also prefers the bold.</span><span lang="th">ถ้าโชคเข้าข้างคนกล้า โชคก็ย่อมเลือกคนที่กล้าได้กล้าเสียด้วย</span></p>
       </div>
-      <p class="sign light">Ansh, Founder of Mexican Cola</p>
+      <p class="sign light"><span lang="en">Ansh, Founder of Mexican Cola</span><span lang="th">Ansh ผู้ก่อตั้ง Mexican Cola</span></p>
     </div>
   </section>
   <section class="dark timeline-sec">
     <div class="wrap stack" style="gap:var(--s48)">
       <div class="stack">
-        <span class="label accent-text">One year</span>
-        <h2>From the first sneaker sale to today.</h2>
+        <span class="label accent-text"><span lang="en">One year</span><span lang="th">หนึ่งปี</span></span>
+        <h2><span lang="en">From the first sneaker sale to today.</span><span lang="th">จากสนีกเกอร์คู่แรกที่ขาย จนถึงวันนี้</span></h2>
       </div>
       <ol class="timeline">
-        <li class="tl prologue"><span class="when">2022</span><div class="what"><h3>ACK Sneakers</h3><p>At 14, I start my own sneaker resale business. Over 300 pairs sold since.</p></div></li>
-        <li class="tl prologue"><span class="when">10.05.2023</span><div class="what"><h3>The spark</h3><p>Nike SB x Jarritos is released. Before the year began, this is where it started.</p></div></li>
-        <li class="tl prologue"><span class="when">29.10.2024</span><div class="what"><h3>Emailing Jarritos</h3><p>The first of over 100 emails to Jarritos teams around the world.</p></div></li>
-        <li class="tl phase"><span class="when">Nov 2025 – mid 2026</span><div class="what"><h3>From Nike SB to our own cola</h3><p>The Jarritos agreement, then Soleados: three flavours, close to 400 bottles sampled at 23 venues. Mexican cola wins and becomes The Mexican Cola.</p></div></li>
-        <li class="tl"><span class="when">09.08.2026</span><div class="what"><h3>Daddy Chill Burger</h3><p>“What's a better match than American burger and Mexican cola?”</p></div></li>
-        <li class="tl"><span class="when">08.09.2026</span><div class="what"><h3>Sala Burger</h3><p>“Customers first ask: what is this?”</p></div></li>
-        <li class="tl"><span class="when">28.09.2026</span><div class="what"><h3>Cholos goes all in</h3><p>After about 30 cold calls and 4 meetings, a trial run. Their first order sold out in weeks. The next day they post: “Our cola is better than yours.”</p></div></li>
-        <li class="tl"><span class="when">30.10.2026</span><div class="what"><h3>Kha Gastrobar</h3><p>On its own, with Kha's food, and behind the bar as a mixer.</p></div></li>
-        <li class="tl"><span class="when">01.11.2026</span><div class="what"><h3>Día de los Muertos</h3><p>A night at three Cholos locations in Bangkok. The same day, the founder story becomes our most-liked post.</p></div></li>
-        <li class="tl"><span class="when">03.11.2026</span><div class="what"><h3>Now pouring at Matti's BKK</h3><p>An organic farm restaurant chooses us for natural ingredients.</p></div></li>
-        <li class="tl"><span class="when">05.11.2026</span><div class="what"><h3>30+ venues across Thailand</h3><p>Bangkok, Pattaya, Hua Hin, Koh Samui and Phuket.</p></div></li>
-        <li class="tl"><span class="when">09.11.2026</span><div class="what"><h3>A hotel bar speaks up</h3><p>Trans Blue Bar: “It gives our drinks more dimension.”</p></div></li>
-        <li class="tl now"><span class="when">Nov 2026</span><div class="what"><h3>26 accounts, 95 cases, 10 reorders</h3><p>Built for the Thai hospitality industry: restaurants, bars and hotels.</p></div></li>
+        <li class="tl prologue"><span class="when">2022</span><div class="what"><h3>ACK Sneakers</h3><p><span lang="en">At 14, I start my own sneaker resale business. Over 300 pairs sold since.</span><span lang="th">ตอนอายุ 14 ผมเริ่มธุรกิจรีเซลสนีกเกอร์ของตัวเอง ขายไปแล้วกว่า 300 คู่</span></p></div></li>
+        <li class="tl prologue"><span class="when">10.05.2023</span><div class="what"><h3><span lang="en">The spark</span><span lang="th">จุดเริ่มต้น</span></h3><p><span lang="en">Nike SB x Jarritos is released. Before the year began, this is where it started.</span><span lang="th">Nike SB x Jarritos วางขาย ก่อนหนึ่งปีนั้นจะเริ่ม ทุกอย่างเริ่มจากตรงนี้</span></p></div></li>
+        <li class="tl prologue"><span class="when">29.10.2024</span><div class="what"><h3><span lang="en">Emailing Jarritos</span><span lang="th">อีเมลหา Jarritos</span></h3><p><span lang="en">The first of over 100 emails to Jarritos teams around the world.</span><span lang="th">อีเมลฉบับแรกจากกว่า 100 ฉบับ ถึงทีม Jarritos ทั่วโลก</span></p></div></li>
+        <li class="tl phase"><span class="when"><span lang="en">Nov 2025 – mid 2026</span><span lang="th">พ.ย. 2025 – กลางปี 2026</span></span><div class="what"><h3><span lang="en">From Nike SB to our own cola</span><span lang="th">จาก Nike SB สู่โคล่าของเราเอง</span></h3><p><span lang="en">The Jarritos agreement, then Soleados: three flavours, close to 400 bottles sampled at 23 venues. Mexican cola wins and becomes The Mexican Cola.</span><span lang="th">ข้อตกลงกับ Jarritos แล้วต่อด้วย Soleados: สามรสชาติ แจกชิมเกือบ 400 ขวดใน 23 ร้าน โคล่าเม็กซิกันชนะ และกลายเป็น The Mexican Cola</span></p></div></li>
+        <li class="tl"><span class="when">09.08.2026</span><div class="what"><h3>Daddy Chill Burger</h3><p><span lang="en">“What's a better match than American burger and Mexican cola?”</span><span lang="th">“มีอะไรเข้ากันได้ดีกว่าเบอร์เกอร์อเมริกันกับโคล่าเม็กซิกันอีกไหม?”</span></p></div></li>
+        <li class="tl"><span class="when">08.09.2026</span><div class="what"><h3>Sala Burger</h3><p><span lang="en">“Customers first ask: what is this?”</span><span lang="th">“ลูกค้าจะถามก่อนเลยว่า อันนี้คืออะไร”</span></p></div></li>
+        <li class="tl"><span class="when">28.09.2026</span><div class="what"><h3><span lang="en">Cholos goes all in</span><span lang="th">Cholos เอาด้วยเต็มตัว</span></h3><p><span lang="en">After about 30 cold calls and 4 meetings, a trial run. Their first order sold out in weeks. The next day they post: “Our cola is better than yours.”</span><span lang="th">หลังโทรไปประมาณ 30 สายและประชุม 4 ครั้ง ก็ได้ทดลองขาย ออร์เดอร์แรกขายหมดในไม่กี่สัปดาห์ วันต่อมาพวกเขาโพสต์ว่า “โคล่าของเราดีกว่าของคุณ”</span></p></div></li>
+        <li class="tl"><span class="when">30.10.2026</span><div class="what"><h3>Kha Gastrobar</h3><p><span lang="en">On its own, with Kha's food, and behind the bar as a mixer.</span><span lang="th">ดื่มเปล่า ทานคู่กับอาหารของ Kha และใช้เป็นมิกเซอร์หลังบาร์</span></p></div></li>
+        <li class="tl"><span class="when">01.11.2026</span><div class="what"><h3>Día de los Muertos</h3><p><span lang="en">A night at three Cholos locations in Bangkok. The same day, the founder story becomes our most-liked post.</span><span lang="th">ค่ำคืนพิเศษที่ Cholos 3 สาขาในกรุงเทพฯ วันเดียวกันนั้น โพสต์เรื่องราวผู้ก่อตั้งกลายเป็นโพสต์ที่มีคนกดไลก์มากที่สุดของเรา</span></p></div></li>
+        <li class="tl"><span class="when">03.11.2026</span><div class="what"><h3><span lang="en">Now pouring at Matti's BKK</span><span lang="th">เสิร์ฟแล้วที่ Matti's BKK</span></h3><p><span lang="en">An organic farm restaurant chooses us for natural ingredients.</span><span lang="th">ร้านอาหารออร์แกนิกจากฟาร์มเลือกเราเพราะวัตถุดิบธรรมชาติ</span></p></div></li>
+        <li class="tl"><span class="when">09.11.2026</span><div class="what"><h3><span lang="en">A hotel bar speaks up</span><span lang="th">เสียงจากบาร์ในโรงแรม</span></h3><p><span lang="en">Trans Blue Bar: “It gives our drinks more dimension.”</span><span lang="th">Trans Blue Bar: “ช่วยให้เครื่องดื่มของเรามีมิติมากขึ้น”</span></p></div></li>
+        <li class="tl now"><span class="when"><span lang="en">Nov 2026</span><span lang="th">พ.ย. 2026</span></span><div class="what"><h3><span lang="en">30+ venues across Thailand</span><span lang="th">กว่า 30 ร้านทั่วประเทศไทย</span></h3><p><span lang="en">Bangkok, Pattaya, Hua Hin, Koh Samui and Phuket. Built for the Thai hospitality industry: restaurants, bars and hotels.</span><span lang="th">กรุงเทพฯ พัทยา หัวหิน เกาะสมุย และภูเก็ต สร้างมาเพื่อธุรกิจร้านอาหารและโรงแรมในไทย: ร้านอาหาร บาร์ และโรงแรม</span></p></div></li>
       </ol>
-      <p class="small">Sources: founder story (founder, 14.11.2026) and dated posts, interviews and the sales record in our Notion knowledge base.</p>
+      <p class="small"><span lang="en">Sources: founder story (founder, 14.11.2026), dated posts and interviews.</span><span lang="th">ที่มา: เรื่องราวผู้ก่อตั้ง (ผู้ก่อตั้ง, 14.11.2026) โพสต์และบทสัมภาษณ์ที่ลงวันที่</span></p>
+      <a class="btn" href="#book"><span lang="en">Book a free tasting</span><span lang="th">จองชิมฟรี</span></a>
     </div>
   </section>
 </main>
@@ -1107,11 +989,74 @@ footer .cookie-link{color:inherit;text-decoration:underline;cursor:pointer}
 <!-- 11 Footer -->
 <footer class="dark">
   <div class="wrap">
-    <img src="logo.png" alt="Mexican Cola" loading="lazy" decoding="async">
+    <img src="logo.png" alt="Mexican Cola">
     <p>The Mexican Cola</p>
     <p class="small">hello.themexicancola@gmail.com · +66 81 600 3343 · <a href="#" class="cookie-link" data-cookie-settings><span lang="en">Cookie settings</span><span lang="th">ตั้งค่าคุกกี้</span></a></p>
-    <p class="small note" lang="en">We use your details only to book your tasting. We never share them. The quotes on this page come from recorded interviews with venues that stock The Mexican Cola.</p>
-    <p class="small note" lang="th">เราใช้ข้อมูลของคุณเพื่อนัดชิมเท่านั้น และจะไม่แชร์ให้ใคร คำพูดในหน้านี้มาจากวิดีโอสัมภาษณ์ร้านที่ใช้ The Mexican Cola</p>
+    <div class="foot-grid">
+      <div class="foot-col">
+        <span class="label accent-text"><span lang="en">Follow us</span><span lang="th">ติดตามเรา</span></span>
+        <a href="https://www.instagram.com/themexicancola/" target="_blank" rel="noopener">Instagram: @themexicancola</a>
+        <a href="https://www.facebook.com/share/1J7RkeKHLN/" target="_blank" rel="noopener">Facebook: The Mexican Cola Thailand</a>
+        <a href="https://themexicancola.com" target="_blank" rel="noopener"><span lang="en">Website: </span><span lang="th">เว็บไซต์: </span>themexicancola.com</a>
+      </div>
+      <div class="foot-col">
+        <span class="label accent-text"><span lang="en">Information</span><span lang="th">ข้อมูล</span></span>
+        <a href="#faq"><span lang="en">FAQ</span><span lang="th">คำถามที่พบบ่อย</span></a>
+        <a href="#privacy" data-open="privacy"><span lang="en">Privacy policy</span><span lang="th">นโยบายความเป็นส่วนตัว</span></a>
+        <a href="#terms" data-open="terms"><span lang="en">Terms and conditions</span><span lang="th">ข้อกำหนดและเงื่อนไข</span></a>
+      </div>
+    </div>
+    <div class="legal">
+      <details id="privacy">
+        <summary><span lang="en">Privacy policy</span><span lang="th">นโยบายความเป็นส่วนตัว</span></summary>
+        <div class="body" lang="en">
+          <p><b>We use your details only to book your tasting. We never share them.</b></p>
+          <ul>
+            <li>What we collect: your name, your email and the cola on your menu today. Only what you type in the form.</li>
+            <li>How it reaches us: the form opens an email to hello.themexicancola@gmail.com. We keep it only to reply and book your tasting.</li>
+            <li>Your choice: ask us to delete your details at any time. Email hello.themexicancola@gmail.com.</li>
+          </ul>
+          <p>Last updated: 20.11.2026</p>
+        </div>
+        <div class="body" lang="th">
+          <p><b>เราใช้ข้อมูลของคุณเพื่อนัดชิมเท่านั้น และจะไม่แชร์ให้ใคร</b></p>
+          <ul>
+            <li>ข้อมูลที่เราเก็บ: ชื่อ อีเมล และโคล่าที่ร้านคุณเสิร์ฟอยู่ เฉพาะที่คุณกรอกในแบบฟอร์ม</li>
+            <li>วิธีที่ข้อมูลมาถึงเรา: แบบฟอร์มจะเปิดอีเมลถึง hello.themexicancola@gmail.com เราเก็บไว้เพื่อตอบกลับและนัดชิมเท่านั้น</li>
+            <li>สิทธิ์ของคุณ: ขอให้เราลบข้อมูลได้ทุกเมื่อ ทางอีเมล hello.themexicancola@gmail.com</li>
+          </ul>
+          <p>อัปเดตล่าสุด: 20.11.2026</p>
+        </div>
+      </details>
+      <details id="terms">
+        <summary><span lang="en">Terms and conditions</span><span lang="th">ข้อกำหนดและเงื่อนไข</span></summary>
+        <div class="body" lang="en">
+          <ul>
+            <li>Prices: we share trade prices at your tasting or in a meeting. All prices are in THB.</li>
+            <li>Minimum order: 1 case of 24 bottles.</li>
+            <li>Delivery: free.</li>
+            <li>Consignment: an option. We agree the details with you before your first order.</li>
+            <li>Posters and table stands: free for venues that stock The Mexican Cola.</li>
+            <li>Questions: hello.themexicancola@gmail.com or +66 81 600 3343.</li>
+          </ul>
+          <p>Last updated: 20.11.2026</p>
+        </div>
+        <div class="body" lang="th">
+          <ul>
+            <li>ราคา: เราแจ้งราคาส่งตอนชิมหรือตอนนัดคุย ราคาทั้งหมดเป็นเงินบาท</li>
+            <li>สั่งขั้นต่ำ: 1 ลัง 24 ขวด</li>
+            <li>การจัดส่ง: ฟรี</li>
+            <li>ฝากขาย: มีให้เลือก ตกลงรายละเอียดกับคุณก่อนออร์เดอร์แรก</li>
+            <li>โปสเตอร์และป้ายตั้งโต๊ะ: ฟรีสำหรับร้านที่ขาย The Mexican Cola</li>
+            <li>สอบถาม: hello.themexicancola@gmail.com หรือ +66 81 600 3343</li>
+          </ul>
+          <p>อัปเดตล่าสุด: 20.11.2026</p>
+        </div>
+      </details>
+    </div>
+    <p class="small note" lang="en">The quotes on this page come from recorded interviews with venues that stock The Mexican Cola.</p>
+    <p class="small note" lang="th">คำพูดในหน้านี้มาจากวิดีโอสัมภาษณ์ร้านที่ใช้ The Mexican Cola</p>
+    <p class="small">© 2026 The Mexican Cola</p>
   </div>
 </footer>
 
@@ -1124,48 +1069,27 @@ footer .cookie-link{color:inherit;text-decoration:underline;cursor:pointer}
     document.getElementById('btn-th').setAttribute('aria-pressed', l==='th');
   }
   document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.set); }); });
-
-  // views: #problems, #target-audience, #pitch-deck; anything else shows the landing page
-  var views=['what-venues-say','where-to-find-us','why-us','brand','pitch-deck','founder-story'];
+  var views=document.querySelectorAll('main[data-view]');
+  var names={home:1,venues:1,'find-us':1,nutrition:1,story:1};
+  function show(v){
+    views.forEach(function(m){ m.hidden = m.dataset.view!==v; });
+    document.querySelectorAll('.subnav a').forEach(function(a){ if(a.getAttribute('href')==='#'+v) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  }
+  function showFor(h){
+    if(!h || names[h]){ show(h||'home'); window.scrollTo(0,0); return; }
+    var t=document.getElementById(h); if(!t) return;
+    var m=t.closest('main[data-view]'); if(m) show(m.dataset.view);
+    if(t.tagName==='DETAILS') t.open=true;
+    t.scrollIntoView();
+  }
   function route(){
     var h=location.hash.slice(1);
     if(h==='th') setLang('th'); else if(h==='en') setLang('en');
-    var v=views.indexOf(h)>=0 ? h : 'home';
-    document.querySelectorAll('main[data-view]').forEach(function(m){ m.hidden = m.dataset.view!==v; });
-    document.querySelectorAll('.subnav a').forEach(function(a){ if(a.dataset.nav===v) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
-    if(v!=='home' || h==='home') window.scrollTo(0,0);
-    else if(h && h!=='th' && h!=='en'){ var t=document.getElementById(h); if(t) t.scrollIntoView(); }
+    else showFor(h);
   }
   window.addEventListener('hashchange', route);
+  document.querySelectorAll('[data-open]').forEach(function(a){ a.addEventListener('click', function(){ var d=document.getElementById(a.dataset.open); if(d) d.open=true; }); });
   route();
-
-  // pitch deck
-  if(document.querySelector('.deck')){
-  var slides=[].slice.call(document.querySelectorAll('.slide')), idx=document.querySelector('.deck-index'), cur=0;
-  slides.forEach(function(s,i){
-    var li=document.createElement('li'), b=document.createElement('button');
-    b.type='button'; b.innerHTML='<span>'+(i+1)+'</span>'+s.dataset.title;
-    b.addEventListener('click', function(){ show(i); });
-    li.appendChild(b); idx.appendChild(li);
-  });
-  var btns=[].slice.call(idx.querySelectorAll('button')), prev=document.getElementById('prev'), next=document.getElementById('next'), counter=document.getElementById('counter');
-  function show(i){
-    cur=Math.max(0,Math.min(slides.length-1,i));
-    slides.forEach(function(s,j){ s.classList.toggle('active', j===cur); });
-    btns.forEach(function(b,j){ b.setAttribute('aria-current', j===cur ? 'true' : 'false'); });
-    counter.textContent=(cur+1)+' / '+slides.length;
-    prev.disabled = cur===0; next.disabled = cur===slides.length-1;
-  }
-  prev.addEventListener('click', function(){ show(cur-1); });
-  next.addEventListener('click', function(){ show(cur+1); });
-  document.addEventListener('keydown', function(e){
-    if(location.hash!=='#pitch-deck') return;
-    if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
-    if(e.key==='ArrowRight') show(cur+1); else if(e.key==='ArrowLeft') show(cur-1);
-  });
-  show(0);
-  }
-
   // Remember where this visitor came from (first page of the visit), for the admin report.
   var src={};
   try{ src=JSON.parse(sessionStorage.getItem('mc_src')||'null'); }catch(e){ src=null; }
